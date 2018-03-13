@@ -2,7 +2,7 @@ grammar antlrquejaime;
 
 //declaration variable/fonction
 nom_var
-    :   (LETTRE | '_')* (LETTRE)+ (LETTRE | DIGIT | '_')*
+    :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
 	;
 
 type_var
@@ -15,7 +15,8 @@ type_fonction
 
 //affectation
 aff
-	:	nom_var | nom_var [expr] # affectationcoteGauche
+	:	nom_var                 # affVariable
+	|   nom_var '[' expr ']'    # affTableau
 	;
 
 affectation
@@ -38,10 +39,9 @@ affectation
 	;
 
 expr
-	:	INT32_T
-	|	INT64_T
+	:	NOMBRE
 	|	CHAR
-	|	(expr)
+	|	'(' expr ')'
 	|	expr '*'  expr
 	|	expr '/'  expr
 	|	expr '+'  expr
@@ -94,5 +94,3 @@ CHIFFRE : [0-9];
 SYMBOLE : .;
 NOMBRE: CHIFFRE+;
 CHAR: '‘' SYMBOLE '’';
-INT64 : NOMBRE;
-INT32 : NOMBRE;
