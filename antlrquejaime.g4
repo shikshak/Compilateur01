@@ -1,11 +1,15 @@
 grammar antlrquejaime;
 
 //Axiome
+big
+    : programme
+    ;
+
 programme
     : declaration* fonction* main
     ;
 
- 
+
 //declaration variable/fonction
 Nom_var
     :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
@@ -79,11 +83,11 @@ expr
 	|	aff
 	;
 	
-return
+return_
     :  'return'  expr? ';'
     ;
  
-break
+break_
     :   'break' ';'
     ;
  
@@ -91,8 +95,8 @@ instruction
     :  structure_if
     |  structure_while
     |   expr ';'
-    |   return
-    |   break
+    |   return_
+    |   break_
     ;
  
 bloc
@@ -133,11 +137,11 @@ structure_if
     ;
 
 clause
-    :   ( '{' bloc '}' | instruction ) else
+    :   ( '{' bloc '}' | instruction ) else_
     ;
 
-else
-    :   ( 'else' ( '{' bloc '}' | instruction ) )*
+else_
+    :   ( 'else_' ( '{' bloc '}' | instruction ) )*
     ;
 
 
