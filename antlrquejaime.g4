@@ -1,5 +1,11 @@
 grammar antlrquejaime;
 
+//Axiome
+programme
+    : declaration* fonction* main
+    ;
+
+ 
 //declaration variable/fonction
 Nom_var
     :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
@@ -139,11 +145,7 @@ structure_while
     :   'while' '(' expr ')' ( '{' bloc '}' | instruction )
     ;
 
-//Axiome
-programme
-    : declaration* fonction* main
-    ;
- 
+
 // les skip
 Include
     :   '#' .*?  ~[\r\n]*
