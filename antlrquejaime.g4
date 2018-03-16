@@ -1,26 +1,37 @@
 grammar antlrquejaime;
 
 //declaration variable/fonction
-nom_var
+Nom_var
     :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
 	;
 
-type_var
+Type_var
 	:	'char' | 'int64_t' | 'int32_t'
 	;
 
-type_fonction
-	:	type_var | 'void'
+Type_fonction
+	:	Type_var | 'void'
 	;
 
+//structure
+
 //affectation
+variable 
+    :   Nom_var
+    |  Nom_var '['expr']'
+    ;
+ 
 aff
-	:	nom_var                 # affVariable
-	|   nom_var '[' expr ']'    # affTableau
+	:   Nom_var                 #affVariable
+	|   Nom_var '[' expr ']'    # affTableau
 	;
 
 affectation
-	:	aff  '=' expr
+	:	variable'++'
+	|	'++'variable
+	|	variable'--'
+	|	'--'variable
+	|   aff  '=' expr
 	|	aff '&=' expr
 	|	aff '|=' expr
 	|	aff '+=' expr
@@ -32,40 +43,107 @@ affectation
 	|	aff '>=' expr
 	|	aff '&=' expr
 	|	aff '|=' expr
-	|	aff'++'
-	|	'++'aff
-	|	aff'--'
-	|	'--'aff
 	;
 
 expr
 	:	NOMBRE
 	|	CHAR
 	|	'(' expr ')'
+	|	'~'expr
+	|	'!'expr
 	|	expr '*'  expr
 	|	expr '/'  expr
+	|	expr '%'  expr
 	|	expr '+'  expr
 	|	expr '-'  expr
-	|	expr '%'  expr
 	|	expr '<<' expr
 	|	expr '>>' expr
 	|	expr '&'  expr
 	|	expr '|'  expr
 	|	expr '^'  expr
-	|	'~'expr
 	|	expr '&&' expr
 	|	expr '||' expr
-	|	'!'expr
 	|	expr '<'  expr
 	|	expr '<=' expr
 	|	expr '>'  expr
 	|	expr '>=' expr
 	|	expr '==' expr
 	|	expr '!=' expr
+	|   variable
 	|	aff
-	|	nom_var (expr)
 	;
+	
+return
+    :  'return'  expr? ';'
+    ;
+ 
+break
+    :   'break' ';'
+    ;
+ 
+instruction
+    :  structure_if
+    |  structure_while
+    |   expr ';'
+    |   return
+    |   break
+    ;
+ 
+bloc
+    :   instruction*
+    ;
+ 
+declaration
+    :   Type_var Nom_var (',' Nom_var)* ';'
+    |   Type_var Nom_var '=' expr ';'
+    |   Type_var Nom_var '[' expr ']'';'
+    ;
+ 
+//fonction
+fonction
+    :   Type_fonction Nom_var '(' parametre ')' '{' declaration*  bloc '}'
+    |   Type_fonction Nom_var '('  ')' '{' declaration*  bloc '}'
+    |   Type_fonction Nom_var '('  'void'  ')' '{' declaration*  bloc '}'
+    ;
 
+parametre
+    :   Type_var Nom_var parametre1
+    |   Type_var Nom_var '[' expr ']'
+    ;
+
+parametre1
+    :   (',' parametre)?
+    ;
+
+main
+    :   Type_fonction Nom_var '(' parametre ')' '{' declaration*  bloc '}'
+    |   Type_fonction Nom_var '('  ')' '{' declaration*  bloc '}'
+    |   Type_fonction Nom_var '('  'void'  ')' '{' declaration*  bloc '}' parametre
+    ;
+
+//Structures de controle
+structure_if
+    :   'if' '(' expr ')'  clause
+    ;
+
+clause
+    :   ( '{' bloc '}' | instruction ) else
+    ;
+
+else
+    :   ( 'else' ( '{' bloc '}' | instruction ) )*
+    ;
+
+
+structure_while
+    :   'while' '(' expr ')' ( '{' bloc '}' | instruction )
+    ;
+
+//Axiome
+programme
+    : declaration* fonction* main
+    ;
+ 
 // les skip
 Include
     :   '#' .*?  ~[\r\n]*
