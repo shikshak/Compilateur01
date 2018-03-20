@@ -1,39 +1,46 @@
-grammar antlrquejaime;
+grammar fichierAntlr;
 
-//Axiome
-big
-    : programme #axiome
-    ;
 
+big :
+    declaration;
 programme
     : declaration* fonction* main   #programme_normal
     ;
 
-
-//declaration variable/fonction
-Nom_var
-    :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
-	;
-
-Type_var
-	:	'char' | 'int64_t' | 'int32_t'
-	;
-
-Type_fonction
-	:	Type_var | 'void'
-	;
-
 //structure
+//fonction
+main
+    :   type_fonction 'main' '(' parametre ')' '{' declaration*  bloc '}'          #main_avecparametre
+    |   type_fonction 'main' '('  ')' '{' declaration*  bloc '}'                   #main_sansparametre
+    |   type_fonction 'main' '('  'void'  ')' '{' declaration*  bloc '}'           #main_parametrevoid
+    ;
+
+fonction
+    :   type_fonction nom_var '(' parametre ')' '{' declaration*  bloc '}'  #fonction_avecparametre
+    |   type_fonction nom_var '('  ')' '{' declaration*  bloc '}'           #fonction_sansparametre
+    |   type_fonction nom_var '('  'void'  ')' '{' declaration*  bloc '}'   #fonction_parametrevoid
+    ;
+
+parametre
+    :   Type_var nom_var parametre1     #parametre_normal
+    |   Type_var nom_var '[' expr ']'   #parametre_tableau
+    ;
+
+parametre1
+    :   (',' parametre)?    #parametre1_normal
+    ;
+
+
 
 //affectation
 variable
-    :   Nom_var             #variable_simple
-    |  Nom_var '['expr']'   #variable_tableau
+    :   nom_var             #variable_simple
+    |   nom_var '['expr']'   #variable_tableau
     ;
 
 aff
-	:   Nom_var                 #aff_variable
-	|   Nom_var '[' expr ']'    #aff_tableau
+	:   nom_var                 #aff_variable
+	|   nom_var '[' expr ']'    #aff_tableau
 	;
 
 affectation
@@ -77,8 +84,9 @@ expr
 	|	expr '>=' expr  #expr_supegal
 	|	expr '==' expr  #expr_egalegal
 	|	expr '!=' expr  #expr_diffegal
-	| variable          #expr_variabke
+	|   variable        #expr_variabke
 	|	aff             #expr_aff
+	|   nom_var '(' ( expr ( ',' expr )* )? #expr_fonction
 	;
 
 return_
@@ -102,32 +110,14 @@ bloc
     ;
 
 declaration
-    :   Type_var Nom_var (',' Nom_var)* ';' #declaration_normale
-    |   Type_var Nom_var '=' expr ';'       #declaration_definition
-    |   Type_var Nom_var '[' expr ']'';'    #declaration_tableau
-    ; //il manque declaration definition tableau ?
-
-//fonction
-fonction
-    :   Type_fonction Nom_var '(' parametre ')' '{' declaration*  bloc '}'  #fonction_avecparametre
-    |   Type_fonction Nom_var '('  ')' '{' declaration*  bloc '}'           #fonction_sansparametre
-    |   Type_fonction Nom_var '('  'void'  ')' '{' declaration*  bloc '}'   #fonction_parametrevoid
+    :   type_var nom_var (',' nom_var)* ';' #declaration_normale
+    |   type_var nom_var '=' expr ';'       #declaration_definition
+    |   type_var nom_var '[' expr ']'';'    #declaration_tableau
+    |   type_var nom_var '[' expr ']' '=' '{' CHIFFRE (',' CHIFFRE)* '}' ';'     #declaration_definitiontableau
     ;
 
-parametre
-    :   Type_var Nom_var parametre1     #parametre_normal
-    |   Type_var Nom_var '[' expr ']'   #parametre_tableau
-    ;
 
-parametre1
-    :   (',' parametre)?    #parametre1_normal
-    ;
 
-main
-    :   Type_fonction Nom_var '(' parametre ')' '{' declaration*  bloc '}'          #main_avecparametre
-    |   Type_fonction Nom_var '('  ')' '{' declaration*  bloc '}'                   #main_sansparametre
-    |   Type_fonction Nom_var '('  'void'  ')' '{' declaration*  bloc '}' parametre #main_parametrevoid
-    ;
 
 //Structures de controle
 structure_if
@@ -139,7 +129,7 @@ clause
     ;
 
 else_
-    :   ( 'else_' ( '{' bloc '}' | instruction ) )* #else_normal
+    :   ( 'else' ( '{' bloc '}' | instruction ) )* #else_normal
     ;
 
 
@@ -155,7 +145,7 @@ Include
 	;
 
 EspaceBlanc
-	:	[\t\n\r]+
+	:	( ' ' | '\t' | '\r' | '\n' )+
 		-> skip
 	;
 
@@ -170,9 +160,23 @@ CommentaireLigne
         -> skip
 	;
 
+//declaration variable/fonction
+nom_var
+    :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
+	;
+
+type_var
+	:	'char'
+	| 'int64_t'
+	| 'int32_t'
+	;
+
+type_fonction
+	:	'char' | 'int64_t' | 'int32_t' | 'int' | 'void'
+	;
 
 LETTRE : [a-zA-Z]+;
 CHIFFRE : [0-9];
 SYMBOLE : .;
-NOMBRE: CHIFFRE+;
+NOMBRE: [0-9]+;
 CHAR: '‘' SYMBOLE '’';
