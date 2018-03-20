@@ -1,5 +1,7 @@
 grammar fichierAntlr;
 
+big : programme;
+
 programme
     : declaration* fonction* main   #programme_normal
     ;
@@ -19,8 +21,8 @@ fonction
     ;
 
 parametre
-    :   Type_var nom_var parametre1     #parametre_normal
-    |   Type_var nom_var '[' expr ']'   #parametre_tableau
+    :   type_var nom_var parametre1     #parametre_normal
+    |   type_var nom_var '[' expr ']'   #parametre_tableau
     ;
 
 parametre1
@@ -176,5 +178,5 @@ type_fonction
 LETTRE : [a-zA-Z]+;
 CHIFFRE : [0-9];
 NOMBRE: [0-9]+;
-CHAR: ''' SYMBOLE ''';
+CHAR: '\'' SYMBOLE '\'';
 SYMBOLE : .;
