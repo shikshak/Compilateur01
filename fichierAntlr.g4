@@ -3,7 +3,7 @@ grammar fichierAntlr;
 big : programme;
 
 programme
-    : declaration* fonction* main   #programme_normal
+    : declaration* fonction* main*   #programme_normal
     ;
 
 //structure
@@ -86,7 +86,8 @@ expr
 	|	expr '!=' expr  #expr_diffegal
 	|   variable        #expr_variabke
 	|	aff             #expr_aff
-	|   nom_var '(' ( expr ( ',' expr )* )? #expr_fonction
+	|   affectation     #expr_affectation
+	|   nom_var '(' ( expr ( ',' expr )* )? ')' #expr_fonction
 	;
 
 return_
