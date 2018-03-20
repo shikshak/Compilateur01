@@ -3,3 +3,13 @@
 //
 
 #include "Variable.h"
+
+Variable::Variable(Type type, string nom, string valeur) {
+    type = type;
+    nom = nom;
+    if (!valeur.empty()) valeur = valeur;
+}
+
+Variable::~Variable() {
+
+}

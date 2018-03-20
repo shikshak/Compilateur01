@@ -6,9 +6,9 @@
 #define PLDCOMP_TABLEAU_H
 
 
-#include "Variable.h"
+#include "Expression.h"
 
-class Tableau : public Variable {
+class Tableau : public Expression {
 
 };
 
