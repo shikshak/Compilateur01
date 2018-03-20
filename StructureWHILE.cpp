@@ -3,3 +3,9 @@
 //
 
 #include "StructureWHILE.h"
+
+StructureWHILE::StructureWHILE() {}
+
+StructureWHILE::~StructureWHILE() {
+
+}

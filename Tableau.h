@@ -6,9 +6,19 @@
 #define PLDCOMP_TABLEAU_H
 
 
-#include "Expression.h"
+#include "Variable.h"
 
-class Tableau : public Expression {
+class Tableau : public Variable {
+
+    Tableau();
+    Tableau(Type type, string nom, unsigned int taille, string valeur[] = NULL);
+
+    virtual ~Tableau();
+
+    Type type;
+    string nom;
+    unsigned int taille;
+    string *valeur;
 
 };
 

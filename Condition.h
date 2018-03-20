@@ -7,7 +7,9 @@
 
 
 class Condition {
-
+public:
+    Condition();
+    virtual ~Condition();
 };
 
 

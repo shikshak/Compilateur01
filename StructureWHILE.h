@@ -6,8 +6,18 @@
 #define PLDCOMP_STRUCTUREWHILE_H
 
 
-class StructureWHILE {
+#include "Structure.h"
+#include "Condition.h"
+#include "Bloc.h"
 
+class StructureWHILE : public Structure {
+public:
+    StructureWHILE();
+    StructureWHILE(Condition condition, Bloc bloc);
+    virtual ~StructureWHILE();
+
+    Condition condition;
+    Bloc bloc;
 };
 
 

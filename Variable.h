@@ -17,6 +17,7 @@ public:
 
     enum Type {INT_64, INT_32, CHAR};
 
+    Variable();
     Variable(Type type, string nom, string valeur = NULL);
 
     virtual ~Variable();

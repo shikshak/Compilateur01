@@ -4,10 +4,10 @@
 
 #include "Variable.h"
 
-Variable::Variable(Type type, string nom, string valeur) {
-    type = type;
-    nom = nom;
-    if (!valeur.empty()) valeur = valeur;
+Variable::Variable(Type type_, string nom_, string valeur_) {
+    type = type_;
+    nom = nom_;
+    if (!valeur_.empty()) valeur = valeur_;
 }
 
 Variable::~Variable() {
