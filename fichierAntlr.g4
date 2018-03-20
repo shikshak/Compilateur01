@@ -1,8 +1,5 @@
 grammar fichierAntlr;
 
-
-big :
-    declaration;
 programme
     : declaration* fonction* main   #programme_normal
     ;
@@ -61,7 +58,8 @@ affectation
 	;
 
 expr
-	:	NOMBRE          #expr_nombre
+	:	CHIFFRE         #expr_chiffre
+	|   NOMBRE          #expr_nombre
 	|	CHAR            #expr_char
 	|	'(' expr ')'    #expr_parenthese
 	|	'~'expr         #expr_vague
@@ -177,6 +175,6 @@ type_fonction
 
 LETTRE : [a-zA-Z]+;
 CHIFFRE : [0-9];
-SYMBOLE : .;
 NOMBRE: [0-9]+;
-CHAR: '‘' SYMBOLE '’';
+CHAR: ''' SYMBOLE ''';
+SYMBOLE : .;
