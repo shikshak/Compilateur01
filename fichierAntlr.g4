@@ -180,4 +180,4 @@ LETTRE : [a-zA-Z]+;
 CHIFFRE : [0-9];
 NOMBRE: [0-9]+;
 CHAR: '\'' SYMBOLE '\'';
-SYMBOLE : .;
+SYMBOLE : '\\'. | .;
