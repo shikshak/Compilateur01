@@ -26,11 +26,10 @@ public:
 
   enum {
     RuleBig = 0, RuleProgramme = 1, RuleMain = 2, RuleFonction = 3, RuleParametre = 4, 
-    RuleParametre1 = 5, RuleVariable = 6, RuleAff = 7, RuleAffectation = 8, 
-    RuleExpr = 9, RuleReturn_ = 10, RuleBreak_ = 11, RuleInstruction = 12, 
-    RuleBloc = 13, RuleDeclaration = 14, RuleStructure_if = 15, RuleClause = 16, 
-    RuleElse_ = 17, RuleStructure_while = 18, RuleNom_var = 19, RuleType_var = 20, 
-    RuleType_fonction = 21
+    RuleParametre1 = 5, RuleVariable = 6, RuleAffectation = 7, RuleExpr = 8, 
+    RuleReturn_ = 9, RuleBreak_ = 10, RuleInstruction = 11, RuleBloc = 12, 
+    RuleDeclaration = 13, RuleStructure_if = 14, RuleClause = 15, RuleElse_ = 16, 
+    RuleStructure_while = 17, RuleNom_var = 18, RuleType_var = 19, RuleType_fonction = 20
   };
 
   fichierAntlrParser(antlr4::TokenStream *input);
@@ -50,7 +49,6 @@ public:
   class ParametreContext;
   class Parametre1Context;
   class VariableContext;
-  class AffContext;
   class AffectationContext;
   class ExprContext;
   class Return_Context;
@@ -297,38 +295,6 @@ public:
 
   VariableContext* variable();
 
-  class  AffContext : public antlr4::ParserRuleContext {
-  public:
-    AffContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    AffContext() : antlr4::ParserRuleContext() { }
-    void copyFrom(AffContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
-    virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Aff_variableContext : public AffContext {
-  public:
-    Aff_variableContext(AffContext *ctx);
-
-    Nom_varContext *nom_var();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  Aff_tableauContext : public AffContext {
-  public:
-    Aff_tableauContext(AffContext *ctx);
-
-    Nom_varContext *nom_var();
-    ExprContext *expr();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  AffContext* aff();
-
   class  AffectationContext : public antlr4::ParserRuleContext {
   public:
     AffectationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -346,7 +312,7 @@ public:
   public:
     Affectation_plusegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -363,7 +329,7 @@ public:
   public:
     Affectation_ouegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -372,7 +338,7 @@ public:
   public:
     Affectation_supegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -389,7 +355,7 @@ public:
   public:
     Affectation_divegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -398,7 +364,7 @@ public:
   public:
     Affectation_foisegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -415,7 +381,7 @@ public:
   public:
     Affectation_pourcentegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -424,7 +390,7 @@ public:
   public:
     Affectation_egalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -433,7 +399,7 @@ public:
   public:
     Affectation_etegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -450,7 +416,7 @@ public:
   public:
     Affectation_infegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -459,7 +425,7 @@ public:
   public:
     Affectation_moinsegalContext(AffectationContext *ctx);
 
-    AffContext *aff();
+    VariableContext *variable();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -513,14 +479,6 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Expr_affContext : public ExprContext {
-  public:
-    Expr_affContext(ExprContext *ctx);
-
-    AffContext *aff();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
   class  Expr_etContext : public ExprContext {
   public:
     Expr_etContext(ExprContext *ctx);
@@ -544,14 +502,6 @@ public:
     Expr_parentheseContext(ExprContext *ctx);
 
     ExprContext *expr();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  class  Expr_variabkeContext : public ExprContext {
-  public:
-    Expr_variabkeContext(ExprContext *ctx);
-
-    VariableContext *variable();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -632,6 +582,14 @@ public:
     Expr_chiffreContext(ExprContext *ctx);
 
     antlr4::tree::TerminalNode *CHIFFRE();
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  Expr_variableContext : public ExprContext {
+  public:
+    Expr_variableContext(ExprContext *ctx);
+
+    VariableContext *variable();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 

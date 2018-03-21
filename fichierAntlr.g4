@@ -37,26 +37,21 @@ variable
     |   nom_var '['expr']'   #variable_tableau
     ;
 
-aff
-	:   nom_var                 #aff_variable
-	|   nom_var '[' expr ']'    #aff_tableau
-	;
-
 affectation
 	:	variable'++'    #affectation_plusplusapres
 	|	'++'variable    #affectation_plusplusavant
 	|	variable'--'    #affectation_moinsmoinsapres
 	|	'--'variable    #affectation_moinsmoinsavant
-	|   aff  '=' expr   #affectation_egal
-	|	aff '&=' expr   #affectation_etegal
-	|	aff '|=' expr   #affectation_ouegal
-	|	aff '+=' expr   #affectation_plusegal
-	|	aff '-=' expr   #affectation_moinsegal
-	|	aff '*=' expr   #affectation_foisegal
-	|	aff '/=' expr   #affectation_divegal
-	|	aff '%=' expr   #affectation_pourcentegal
-	|	aff '<=' expr   #affectation_infegal
-	|	aff '>=' expr   #affectation_supegal
+	|   variable  '=' expr   #affectation_egal
+	|	variable '&=' expr   #affectation_etegal
+	|	variable '|=' expr   #affectation_ouegal
+	|	variable '+=' expr   #affectation_plusegal
+	|	variable '-=' expr   #affectation_moinsegal
+	|	variable '*=' expr   #affectation_foisegal
+	|	variable '/=' expr   #affectation_divegal
+	|	variable '%=' expr   #affectation_pourcentegal
+	|	variable '<=' expr   #affectation_infegal
+	|	variable '>=' expr   #affectation_supegal
 	;
 
 expr
@@ -84,8 +79,7 @@ expr
 	|	expr '>=' expr  #expr_supegal
 	|	expr '==' expr  #expr_egalegal
 	|	expr '!=' expr  #expr_diffegal
-	|   variable        #expr_variabke
-	|	aff             #expr_aff
+	|   variable        #expr_variable
 	|   affectation     #expr_affectation
 	|   nom_var '(' ( expr ( ',' expr )* )? ')' #expr_fonction
 	;

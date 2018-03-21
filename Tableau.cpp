@@ -21,4 +21,12 @@ Tableau::~Tableau() {
 
 }
 
+Variable::Type Tableau::getType() const {
+    return type;
+}
+
+void Tableau::setType(Variable::Type type) {
+    Tableau::type = type;
+}
+
 

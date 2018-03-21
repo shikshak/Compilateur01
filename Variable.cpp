@@ -13,3 +13,11 @@ Variable::Variable(Type type_, string nom_, string valeur_) {
 Variable::~Variable() {
 
 }
+
+Variable::Type Variable::getType() const {
+    return type;
+}
+
+void Variable::setType(Variable::Type type) {
+    Variable::type = type;
+}

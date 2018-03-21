@@ -15,7 +15,14 @@ class Tableau : public Variable {
 
     virtual ~Tableau();
 
+private:
     Type type;
+public:
+    Type getType() const;
+
+    void setType(Type type);
+
+private:
     string nom;
     unsigned int taille;
     string *valeur;

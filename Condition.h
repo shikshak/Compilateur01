@@ -6,10 +6,21 @@
 #define PLDCOMP_CONDITION_H
 
 
-class Condition {
+#include "Expression.h"
+
+class Condition : public Expression {
+
 public:
     Condition();
+    Condition(Expression* expression, string valeur = NULL);
     virtual ~Condition();
+
+private:
+    Expression* expression;
+public:
+    Expression *getExpression() const;
+
+    void setExpression(Expression *expression);
 };
 
 

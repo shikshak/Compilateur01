@@ -13,11 +13,18 @@
 class StructureWHILE : public Structure {
 public:
     StructureWHILE();
-    StructureWHILE(Condition condition, Bloc bloc);
+    StructureWHILE(Condition* condition, Bloc* bloc);
     virtual ~StructureWHILE();
 
-    Condition condition;
-    Bloc bloc;
+private:
+    Condition* condition;
+public:
+    Condition *getCondition() const;
+
+    void setCondition(Condition *condition);
+
+private:
+    Bloc* bloc;
 };
 
 

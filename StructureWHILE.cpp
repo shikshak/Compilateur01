@@ -6,6 +6,17 @@
 
 StructureWHILE::StructureWHILE() {}
 
-StructureWHILE::~StructureWHILE() {
+StructureWHILE::~StructureWHILE() {}
 
+StructureWHILE::StructureWHILE(Condition* condition_, Bloc* bloc_) {
+    condition = condition_;
+    bloc = bloc_;
+}
+
+Condition *StructureWHILE::getCondition() const {
+    return condition;
+}
+
+void StructureWHILE::setCondition(Condition *condition) {
+    StructureWHILE::condition = condition;
 }

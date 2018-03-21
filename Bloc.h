@@ -6,8 +6,23 @@
 #define PLDCOMP_BLOC_H
 
 
-class Bloc {
+#include "Instruction.h"
 
+class Bloc {
+public:
+    Bloc();
+    Bloc(Instruction* instruction);
+    virtual ~Bloc();
+
+
+
+
+private:
+    Instruction* instruction;
+public:
+    Instruction *getInstruction() const;
+
+    void setInstruction(Instruction *instruction);
 };
 
 

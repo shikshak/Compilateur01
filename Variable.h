@@ -22,7 +22,14 @@ public:
 
     virtual ~Variable();
 
+private:
     Type type;
+public:
+    Type getType() const;
+
+    void setType(Type type);
+
+private:
     string nom;
     string valeur;
 };

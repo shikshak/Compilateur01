@@ -5,8 +5,21 @@
 #ifndef PLDCOMP_EXPRESSION_H
 #define PLDCOMP_EXPRESSION_H
 
-class Expression {
+#include <string>
 
+using namespace std;
+
+class Expression {
+public:
+    Expression();
+    Expression(string valeur);
+    virtual ~Expression();
+
+private:
+    string valeur;
+public:
+    const string &getValeur() const;
+    void setValeur(const string &valeur);
 };
 
 
