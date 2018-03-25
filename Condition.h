@@ -6,12 +6,16 @@
 #define PLDCOMP_CONDITION_H
 
 
+#include <ostream>
 #include "Expression.h"
 
 class Condition : public Expression {
 
 public:
     Condition();
+
+    Condition(Expression *expression);
+
     Condition(Expression* expression, string valeur = NULL);
     virtual ~Condition();
 
@@ -21,6 +25,8 @@ public:
     Expression *getExpression() const;
 
     void setExpression(Expression *expression);
+
+    friend ostream &operator<<(ostream &os, const Condition &condition);
 };
 
 

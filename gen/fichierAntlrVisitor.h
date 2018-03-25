@@ -19,8 +19,6 @@ public:
   /**
    * Visit parse trees produced by fichierAntlrParser.
    */
-    virtual antlrcpp::Any visitBig(fichierAntlrParser::BigContext *context) = 0;
-
     virtual antlrcpp::Any visitProgramme_normal(fichierAntlrParser::Programme_normalContext *context) = 0;
 
     virtual antlrcpp::Any visitMain_avecparametre(fichierAntlrParser::Main_avecparametreContext *context) = 0;

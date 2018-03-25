@@ -6,8 +6,27 @@
 #define PLDCOMP_PARAMETRE_H
 
 
-class Parametre {
+#include <vector>
+#include <ostream>
+#include "Expression.h"
 
+class Parametre {
+public:
+    Parametre();
+
+    Parametre(const vector<Expression *> &expressions);
+
+    virtual ~Parametre();
+
+private:
+    vector<Expression*> expressions;
+public:
+    const vector<Expression *> &getExpressions() const;
+    void setExpressions(const vector<Expression *> &expressions);
+
+    void addExpression (Expression* expression);
+
+    friend ostream &operator<<(ostream &os, const Parametre &parametre);
 };
 
 

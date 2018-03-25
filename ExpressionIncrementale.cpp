@@ -9,13 +9,6 @@ ExpressionIncrementale::ExpressionIncrementale() {
 
 }
 
-ExpressionIncrementale::ExpressionIncrementale(Variable *variable_,
-                                               ExpressionIncrementale::OperateurIncrement operateurIncrement_,
-                                               string valeur_) : Expression (valeur_){
-    variable = variable_;
-    operateurIncrement = operateurIncrement_;
-}
-
 ExpressionIncrementale::~ExpressionIncrementale() {
 
 }
@@ -35,3 +28,14 @@ ExpressionIncrementale::OperateurIncrement ExpressionIncrementale::getOperateurI
 void ExpressionIncrementale::setOperateurINcrement(ExpressionIncrementale::OperateurIncrement operateurINcrement) {
     ExpressionIncrementale::operateurIncrement = operateurINcrement;
 }
+
+ostream &operator<<(ostream &os, const ExpressionIncrementale &incrementale) {
+    os << static_cast<const Expression &>(incrementale) << " variable: " << incrementale.variable
+       << " operateurIncrement: " << incrementale.operateurIncrement;
+    os << endl;
+    return os;
+}
+
+ExpressionIncrementale::ExpressionIncrementale(Variable *variable,
+                                               ExpressionIncrementale::OperateurIncrement operateurIncrement)
+        : variable(variable), operateurIncrement(operateurIncrement) {}

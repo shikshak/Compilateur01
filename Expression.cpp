@@ -8,10 +8,6 @@ Expression::Expression() {}
 
 Expression::~Expression() {}
 
-Expression::Expression(string valeur_) {
-    valeur = valeur_;
-}
-
 const string &Expression::getValeur() const {
     return valeur;
 }
@@ -19,3 +15,11 @@ const string &Expression::getValeur() const {
 void Expression::setValeur(const string &valeur) {
     Expression::valeur = valeur;
 }
+
+ostream &operator<<(ostream &os, const Expression &expression) {
+    os << "valeur: " << expression.valeur;
+    os << endl;
+    return os;
+}
+
+Expression::Expression(const string &valeur) : valeur(valeur) {}

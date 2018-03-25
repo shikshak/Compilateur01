@@ -8,14 +8,24 @@ Bloc::Bloc() {}
 
 Bloc::~Bloc() {}
 
-Bloc::Bloc(Instruction *instruction_) {
-    instruction = instruction_;
+void Bloc::addInstructions(Instruction *instruction) {
+    instructions.push_back(instruction);
 }
 
-Instruction *Bloc::getInstruction() const {
-    return instruction;
+const std::vector<Instruction *> &Bloc::getInstructions() const {
+    return instructions;
 }
 
-void Bloc::setInstruction(Instruction *instruction) {
-    Bloc::instruction = instruction;
+void Bloc::setInstructions(const std::vector<Instruction *> &instructions) {
+    Bloc::instructions = instructions;
 }
+
+std::ostream &operator<<(std::ostream &os, const Bloc &bloc) {
+    os << "instructions: ";
+    for (auto i: bloc.getInstructions())
+        os << i << ' ';
+    os << std::endl;
+    return os;
+}
+
+Bloc::Bloc(const std::vector<Instruction *> &instructions) : instructions(instructions) {}

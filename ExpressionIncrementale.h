@@ -6,6 +6,7 @@
 #define PLDCOMP_EXPRESSIONINCREMENTALE_H
 
 
+#include <ostream>
 #include "Expression.h"
 #include "Variable.h"
 
@@ -15,7 +16,8 @@ public:
     enum OperateurIncrement {PLUSPLUSAVANT, PLUSPLUSAPRES, MOINSMOINSAVANT, MOINSMOINSAPRES};
 
     ExpressionIncrementale();
-    ExpressionIncrementale(Variable *variable, OperateurIncrement operateurIncrement, string valeur = NULL);
+
+    ExpressionIncrementale(Variable *variable, OperateurIncrement operateurIncrement);
 
     Variable *getVariable() const;
     void setVariable(Variable *variable);
@@ -24,6 +26,7 @@ public:
 
     virtual ~ExpressionIncrementale();
 
+    friend ostream &operator<<(ostream &os, const ExpressionIncrementale &incrementale);
 
 private:
     Variable* variable;

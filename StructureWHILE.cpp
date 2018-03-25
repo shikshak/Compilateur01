@@ -6,17 +6,10 @@
 
 StructureWHILE::StructureWHILE() {}
 
-StructureWHILE::~StructureWHILE() {}
-
-StructureWHILE::StructureWHILE(Condition* condition_, Bloc* bloc_) {
-    condition = condition_;
-    bloc = bloc_;
+ostream &operator<<(ostream &os, const StructureWHILE &aWhile) {
+    os << static_cast<const Structure &>(aWhile);
+    os << endl;
+    return os;
 }
 
-Condition *StructureWHILE::getCondition() const {
-    return condition;
-}
-
-void StructureWHILE::setCondition(Condition *condition) {
-    StructureWHILE::condition = condition;
-}
+StructureWHILE::StructureWHILE(Condition *condition, Bloc *bloc) : Structure(condition, bloc) {}

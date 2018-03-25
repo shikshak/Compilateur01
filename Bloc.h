@@ -5,24 +5,28 @@
 #ifndef PLDCOMP_BLOC_H
 #define PLDCOMP_BLOC_H
 
-
+#include <vector>
+#include <ostream>
 #include "Instruction.h"
 
 class Bloc {
 public:
     Bloc();
-    Bloc(Instruction* instruction);
+
+    Bloc(const std::vector<Instruction *> &instructions);
+
     virtual ~Bloc();
 
-
-
-
 private:
-    Instruction* instruction;
+    std::vector<Instruction*> instructions;
 public:
-    Instruction *getInstruction() const;
+    const std::vector<Instruction *> &getInstructions() const;
 
-    void setInstruction(Instruction *instruction);
+    void setInstructions(const std::vector<Instruction *> &instructions);
+
+    void addInstructions (Instruction* instruction);
+
+    friend std::ostream &operator<<(std::ostream &os, const Bloc &bloc);
 };
 
 

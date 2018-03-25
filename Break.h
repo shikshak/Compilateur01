@@ -6,10 +6,16 @@
 #define PLDCOMP_BREAK_H
 
 
+#include <ostream>
 #include "Instruction.h"
 
 class Break : public Instruction {
+public:
+    Break();
 
+    virtual ~Break();
+
+    friend std::ostream &operator<<(std::ostream &os, const Break &aBreak);
 };
 
 

@@ -15,10 +15,6 @@
 class  fichierAntlrBaseVisitor : public fichierAntlrVisitor {
 public:
 
-  virtual antlrcpp::Any visitBig(fichierAntlrParser::BigContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitProgramme_normal(fichierAntlrParser::Programme_normalContext *ctx) override {
     return visitChildren(ctx);
   }

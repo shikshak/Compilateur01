@@ -3,3 +3,15 @@
 //
 
 #include "ExpressionUnaire.h"
+
+ExpressionUnaire::ExpressionUnaire() {}
+
+ExpressionUnaire::~ExpressionUnaire() {
+
+}
+
+ostream &operator<<(ostream &os, const ExpressionUnaire &unaire) {
+    os << static_cast<const Expression &>(unaire);
+    os << endl;
+    return os;
+}

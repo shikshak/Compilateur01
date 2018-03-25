@@ -5,6 +5,7 @@
 #ifndef PLDCOMP_AFFECTATION_H
 #define PLDCOMP_AFFECTATION_H
 
+#include <ostream>
 #include "Expression.h"
 #include "Variable.h"
 
@@ -14,7 +15,9 @@ public:
     enum Operateur {EGAL, ETEGAL, OUEGAL, PLUSEGAL, MOINSEGAL, FOISEGAL, DIVEGAL, POURCENTAGEEGAL, INFEGAL, SUPEGAL};
 
     Affectation();
-    Affectation(Variable *variableLeft, Expression *expressionRight, Operateur operateur, string valeur = NULL);
+
+    Affectation(Variable *variableLeft, Expression *expressionRight, Operateur operateur);
+
     virtual ~Affectation();
 
 private:
@@ -33,6 +36,8 @@ public:
     Operateur getOperateur() const;
 
     void setOperateur(Operateur operateur);
+
+    friend ostream &operator<<(ostream &os, const Affectation &affectation);
 
 };
 

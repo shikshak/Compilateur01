@@ -6,8 +6,20 @@
 #define PLDCOMP_STRUCTUREIF_H
 
 
-class StructureIF {
+#include <ostream>
+#include "Condition.h"
+#include "Bloc.h"
+#include "Structure.h"
 
+class StructureIF : public Structure {
+public:
+    StructureIF();
+
+    StructureIF(Condition *condition, Bloc *bloc);
+
+    virtual ~StructureWHILE();
+
+    friend ostream &operator<<(ostream &os, const StructureIF &anIf);
 };
 
 

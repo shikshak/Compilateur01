@@ -6,15 +6,6 @@
 
 Affectation::~Affectation() {}
 
-Affectation::Affectation(Variable *variableLeft_,
-                         Expression *expressionRight_,
-                         Affectation::Operateur operateur_,
-                         string valeur_) : Expression(valeur_) {
-    variableLeft_ = variableLeft;
-    expressionRight_ = expressionRight;
-    operateur_ = operateur;
-}
-
 Variable *Affectation::getVariableLeft() const {
     return variableLeft;
 }
@@ -38,3 +29,13 @@ Affectation::Operateur Affectation::getOperateur() const {
 void Affectation::setOperateur(Affectation::Operateur operateur) {
     Affectation::operateur = operateur;
 }
+
+ostream &operator<<(ostream &os, const Affectation &affectation) {
+    os << static_cast<const Expression &>(affectation) << " variableLeft: " << affectation.variableLeft
+       << " expressionRight: " << affectation.expressionRight << " operateur: " << affectation.operateur;
+    os << endl;
+    return os;
+}
+
+Affectation::Affectation(Variable *variableLeft, Expression *expressionRight, Affectation::Operateur operateur)
+        : variableLeft(variableLeft), expressionRight(expressionRight), operateur(operateur) {}

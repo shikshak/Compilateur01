@@ -25,11 +25,11 @@ public:
   };
 
   enum {
-    RuleBig = 0, RuleProgramme = 1, RuleMain = 2, RuleFonction = 3, RuleParametre = 4, 
-    RuleParametre1 = 5, RuleVariable = 6, RuleAffectation = 7, RuleExpr = 8, 
-    RuleReturn_ = 9, RuleBreak_ = 10, RuleInstruction = 11, RuleBloc = 12, 
-    RuleDeclaration = 13, RuleStructure_if = 14, RuleClause = 15, RuleElse_ = 16, 
-    RuleStructure_while = 17, RuleNom_var = 18, RuleType_var = 19, RuleType_fonction = 20
+    RuleProgramme = 0, RuleMain = 1, RuleFonction = 2, RuleParametre = 3, 
+    RuleParametre1 = 4, RuleVariable = 5, RuleAffectation = 6, RuleExpr = 7, 
+    RuleReturn_ = 8, RuleBreak_ = 9, RuleInstruction = 10, RuleBloc = 11, 
+    RuleDeclaration = 12, RuleStructure_if = 13, RuleClause = 14, RuleElse_ = 15, 
+    RuleStructure_while = 16, RuleNom_var = 17, RuleType_var = 18, RuleType_fonction = 19
   };
 
   fichierAntlrParser(antlr4::TokenStream *input);
@@ -42,7 +42,6 @@ public:
   virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
 
 
-  class BigContext;
   class ProgrammeContext;
   class MainContext;
   class FonctionContext;
@@ -63,18 +62,6 @@ public:
   class Nom_varContext;
   class Type_varContext;
   class Type_fonctionContext; 
-
-  class  BigContext : public antlr4::ParserRuleContext {
-  public:
-    BigContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    ProgrammeContext *programme();
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  BigContext* big();
 
   class  ProgrammeContext : public antlr4::ParserRuleContext {
   public:

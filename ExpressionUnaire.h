@@ -6,10 +6,16 @@
 #define PLDCOMP_EXPRESSIONUNAIRE_H
 
 
+#include <ostream>
 #include "Expression.h"
 
 class ExpressionUnaire : public Expression {
+public:
+    ExpressionUnaire();
 
+    virtual ~ExpressionUnaire();
+
+    friend ostream &operator<<(ostream &os, const ExpressionUnaire &unaire);
 };
 
 

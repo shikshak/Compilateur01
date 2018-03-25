@@ -4,29 +4,32 @@
 
 #include "Tableau.h"
 
-Tableau::Tableau(Variable::Type type_, string nom_, unsigned int taille_, string *valeur_) {
-
-    type = type_;
-    nom = nom_;
-    taille = taille_;
-
-    for (int i= 0; i<taille; i++)
-    {
-        if (!valeur_[i].empty()) valeur[i] = valeur_[i];
-    }
-
-}
-
 Tableau::~Tableau() {
 
 }
 
-Variable::Type Tableau::getType() const {
-    return type;
+unsigned int Tableau::getTaille() const {
+    return taille;
 }
 
-void Tableau::setType(Variable::Type type) {
-    Tableau::type = type;
+void Tableau::setTaille(unsigned int taille) {
+    Tableau::taille = taille;
 }
 
+string *Tableau::getValeur() const {
+    return valeur;
+}
 
+void Tableau::setValeur(string *valeur) {
+    Tableau::valeur = valeur;
+    setHasValeur(true);
+}
+
+ostream &operator<<(ostream &os, const Tableau &tableau) {
+    os << static_cast<const Variable &>(tableau) << " taille: " << tableau.taille << " valeur: " << tableau.valeur;
+    os << endl;
+    return os;
+}
+
+Tableau::Tableau(Variable::Type type, const string &nom, bool hasValeur, unsigned int taille, string *valeur)
+        : Variable(type, nom, hasValeur), taille(taille), valeur(valeur) {}

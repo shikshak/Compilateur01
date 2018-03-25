@@ -1,7 +1,5 @@
 grammar fichierAntlr;
 
-big : programme;
-
 programme
     : declaration* fonction* main*   #programme_normal
     ;
@@ -93,8 +91,8 @@ break_
     ;
 
 instruction
-    :  structure_if     #instruction_if
-    |  structure_while  #instruction_while
+    :   structure_if    #instruction_if
+    |   structure_while #instruction_while
     |   expr ';'        #instruction_expr
     |   return_         #instruction_return
     |   break_          #instruction_break

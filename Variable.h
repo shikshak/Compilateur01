@@ -5,9 +5,8 @@
 #ifndef PLDCOMP_VARIABLE_H
 #define PLDCOMP_VARIABLE_H
 
-
-#include <winnt.h>
 #include <String>
+#include <ostream>
 
 using namespace std;
 
@@ -18,20 +17,25 @@ public:
     enum Type {INT_64, INT_32, CHAR};
 
     Variable();
-    Variable(Type type, string nom, string valeur = NULL);
+
+    Variable(Type type, const string &nom, bool hasValeur);
 
     virtual ~Variable();
 
-private:
-    Type type;
 public:
     Type getType() const;
-
     void setType(Type type);
+    const string &getNom() const;
+    void setNom(const string &nom);
+    bool isHasValeur() const;
+    void setHasValeur(bool hasValeur);
+
+    friend ostream &operator<<(ostream &os, const Variable &variable);
 
 private:
+    Type type;
     string nom;
-    string valeur;
+    bool hasValeur;
 };
 
 

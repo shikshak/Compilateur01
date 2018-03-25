@@ -6,20 +6,25 @@
 #define PLDCOMP_EXPRESSION_H
 
 #include <string>
+#include <ostream>
 
 using namespace std;
 
 class Expression {
 public:
     Expression();
-    Expression(string valeur);
+
+    Expression(const string &valeur);
+
     virtual ~Expression();
 
 private:
-    string valeur;
+    string valeur; //?? pas sur qu'on en est besoin  ¯\_(ツ)_/¯
 public:
     const string &getValeur() const;
     void setValeur(const string &valeur);
+
+    friend ostream &operator<<(ostream &os, const Expression &expression);
 };
 
 

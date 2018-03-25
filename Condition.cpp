@@ -19,3 +19,11 @@ Expression *Condition::getExpression() const {
 void Condition::setExpression(Expression *expression) {
     Condition::expression = expression;
 }
+
+ostream &operator<<(ostream &os, const Condition &condition) {
+    os << static_cast<const Expression &>(condition) << " expression: " << condition.expression;
+    os << endl;
+    return os;
+}
+
+Condition::Condition(Expression *expression) : expression(expression) {}

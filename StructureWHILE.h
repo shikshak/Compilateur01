@@ -6,6 +6,7 @@
 #define PLDCOMP_STRUCTUREWHILE_H
 
 
+#include <ostream>
 #include "Structure.h"
 #include "Condition.h"
 #include "Bloc.h"
@@ -13,19 +14,12 @@
 class StructureWHILE : public Structure {
 public:
     StructureWHILE();
-    StructureWHILE(Condition* condition, Bloc* bloc);
+
+    StructureWHILE(Condition *condition, Bloc *bloc);
+
     virtual ~StructureWHILE();
 
-private:
-    Condition* condition;
-public:
-    Condition *getCondition() const;
-
-    void setCondition(Condition *condition);
-
-private:
-    Bloc* bloc;
+    friend ostream &operator<<(ostream &os, const StructureWHILE &aWhile);
 };
-
 
 #endif //PLDCOMP_STRUCTUREWHILE_H

@@ -6,8 +6,28 @@
 #define PLDCOMP_STRUCTURE_H
 
 
-class Structure {
+#include <ostream>
+#include "Condition.h"
+#include "Bloc.h"
 
+class Structure {
+public:
+    Structure();
+
+    Structure(Condition *condition, Bloc *bloc);
+
+    virtual ~Structure();
+
+private:
+    Condition* condition;
+    Bloc* bloc;
+public:
+    Condition *getCondition() const;
+    void setCondition(Condition *condition);
+    Bloc *getBloc() const;
+    void setBloc(Bloc *bloc);
+
+    friend ostream &operator<<(ostream &os, const Structure &structure);
 };
 
 
