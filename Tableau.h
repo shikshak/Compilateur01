@@ -20,6 +20,7 @@ public:
 
 private:
     unsigned int taille;
+    unsigned int position;
     string *valeur;
 public:
     unsigned int getTaille() const;
@@ -29,6 +30,10 @@ public:
     string *getValeur() const;
 
     void setValeur(string *valeur);
+
+    unsigned int getPosition() const;
+
+    void setPosition(unsigned int position);
 
     friend ostream &operator<<(ostream &os, const Tableau &tableau);
 };

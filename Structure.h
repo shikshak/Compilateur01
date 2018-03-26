@@ -10,7 +10,7 @@
 #include "Condition.h"
 #include "Bloc.h"
 
-class Structure {
+class Structure : public Instruction {
 public:
     Structure();
 

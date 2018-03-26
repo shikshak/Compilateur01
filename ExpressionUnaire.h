@@ -11,10 +11,21 @@
 
 class ExpressionUnaire : public Expression {
 public:
+    enum Operateur {VAGUE, PARENTHESE, EXCLAMATION};
+
     ExpressionUnaire();
 
     virtual ~ExpressionUnaire();
 
+private:
+    Operateur operateur;
+
+public:
+    Operateur getOperateur() const;
+
+    void setOperateur(Operateur operateur);
+
+private:
     friend ostream &operator<<(ostream &os, const ExpressionUnaire &unaire);
 };
 

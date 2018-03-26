@@ -11,9 +11,10 @@
 
 class Simple: public Variable {
 
-    Simple();
+
 
 public:
+    Simple();
     Simple(Type type, const string &nom, bool hasValeur, const string &valeur);
 
 private:

@@ -33,3 +33,11 @@ ostream &operator<<(ostream &os, const Tableau &tableau) {
 
 Tableau::Tableau(Variable::Type type, const string &nom, bool hasValeur, unsigned int taille, string *valeur)
         : Variable(type, nom, hasValeur), taille(taille), valeur(valeur) {}
+
+unsigned int Tableau::getPosition() const {
+    return position;
+}
+
+void Tableau::setPosition(unsigned int position) {
+    Tableau::position = position;
+}

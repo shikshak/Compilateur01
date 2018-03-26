@@ -15,3 +15,11 @@ ostream &operator<<(ostream &os, const ExpressionUnaire &unaire) {
     os << endl;
     return os;
 }
+
+ExpressionUnaire::Operateur ExpressionUnaire::getOperateur() const {
+    return operateur;
+}
+
+void ExpressionUnaire::setOperateur(ExpressionUnaire::Operateur operateur) {
+    ExpressionUnaire::operateur = operateur;
+}

@@ -10,6 +10,16 @@
 #include <iostream>
 #include "Programme.h"
 #include "Simple.h"
+#include "Tableau.h"
+#include "ExpressionIncrementale.h"
+#include "Affectation.h"
+#include "ExpressionOperateur.h"
+#include "ExpressionUnaire.h"
+#include "AppelFonction.h"
+#include "Return.h"
+#include "Break.h"
+#include "StructureIF.h"
+#include "StructureWHILE.h"
 
 class Constructor : public fichierAntlrBaseVisitor {
 public:
@@ -108,227 +118,467 @@ public:
 
     antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *ctx) override {
         Simple* simple = new Simple();
-        //arrete ici
+        simple->setNom(visit(ctx->nom_var()));
         return *simple;
     }
 
     antlrcpp::Any visitVariable_tableau(fichierAntlrParser::Variable_tableauContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitVariable_tableau(ctx);
+        Tableau* tableau = new Tableau();
+        tableau->setNom(visit(ctx->nom_var()));
+        tableau->setPosition(visit(ctx->expr()));
+
+        return *tableau;
     }
 
     antlrcpp::Any visitAffectation_plusplusapres(fichierAntlrParser::Affectation_plusplusapresContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_plusplusapres(ctx);
+        ExpressionIncrementale* exprIncr = new ExpressionIncrementale();
+        exprIncr->setVariable(visit(ctx->variable()));
+        exprIncr->setOperateurINcrement(ExpressionIncrementale::PLUSPLUSAPRES);
+
+        return *exprIncr;
     }
 
     antlrcpp::Any visitAffectation_plusplusavant(fichierAntlrParser::Affectation_plusplusavantContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_plusplusavant(ctx);
+        ExpressionIncrementale* exprIncr = new ExpressionIncrementale();
+        exprIncr->setVariable(visit(ctx->variable()));
+        exprIncr->setOperateurINcrement(ExpressionIncrementale::PLUSPLUSAVANT);
+
+        return *exprIncr;
     }
 
     antlrcpp::Any
     visitAffectation_moinsmoinsapres(fichierAntlrParser::Affectation_moinsmoinsapresContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_moinsmoinsapres(ctx);
+        ExpressionIncrementale* exprIncr = new ExpressionIncrementale();
+        exprIncr->setVariable(visit(ctx->variable()));
+        exprIncr->setOperateurINcrement(ExpressionIncrementale::MOINSMOINSAPRES);
+
+        return *exprIncr;
     }
 
     antlrcpp::Any
     visitAffectation_moinsmoinsavant(fichierAntlrParser::Affectation_moinsmoinsavantContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_moinsmoinsavant(ctx);
+        ExpressionIncrementale* exprIncr = new ExpressionIncrementale();
+        exprIncr->setVariable(visit(ctx->variable()));
+        exprIncr->setOperateurINcrement(ExpressionIncrementale::MOINSMOINSAVANT);
+
+        return *exprIncr;
     }
 
     antlrcpp::Any visitAffectation_egal(fichierAntlrParser::Affectation_egalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_egal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::EGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_etegal(fichierAntlrParser::Affectation_etegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_etegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::ETEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_ouegal(fichierAntlrParser::Affectation_ouegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_ouegal(ctx);
+        rAffectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::OUEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_plusegal(fichierAntlrParser::Affectation_plusegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_plusegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::PLUSEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_moinsegal(fichierAntlrParser::Affectation_moinsegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_moinsegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::MOINSEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_foisegal(fichierAntlrParser::Affectation_foisegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_foisegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::FOISEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_divegal(fichierAntlrParser::Affectation_divegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_divegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::DIVEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_pourcentegal(fichierAntlrParser::Affectation_pourcentegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_pourcentegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::POURCENTAGEEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_infegal(fichierAntlrParser::Affectation_infegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_infegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::INFEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitAffectation_supegal(fichierAntlrParser::Affectation_supegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitAffectation_supegal(ctx);
+        Affectation* affectation = new Affectation();
+        affectation->setVariableLeft(visit(ctx->variable()));
+        affectation->setOperateur(Affectation::SUPEGAL);
+        affectation->setExpressionRight(visit(ctx->expr()));
+
+        return *affectation;
     }
 
     antlrcpp::Any visitExpr_infegal(fichierAntlrParser::Expr_infegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_infegal(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::INFEGAL);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_nombre(fichierAntlrParser::Expr_nombreContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_nombre(ctx);
+        Expression* expression = nex Expression();
+        expression->setValeur(ctx->NOMBRE()->getText());
+
+        return expression;
     }
 
     antlrcpp::Any visitExpr_diffegal(fichierAntlrParser::Expr_diffegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_diffegal(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::DIFFEGAL);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_vague(fichierAntlrParser::Expr_vagueContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_vague(ctx);
+        ExpressionUnaire* exprUn = new ExpressionUnaire();
+        exprUn->setOperateur(ExpressionUnaire::VAGUE);
+
+        return exprUn;
     }
 
     antlrcpp::Any visitExpr_et(fichierAntlrParser::Expr_etContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_et(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::ET);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_inf(fichierAntlrParser::Expr_infContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_inf(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::INF);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_parenthese(fichierAntlrParser::Expr_parentheseContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_parenthese(ctx);
+        ExpressionUnaire* exprUn = new ExpressionUnaire();
+        exprUn->setOperateur(ExpressionUnaire::PARENTHESE);
+
+        return exprUn;
     }
 
     antlrcpp::Any visitExpr_addition(fichierAntlrParser::Expr_additionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_addition(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::PLUS);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_ou(fichierAntlrParser::Expr_ouContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_ou(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::OU);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_sup(fichierAntlrParser::Expr_supContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_sup(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::SUP);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_etet(fichierAntlrParser::Expr_etetContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_etet(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::ETET);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_infinf(fichierAntlrParser::Expr_infinfContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_infinf(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::INFINF);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_fonction(fichierAntlrParser::Expr_fonctionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_fonction(ctx);
+        AppelFonction* appFonc = new AppelFonction();
+        appFonc->getNomFonction(visit(ctx->nom_var()));
+        appFonc->setParametre(visit(ctx->expr())); //faux
+
+        return *appFonc;
     }
 
     antlrcpp::Any visitExpr_char(fichierAntlrParser::Expr_charContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_char(ctx);
+        Expression* expression = new Expression();
+        expression->setValeur(ctx->CHAR()->getText());
+
+        return *expression;
     }
 
     antlrcpp::Any visitExpr_egalegal(fichierAntlrParser::Expr_egalegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_egalegal(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::EGALEGAL);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_chiffre(fichierAntlrParser::Expr_chiffreContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_chiffre(ctx);
+        Expression* expression = new Expression();
+        expression->setValeur(ctx->CHIFFRE()->getText());
+
+        return *expression;
     }
 
     antlrcpp::Any visitExpr_variable(fichierAntlrParser::Expr_variableContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_variable(ctx);
+        Variable* var = new Variable();
+        var->setNom(ctx->variable()->getText());
+
+        return *var;
     }
 
     antlrcpp::Any visitExpr_ouou(fichierAntlrParser::Expr_ououContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_ouou(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::OUOU);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_division(fichierAntlrParser::Expr_divisionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_division(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::DIVISION);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_mod(fichierAntlrParser::Expr_modContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_mod(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::MOD);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_supegal(fichierAntlrParser::Expr_supegalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_supegal(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::SUPEGAL);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_soustraction(fichierAntlrParser::Expr_soustractionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_soustraction(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::MOINS);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_affectation(fichierAntlrParser::Expr_affectationContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_affectation(ctx);
+        Affectation* affectation = new Affectation();
+        affectation(visit(ctx->affectation()));
+
+        return affectation;
     }
 
     antlrcpp::Any visitExpr_exclamation(fichierAntlrParser::Expr_exclamationContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_exclamation(ctx);
+        ExpressionUnaire* exprUn = new ExpressionUnaire();
+        exprUn->setOperateur(ExpressionUnaire::EXCLAMATION);
+
+        return exprUn;
     }
 
     antlrcpp::Any visitExpr_multiplication(fichierAntlrParser::Expr_multiplicationContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_multiplication(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::MULTIPLICATION);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_supsup(fichierAntlrParser::Expr_supsupContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_supsup(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::SUPSUP);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitExpr_chapeau(fichierAntlrParser::Expr_chapeauContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitExpr_chapeau(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+        exprOp->setLeftExpression(visit(ctx->expr()));
+        exprOp->setOperateur(ExpressionOperateur::CHAPEAU);
+        exprOp->setRightExpression(visit(ctx->expr));
+
+        return *exprOp;
     }
 
     antlrcpp::Any visitReturn_normal(fichierAntlrParser::Return_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitReturn_normal(ctx);
+        Return* ret = new Return();
+        ret->setExpression(visit(ctx->expr()));
+
+        return ret;
     }
 
     antlrcpp::Any visitBreak_normal(fichierAntlrParser::Break_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitBreak_normal(ctx);
+        Break* bre = new Break();
+
+        return bre;
     }
 
     antlrcpp::Any visitInstruction_if(fichierAntlrParser::Instruction_ifContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitInstruction_if(ctx);
+        StructureIF* strucIF = new StructureIF();
+        strucIF(visit(ctx->structure_if()));
+
+        return *strucIF;
     }
 
     antlrcpp::Any visitInstruction_while(fichierAntlrParser::Instruction_whileContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitInstruction_while(ctx);
+        StructureWHILE* strucWHILE = new StructureWHILE();
+        strucWHILE(visit(ctx->structure_while()));
+
+        return *strucWHILE;
     }
 
     antlrcpp::Any visitInstruction_expr(fichierAntlrParser::Instruction_exprContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitInstruction_expr(ctx);
+        Expression* expr = new Expression();
+        expr(visit(ctx->expr()));
+
+        return *expr;
     }
 
     antlrcpp::Any visitInstruction_return(fichierAntlrParser::Instruction_returnContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitInstruction_return(ctx);
+        Return* ret = new Return();
+        ret(visit(ctx->return_()));
+
+        return *ret;
     }
 
     antlrcpp::Any visitInstruction_break(fichierAntlrParser::Instruction_breakContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitInstruction_break(ctx);
+        Break* bre = new Break();
+        bre(visit(ctx->break_()));
+
+        return *bre;
     }
 
     antlrcpp::Any visitBloc_normal(fichierAntlrParser::Bloc_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitBloc_normal(ctx);
+        Bloc* bloc = new Bloc;
+        bloc->setInstructions(visit(ctx->instruction()));
+
+        return bloc;
     }
 
     antlrcpp::Any visitDeclaration_normale(fichierAntlrParser::Declaration_normaleContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitDeclaration_normale(ctx);
+        Declaration* decl = new Declaration();
+        string type = visit(ctx->type_var()); //voncertir a celuui de l'enum
+        for(auto i : ctx->nom_var()){
+            Simple* var = new Simple(type, visit(i));
+            decl->addVariable(var);
+        }
+
+        return decl;
     }
 
     antlrcpp::Any visitDeclaration_definition(fichierAntlrParser::Declaration_definitionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitDeclaration_definition(ctx);
+        Declaration* decl = new Declaration();
+        Simple* var = new Simple();
+        var->setNom(visit(ctx->nom_var()));
+        var->setType(visit(ctx->type_var()));
+        var->setValeur(visit(ctx->expr()));
+        decl->addVariable(var);
+
+        return *decl;
     }
 
     antlrcpp::Any visitDeclaration_tableau(fichierAntlrParser::Declaration_tableauContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitDeclaration_tableau(ctx);
+        Declaration* decl = new Declaration();
+        string type = visit(ctx->type_var()); //voncertir a celuui de l'enum
+        for(auto i : ctx->nom_var()){
+            Tableau* var = new Tableau(type, visit(i),false,visit(ctx->expr()));
+            decl->addVariable(var);
+        }
+
+        return decl;
     }
 
     antlrcpp::Any
     visitDeclaration_definitiontableau(fichierAntlrParser::Declaration_definitiontableauContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitDeclaration_definitiontableau(ctx);
+        Declaration* decl = new Declaration();
+        Tableau* var = new Tableau();
+        var->setNom(visit(ctx->nom_var()));
+        var->setType(visit(ctx->type_var()));
+        var->setTaille(visit(ctx->CHIFFRE));
+        var->setValeur(visit(ctx->expr()));
+        decl->addVariable(var);
+
+        return *decl;
     }
 
     antlrcpp::Any visitStructureif_normal(fichierAntlrParser::Structureif_normalContext *ctx) override {
