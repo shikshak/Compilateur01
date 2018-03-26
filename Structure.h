@@ -14,18 +14,17 @@ class Structure : public Instruction {
 public:
     Structure();
 
-    Structure(Condition *condition, Bloc *bloc);
+    explicit Structure(Condition *condition); //c'est lui qui m'a dit de mettre explicit j'ai pas cherche a comprendre, un truc avec la convertion automatique aski^p
 
     virtual ~Structure();
 
 private:
     Condition* condition;
-    Bloc* bloc;
+
 public:
     Condition *getCondition() const;
+
     void setCondition(Condition *condition);
-    Bloc *getBloc() const;
-    void setBloc(Bloc *bloc);
 
     friend ostream &operator<<(ostream &os, const Structure &structure);
 };

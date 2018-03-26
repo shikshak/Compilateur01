@@ -13,14 +13,18 @@
 
 class Fonction {
 public:
+
+    enum Type {CHAR, INT_32, INT_64, VOID, INT};
     Fonction();
 
-    Fonction(Parametre *parametre, const vector<Declaration *> &declarations, Bloc *bloc);
+    Fonction(Parametre *parametre, const string &nom, Type type, const vector<Declaration *> &declarations, Bloc *bloc);
 
     virtual ~Fonction();
 
 private:
     Parametre* parametre;
+    string nom;
+    Type type;
     vector<Declaration*> declarations;
     Bloc* bloc;
 public:
@@ -30,6 +34,15 @@ public:
     void setDeclarations(const vector<Declaration *> &declaration);
     Bloc *getBloc() const;
     void setBloc(Bloc *bloc);
+
+    const string &getNom() const;
+
+    void setNom(const string &nom);
+
+    Type getType() const;
+
+    void setType(Type type);
+    void setType(string type);
 
     void addDeclaration (Declaration* declaration);
 

@@ -24,96 +24,109 @@
 class Constructor : public fichierAntlrBaseVisitor {
 public:
     antlrcpp::Any visitProgramme_normal(fichierAntlrParser::Programme_normalContext *ctx) override {
-        Programme* programme = new Programme();
+        Programme* programme_ = new Programme();
         for(auto i : ctx->declaration()){
-            programme->addDeclaration(visit(i));
+            programme_->addDeclaration(visit(i));
         }
         for(auto i : ctx->fonction()){
-            programme->addFonction(visit(i));
+            programme_->addFonction(visit(i));
         }
-        programme->setMain(visit(ctx->main()))
-        cout << *programme;
-        return programme;
+        programme_->setMain(visit(ctx->main()));
+        cout << *programme_;
+        return programme_;
     }
 
     antlrcpp::Any visitMain_avecparametre(fichierAntlrParser::Main_avecparametreContext *ctx) override {
-        Fonction* fonction = new Fonction();
-        fonction->setParametre(visit(ctx->parametre()));
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom("main");
+        fonction_->setParametre(visit(ctx->parametre()));
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
-        return *fonction;
+        fonction_->setBloc(visit(ctx->bloc()));
+        return *fonction_;
     }
 
     antlrcpp::Any visitMain_sansparametre(fichierAntlrParser::Main_sansparametreContext *ctx) override {
-        Fonction* fonction = new Fonction();
+        Fonction* fonction_ = new Fonction();
+
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom("main");
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
-        return *fonction;
+        fonction_->setBloc(visit(ctx->bloc()));
+        return *fonction_;
     }
 
     antlrcpp::Any visitMain_parametrevoid(fichierAntlrParser::Main_parametrevoidContext *ctx) override {
-        Fonction* fonction = new Fonction();
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom("main");
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
-        return *fonction;
+        fonction_->setBloc(visit(ctx->bloc()));
+        return *fonction_;
     }
 
     antlrcpp::Any visitFonction_avecparametre(fichierAntlrParser::Fonction_avecparametreContext *ctx) override {
-        Fonction* fonction = new Fonction();
-        fonction->setParametre(visit(ctx->parametre()));
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom(visit(ctx->nom_var()));
+        fonction_->setParametre(visit(ctx->parametre()));
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
-        return *fonction;
+        fonction_->setBloc(visit(ctx->bloc()));
+        return *fonction_;
     }
 
     antlrcpp::Any visitFonction_sansparametre(fichierAntlrParser::Fonction_sansparametreContext *ctx) override {
-        Fonction* fonction = new Fonction();
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom(visit(ctx->nom_var()));
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
+        fonction_->setBloc(visit(ctx->bloc()));
         return *fonction;
     }
 
     antlrcpp::Any visitFonction_parametrevoid(fichierAntlrParser::Fonction_parametrevoidContext *ctx) override {
-        Fonction* fonction = new Fonction();
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom(visit(ctx->nom_var()));
         for(auto i : ctx->declaration()){
-            fonction->addDeclaration(visit(i));
+            fonction_->addDeclaration(visit(i));
         }
-        fonction->setBloc(visit(ctx->bloc()));
-        return *fonction;
+        fonction_->setBloc(visit(ctx->bloc()));
+        return *fonction_;
     }
 
     antlrcpp::Any visitParametre_normal(fichierAntlrParser::Parametre_normalContext *ctx) override {
-        Parametre* parametre = new Parametre();
+        Parametre* parametre_ = new Parametre();
         for(auto i : ctx->parametre1()){
-            parametre->addExpression(visit(i));
+            parametre_->addExpression(visit(i));
         }
-        return *parametre;
+        return *parametre_;
     }
 
     antlrcpp::Any visitParametre_tableau(fichierAntlrParser::Parametre_tableauContext *ctx) override {
-        Parametre* parametre = new Parametre();
+        Parametre* parametre_ = new Parametre();
         for(auto i : ctx->expr()){
-            parametre->addExpression(visit(i));
+            parametre_->addExpression(visit(i));
         }
-        return *parametre;
+        return *parametre_;
     }
 
     antlrcpp::Any visitParametre1_normal(fichierAntlrParser::Parametre1_normalContext *ctx) override {
-        Parametre* parametre = new Parametre();
-        for(auto i : ctx->parametre1()){
-            parametre->addExpression(visit(i));
+        Parametre* parametre_ = new Parametre();
+        for(auto i : ctx->parametre()){
+            parametre_->addExpression(visit(i));
         }
-        return *parametre;
+        return *parametre_;
     }
 
     antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *ctx) override {
@@ -183,7 +196,7 @@ public:
     }
 
     antlrcpp::Any visitAffectation_ouegal(fichierAntlrParser::Affectation_ouegalContext *ctx) override {
-        rAffectation* affectation = new Affectation();
+        Affectation* affectation = new Affectation();
         affectation->setVariableLeft(visit(ctx->variable()));
         affectation->setOperateur(Affectation::OUEGAL);
         affectation->setExpressionRight(visit(ctx->expr()));
@@ -264,7 +277,7 @@ public:
     }
 
     antlrcpp::Any visitExpr_nombre(fichierAntlrParser::Expr_nombreContext *ctx) override {
-        Expression* expression = nex Expression();
+        Expression* expression = new Expression();
         expression->setValeur(ctx->NOMBRE()->getText());
 
         return expression;
@@ -389,7 +402,7 @@ public:
 
     antlrcpp::Any visitExpr_variable(fichierAntlrParser::Expr_variableContext *ctx) override {
         Variable* var = new Variable();
-        var->setNom(ctx->variable()->getText());
+        var->setNom(visit(ctx->variable()));
 
         return *var;
     }
@@ -582,31 +595,60 @@ public:
     }
 
     antlrcpp::Any visitStructureif_normal(fichierAntlrParser::Structureif_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitStructureif_normal(ctx);
+        StructureIF* structureIF = new StructureIF();
+        structureIF->setCondition(visit(ctx->expr()));
+        structureIF->addIFetELSE(visit(ctx->clause())); //faux car dans clause il y a le else aussi..je sais pas comment le lier au if s'il est dans le bloc..
+
+        return *structureIF;
     }
 
     antlrcpp::Any visitClause_normal(fichierAntlrParser::Clause_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitClause_normal(ctx);
+        vector blocs = new vector();
+        blocs.push_back(visit(ctx->bloc()));
+        blocs.push_back(visit(ctx->instruction())); // je sais pas ce qu'il se passe s'il n'y a pas la regle, est ce quil push back rien ??
+        blocs.push_back(visit(ctx->else_()));
+
+        return blocs;
     }
 
     antlrcpp::Any visitElse_normal(fichierAntlrParser::Else_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitElse_normal(ctx);
+        Bloc* bloc = new Bloc();
+        bloc(visit(ctx->bloc()));
+        bloc->addInstructions(visit(ctx->instruction())); //encore du n'importequoi - je sais pas ce qu'il se passe quand y a pas de bloc (renvoie null ??)
+
+        return *bloc;
     }
 
     antlrcpp::Any visitStructurewhile_normal(fichierAntlrParser::Structurewhile_normalContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitStructurewhile_normal(ctx);
+        StructureWHILE* strucWHILE = new StructureWHILE();
+        strucWHILE->setCondition(visit(ctx->expr()));
+        strucWHILE->setBloc(visit(ctx->instruction()));
+        if (strucWHILE->getBloc() == NULL) {
+            strucWHILE->setBloc(visit(ctx->bloc()));
+        } // une autre facon je sais pas ce qui est le mieux
+
+        return *strucWHILE;
     }
 
     antlrcpp::Any visitNom_var(fichierAntlrParser::Nom_varContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitNom_var(ctx);
+        string valeur;
+        valeur = ctx->getText(); //c'est du n'importequoio j'avoue
+
+        return valeur;
     }
 
     antlrcpp::Any visitType_var(fichierAntlrParser::Type_varContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitType_var(ctx);
+        string valeur;
+        valeur = ctx->getText(); //c'est du n'importequoio j'avoue
+
+        return valeur;
     }
 
     antlrcpp::Any visitType_fonction(fichierAntlrParser::Type_fonctionContext *ctx) override {
-        return fichierAntlrBaseVisitor::visitType_fonction(ctx);
+        string valeur;
+        valeur = ctx->getText(); //c'est du n'importequoio j'avoue
+
+        return valeur;
     }
 };
 

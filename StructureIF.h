@@ -15,9 +15,23 @@ class StructureIF : public Structure {
 public:
     StructureIF();
 
-    StructureIF(Condition *condition, Bloc *bloc);
+    StructureIF(Condition *condition, Bloc *bloc, Bloc *blocElse);
 
-    virtual ~StructureWHILE();
+    virtual ~StructureIF();
+
+private:
+    Bloc* bloc;
+    Bloc* blocElse;
+
+public:
+    Bloc *getBloc() const;
+    void setBloc(Bloc *bloc);
+    void setBloc(Instruction *instr);
+    Bloc *getBlocElse() const;
+    void setBlocElse(Bloc *blocElse);
+    void setBlocElse(Instruction* instruction);
+
+    void addIFetELSE(vector);
 
     friend ostream &operator<<(ostream &os, const StructureIF &anIf);
 };

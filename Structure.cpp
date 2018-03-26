@@ -4,6 +4,12 @@
 
 #include "Structure.h"
 
+Structure::Structure() {
+
+}
+
+Structure::Structure(Condition *condition) : condition(condition) {}
+
 Condition *Structure::getCondition() const {
     return condition;
 }
@@ -12,18 +18,11 @@ void Structure::setCondition(Condition *condition) {
     Structure::condition = condition;
 }
 
-Bloc *Structure::getBloc() const {
-    return bloc;
-}
-
-void Structure::setBloc(Bloc *bloc) {
-    Structure::bloc = bloc;
-}
-
 ostream &operator<<(ostream &os, const Structure &structure) {
-    os << "condition: " << structure.condition << " bloc: " << structure.bloc;
-    os << endl;
+    os << static_cast<const Instruction &>(structure) << " condition: " << structure.condition;
     return os;
 }
 
-Structure::Structure(Condition *condition, Bloc *bloc) : condition(condition), bloc(bloc) {}
+Structure::~Structure() {
+
+}

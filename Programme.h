@@ -23,6 +23,7 @@ private:
     std::vector<Declaration*> declarations;
     std::vector<Fonction*> fonctions;
     Fonction* main;
+
 public:
     const std::vector<Declaration *> &getDeclarations() const;
     void setDeclarations(const std::vector<Declaration *> &declarations);

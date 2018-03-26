@@ -19,6 +19,14 @@ public:
 
     virtual ~StructureWHILE();
 
+private:
+    Bloc* bloc;
+
+public:
+    Bloc *getBloc() const;
+    void setBloc(Bloc *bloc);
+    void setBloc(Instruction* instruction);
+
     friend ostream &operator<<(ostream &os, const StructureWHILE &aWhile);
 };
 

@@ -41,3 +41,16 @@ ostream &operator<<(ostream &os, const Variable &variable) {
 Variable::Variable(Variable::Type type, const string &nom, bool hasValeur) : type(type), nom(nom),
                                                                              hasValeur(hasValeur) {}
 
+void Variable::setType(string type) {
+    if(type == "char")
+        setType(CHAR);
+    else if(type == "int32_t")
+        setType(INT_32);
+    else if(type == "int64_t")
+        setType(INT_64);
+}
+
+Variable::Variable() {
+
+}
+

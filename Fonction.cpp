@@ -38,16 +38,36 @@ void Fonction::addDeclaration(Declaration *declaration) {
     declarations.push_back(declaration);
 }
 
-ostream &operator<<(ostream &os, const Fonction &fonction) {
-    os << "parametre: " << fonction.parametre << " declarations: ";
-    for (auto i:fonction.getDeclarations())
-        os << i << ' ';
-    os << " bloc: " << fonction.bloc;
-    os << endl;
-    return os;
+const string &Fonction::getNom() const {
+    return nom;
 }
 
-Fonction::Fonction(Parametre *parametre, const vector<Declaration *> &declarations, Bloc *bloc) : parametre(parametre),
-                                                                                                  declarations(
-                                                                                                          declarations),
-                                                                                                  bloc(bloc) {}
+void Fonction::setNom(const string &nom) {
+    Fonction::nom = nom;
+}
+
+Fonction::Type Fonction::getType() const {
+    return type;
+}
+
+void Fonction::setType(Fonction::Type type) {
+    Fonction::type = type;
+}
+
+Fonction::Fonction(Parametre *parametre, const string &nom, Fonction::Type type,
+                   const vector<Declaration *> &declarations, Bloc *bloc) : parametre(parametre), nom(nom), type(type),
+                                                                            declarations(declarations), bloc(bloc) {}
+
+
+void Fonction::setType(string type) {
+    if(type == "char")
+        setType(CHAR);
+    else if(type == "int32_t")
+        setType(INT_32);
+    else if(type == "int64_t")
+        setType(INT_64);
+    else if(type == "void")
+        setType(VOID);
+    else if(type == "int")
+        setType(INT);
+}

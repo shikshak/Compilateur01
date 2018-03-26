@@ -25,6 +25,7 @@ public:
 public:
     Type getType() const;
     void setType(Type type);
+    void setType(string type);
     const string &getNom() const;
     void setNom(const string &nom);
     bool isHasValeur() const;
