@@ -15,9 +15,11 @@ class Simple: public Variable {
 
 public:
 
+    Simple();
+
     Simple(Type type, const string &nom, const string &valeur);
 
-    const string &getValeur() const;
+    const string &getValeur();
 
     bool isHasValeur() const;
 
@@ -32,6 +34,9 @@ public:
 private:
     string valeur;
     bool hasValeur;
+    bool isUsed;
+public:
+    void setIsUsed(bool isUsed);
 
 
 };

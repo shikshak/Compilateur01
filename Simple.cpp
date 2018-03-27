@@ -4,7 +4,8 @@
 
 #include "Simple.h"
 
-const string &Simple::getValeur() const {
+const string &Simple::getValeur() {
+    isUsed=true;
     return valeur;
 }
 
@@ -34,4 +35,12 @@ Simple::~Simple() {
 
 void Simple::setHasValeur(bool hasValeur) {
     Simple::hasValeur = hasValeur;
+}
+
+void Simple::setIsUsed(bool isUsed) {
+    Simple::isUsed = isUsed;
+}
+
+Simple::Simple() {
+    Simple::isUsed=false;
 }

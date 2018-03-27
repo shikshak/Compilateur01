@@ -24,8 +24,12 @@ private:
     unsigned int position;
     string * valeur;
     bool * hasValeur;
-
+    bool * isUsed;
 public:
+    bool getIsUsed() const;
+
+    void setIsUsed(int position, bool isUsed);
+
     void setHasValeur(int position, bool hasValeur);
 
     bool getHasValeur(int position) const;
@@ -34,7 +38,7 @@ public:
 
     void setTaille(unsigned int taille);
 
-    string *getValeur(int position) const;
+    string getValeur(int position) const;
 
     void setValeur(int position,string valeur);
 
