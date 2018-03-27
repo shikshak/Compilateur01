@@ -15,10 +15,6 @@
 class  fichierAntlrBaseVisitor : public fichierAntlrVisitor {
 public:
 
-  virtual antlrcpp::Any visitBig(fichierAntlrParser::BigContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitProgramme_normal(fichierAntlrParser::Programme_normalContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -64,14 +60,6 @@ public:
   }
 
   virtual antlrcpp::Any visitVariable_tableau(fichierAntlrParser::Variable_tableauContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitAff_variable(fichierAntlrParser::Aff_variableContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitAff_tableau(fichierAntlrParser::Aff_tableauContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -147,10 +135,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpr_aff(fichierAntlrParser::Expr_affContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitExpr_et(fichierAntlrParser::Expr_etContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -160,10 +144,6 @@ public:
   }
 
   virtual antlrcpp::Any visitExpr_parenthese(fichierAntlrParser::Expr_parentheseContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitExpr_variabke(fichierAntlrParser::Expr_variabkeContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -200,6 +180,10 @@ public:
   }
 
   virtual antlrcpp::Any visitExpr_chiffre(fichierAntlrParser::Expr_chiffreContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitExpr_variable(fichierAntlrParser::Expr_variableContext *ctx) override {
     return visitChildren(ctx);
   }
 

@@ -6,8 +6,14 @@
 #define PLDCOMP_INSTRUCTION_H
 
 
-class Instruction {
+#include <ostream>
 
+class Instruction {
+public:
+    Instruction();
+    virtual ~Instruction();
+
+    friend std::ostream &operator<<(std::ostream &os, const Instruction &instruction);
 };
 
 

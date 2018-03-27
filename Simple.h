@@ -6,10 +6,28 @@
 #define PLDCOMP_SIMPLE_H
 
 
+#include <ostream>
 #include "Variable.h"
 
 class Simple: public Variable {
 
+
+
+public:
+    Simple();
+    Simple(Type type, const string &nom, bool hasValeur, const string &valeur);
+
+private:
+    virtual ~Simple();
+
+private:
+    string valeur;
+public:
+    const string &getValeur() const;
+
+    void setValeur(const string &valeur);
+
+    friend ostream &operator<<(ostream &os, const Simple &simple);
 };
 
 

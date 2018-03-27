@@ -19,8 +19,6 @@ public:
   /**
    * Visit parse trees produced by fichierAntlrParser.
    */
-    virtual antlrcpp::Any visitBig(fichierAntlrParser::BigContext *context) = 0;
-
     virtual antlrcpp::Any visitProgramme_normal(fichierAntlrParser::Programme_normalContext *context) = 0;
 
     virtual antlrcpp::Any visitMain_avecparametre(fichierAntlrParser::Main_avecparametreContext *context) = 0;
@@ -44,10 +42,6 @@ public:
     virtual antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable_tableau(fichierAntlrParser::Variable_tableauContext *context) = 0;
-
-    virtual antlrcpp::Any visitAff_variable(fichierAntlrParser::Aff_variableContext *context) = 0;
-
-    virtual antlrcpp::Any visitAff_tableau(fichierAntlrParser::Aff_tableauContext *context) = 0;
 
     virtual antlrcpp::Any visitAffectation_plusplusapres(fichierAntlrParser::Affectation_plusplusapresContext *context) = 0;
 
@@ -85,15 +79,11 @@ public:
 
     virtual antlrcpp::Any visitExpr_vague(fichierAntlrParser::Expr_vagueContext *context) = 0;
 
-    virtual antlrcpp::Any visitExpr_aff(fichierAntlrParser::Expr_affContext *context) = 0;
-
     virtual antlrcpp::Any visitExpr_et(fichierAntlrParser::Expr_etContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr_inf(fichierAntlrParser::Expr_infContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr_parenthese(fichierAntlrParser::Expr_parentheseContext *context) = 0;
-
-    virtual antlrcpp::Any visitExpr_variabke(fichierAntlrParser::Expr_variabkeContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr_addition(fichierAntlrParser::Expr_additionContext *context) = 0;
 
@@ -112,6 +102,8 @@ public:
     virtual antlrcpp::Any visitExpr_egalegal(fichierAntlrParser::Expr_egalegalContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr_chiffre(fichierAntlrParser::Expr_chiffreContext *context) = 0;
+
+    virtual antlrcpp::Any visitExpr_variable(fichierAntlrParser::Expr_variableContext *context) = 0;
 
     virtual antlrcpp::Any visitExpr_ouou(fichierAntlrParser::Expr_ououContext *context) = 0;
 

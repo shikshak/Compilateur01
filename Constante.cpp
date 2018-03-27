@@ -3,3 +3,15 @@
 //
 
 #include "Constante.h"
+
+Constante::Constante() {}
+
+Constante::~Constante() {
+
+}
+
+ostream &operator<<(ostream &os, const Constante &constante) {
+    os << static_cast<const Expression &>(constante);
+    os << endl;
+    return os;
+}

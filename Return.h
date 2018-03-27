@@ -6,10 +6,27 @@
 #define PLDCOMP_RETURN_H
 
 
+#include <ostream>
 #include "Instruction.h"
+#include "Expression.h"
 
 class Return : public Instruction{
 
+public:
+    Return();
+
+    Return(Expression *expression);
+
+    virtual ~Return();
+
+private:
+    Expression* expression;
+public:
+    Expression *getExpression() const;
+
+    void setExpression(Expression *expression);
+
+    friend ostream &operator<<(ostream &os, const Return &aReturn);
 };
 
 

@@ -6,10 +6,31 @@
 #define PLDCOMP_APPELFONCTION_H
 
 
+#include <ostream>
 #include "Expression.h"
+#include "Parametre.h"
 
 class AppelFonction : public Expression {
+public:
+    AppelFonction();
 
+    AppelFonction(const string &nomFonction, Parametre *parametre);
+
+    virtual ~AppelFonction();
+
+private:
+    string nomFonction;
+    Parametre* parametre;
+public:
+    const string &getNomFonction() const;
+
+    void setNomFonction(const string &nomFonction);
+
+    Parametre *getParametre() const;
+
+    void setParametre(Parametre *parametre);
+
+    friend ostream &operator<<(ostream &os, const AppelFonction &fonction);
 };
 
 

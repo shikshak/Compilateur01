@@ -6,7 +6,16 @@
 #define PLDCOMP_CONSTANTE_H
 
 
-class Constante {
+#include <ostream>
+#include "Expression.h"
+
+class Constante : public Expression{
+public:
+    Constante();
+
+    virtual ~Constante();
+
+    friend ostream &operator<<(ostream &os, const Constante &constante);
 
 };
 
