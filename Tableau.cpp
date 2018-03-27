@@ -14,15 +14,20 @@ unsigned int Tableau::getTaille() const {
 
 void Tableau::setTaille(unsigned int taille) {
     Tableau::taille = taille;
+    hasValeur = new bool [taille];
+    for (int i = 0 ; i< taille ; i++){
+        hasValeur[i]=false;
+    }
+    valeur = new string [taille];
 }
 
-string *Tableau::getValeur() const {
-    return valeur;
+string *Tableau::getValeur(int position) const {
+    return &valeur[position];
 }
 
-void Tableau::setValeur(string *valeur) {
-    Tableau::valeur = valeur;
-    setHasValeur(true);
+void Tableau::setValeur(int position, string valeur) {
+    Tableau::valeur[position] = valeur;
+    setHasValeur(position, true);
 }
 
 ostream &operator<<(ostream &os, const Tableau &tableau) {
@@ -31,8 +36,6 @@ ostream &operator<<(ostream &os, const Tableau &tableau) {
     return os;
 }
 
-Tableau::Tableau(Variable::Type type, const string &nom, bool hasValeur, unsigned int taille, string *valeur)
-        : Variable(type, nom, hasValeur), taille(taille), valeur(valeur) {}
 
 unsigned int Tableau::getPosition() const {
     return position;
@@ -41,3 +44,19 @@ unsigned int Tableau::getPosition() const {
 void Tableau::setPosition(unsigned int position) {
     Tableau::position = position;
 }
+
+Tableau::Tableau() {
+
+}
+
+Tableau::Tableau(Variable::Type type, const string &nom ) : Variable(type, nom) {}
+
+void Tableau::setHasValeur(int position, bool hasValeur) {
+    Tableau::hasValeur[position] = hasValeur;
+}
+
+bool Tableau::getHasValeur(int position) const {
+    return hasValeur[position];
+}
+
+

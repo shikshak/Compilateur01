@@ -4,9 +4,7 @@
 
 #include "Variable.h"
 
-Variable::~Variable() {
-
-}
+Variable::~Variable() = default;
 
 Variable::Type Variable::getType() const {
     return type;
@@ -24,22 +22,11 @@ void Variable::setNom(const string &nom) {
     Variable::nom = nom;
 }
 
-bool Variable::isHasValeur() const {
-    return hasValeur;
-}
-
-void Variable::setHasValeur(bool hasValeur) {
-    Variable::hasValeur = hasValeur;
-}
-
 ostream &operator<<(ostream &os, const Variable &variable) {
-    os << "type: " << variable.type << " nom: " << variable.nom << " hasValeur: " << variable.hasValeur;
+    os << "type: " << variable.type << " nom: " << variable.nom;
     os << endl;
     return os;
 }
-
-Variable::Variable(Variable::Type type, const string &nom, bool hasValeur) : type(type), nom(nom),
-                                                                             hasValeur(hasValeur) {}
 
 void Variable::setType(string type) {
     if(type == "char")
@@ -50,7 +37,10 @@ void Variable::setType(string type) {
         setType(INT_64);
 }
 
-Variable::Variable() {
+Variable::Variable() = default;
 
+Variable::Variable(Variable::Type type, const string &nom) {
+    setNom(nom);
+    setType(type);
 }
 
