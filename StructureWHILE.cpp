@@ -6,8 +6,6 @@
 
 StructureWHILE::StructureWHILE() {}
 
-StructureWHILE::StructureWHILE(Condition *condition, Bloc *bloc) : Structure(condition, bloc) {}
-
 Bloc *StructureWHILE::getBloc() const {
     return bloc;
 }

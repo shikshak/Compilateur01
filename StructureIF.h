@@ -30,9 +30,6 @@ public:
     Bloc *getBlocElse() const;
     void setBlocElse(Bloc *blocElse);
     void setBlocElse(Instruction* instruction);
-
-    void addIFetELSE(vector);
-
     friend ostream &operator<<(ostream &os, const StructureIF &anIf);
 };
 

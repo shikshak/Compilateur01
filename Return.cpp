@@ -18,4 +18,11 @@ ostream &operator<<(ostream &os, const Return &aReturn) {
     return os;
 }
 
-Return::Return(Expression *expression) : expression(expression) {}
+Return::~Return() {
+
+}
+
+Return::Return() {
+
+}
+

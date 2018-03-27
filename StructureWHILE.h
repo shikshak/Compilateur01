@@ -15,8 +15,6 @@ class StructureWHILE : public Structure {
 public:
     StructureWHILE();
 
-    StructureWHILE(Condition *condition, Bloc *bloc);
-
     virtual ~StructureWHILE();
 
 private:

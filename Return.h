@@ -15,8 +15,6 @@ class Return : public Instruction{
 public:
     Return();
 
-    Return(Expression *expression);
-
     virtual ~Return();
 
 private:

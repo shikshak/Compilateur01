@@ -115,12 +115,9 @@ declaration
 
 //Structures de controle
 structure_if
-    :   'if' '(' expr ')'  clause   #structureif_normal
+    :   'if' '(' expr ')'  ( '{' bloc '}' | instruction ) else_   #structureif_normal
     ;
 
-clause
-    :   ( '{' bloc '}' | instruction ) else_    #clause_normal
-    ;
 
 else_
     :   ( 'else' ( '{' bloc '}' | instruction ) )? #else_normal

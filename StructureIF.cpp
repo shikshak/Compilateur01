@@ -28,15 +28,7 @@ ostream &operator<<(ostream &os, const StructureIF &anIf) {
     return os;
 }
 
-void StructureIF::addIFetELSE(vector vecteur) {
-    if(vecteur.size() == 1) {
-        setBloc(vecteur[0]);
-    }
-    else if (vecteur.size() == 2) {
-        setBloc(vecteur[0]);
-        setBlocElse(vecteur[1]);
-    }
-}
+
 
 void StructureIF::setBloc(Instruction *instruction) {
     Bloc* bloc_ = new Bloc();

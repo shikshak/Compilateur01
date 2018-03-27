@@ -35,8 +35,8 @@ public:
     friend ostream &operator<<(ostream &os, const Variable &variable);
 
 private:
-    static Type type;
-    static string nom;
+    Type type;
+    string nom;
 
 };
 

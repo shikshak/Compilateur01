@@ -4,7 +4,7 @@
 
 #include "Variable.h"
 
-Variable::~Variable() = default;
+
 
 Variable::Type Variable::getType() const {
     return type;
@@ -42,5 +42,9 @@ Variable::Variable() = default;
 Variable::Variable(Variable::Type type, const string &nom) {
     setNom(nom);
     setType(type);
+}
+
+Variable::~Variable() {
+
 }
 

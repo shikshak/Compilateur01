@@ -31,7 +31,7 @@ void ExpressionOperateur::setRightExpression(Expression *rightExpression) {
 }
 
 const ExpressionOperateur::Operateur &ExpressionOperateur::getOperateur() const {
-    return <#initializer#>;
+    return operateur;
 }
 
 ostream &operator<<(ostream &os, const ExpressionOperateur &operateur) {

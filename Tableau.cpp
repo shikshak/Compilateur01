@@ -5,7 +5,8 @@
 #include "Tableau.h"
 
 Tableau::~Tableau() {
-
+    delete(hasValeur);
+    delete(valeur);
 }
 
 unsigned int Tableau::getTaille() const {
