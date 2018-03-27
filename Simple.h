@@ -14,20 +14,26 @@ class Simple: public Variable {
 
 
 public:
-    Simple();
-    Simple(Type type, const string &nom, bool hasValeur, const string &valeur);
 
-private:
-    virtual ~Simple();
+    Simple(Type type, const string &nom, const string &valeur);
 
-private:
-    string valeur;
-public:
     const string &getValeur() const;
+
+    bool isHasValeur() const;
 
     void setValeur(const string &valeur);
 
     friend ostream &operator<<(ostream &os, const Simple &simple);
+
+    ~Simple() override;
+
+    void setHasValeur(bool hasValeur);
+
+private:
+    string valeur;
+    bool hasValeur;
+
+
 };
 
 

@@ -20,7 +20,7 @@ fonction
 
 parametre
     :   type_var nom_var parametre1     #parametre_normal
-    |   type_var nom_var '[' expr ']'   #parametre_tableau
+    |   type_var nom_var '[' expr ']' parametre1  #parametre_tableau
     ;
 
 parametre1
@@ -106,7 +106,8 @@ declaration
     :   type_var nom_var (',' nom_var)* ';' #declaration_normale
     |   type_var nom_var '=' expr ';'       #declaration_definition
     |   type_var nom_var '[' expr ']'';'    #declaration_tableau
-    |   type_var nom_var '[' expr ']' '=' '{' CHIFFRE (',' CHIFFRE)* '}' ';'     #declaration_definitiontableau
+    |   type_var nom_var '[' expr ']' '=' '{' NOMBRE (',' NOMBRE)* '}' ';'     #declaration_definitiontableau_nombre
+    |   type_var nom_var '[' expr ']' '=' '{' CHAR (',' CHAR)* '}' ';'     #declaration_definitiontableau_char
     ;
 
 
@@ -122,7 +123,7 @@ clause
     ;
 
 else_
-    :   ( 'else' ( '{' bloc '}' | instruction ) )* #else_normal
+    :   ( 'else' ( '{' bloc '}' | instruction ) )? #else_normal
     ;
 
 

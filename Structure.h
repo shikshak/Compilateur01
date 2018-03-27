@@ -16,7 +16,7 @@ public:
 
     explicit Structure(Condition *condition); //c'est lui qui m'a dit de mettre explicit j'ai pas cherche a comprendre, un truc avec la convertion automatique aski^p
 
-    virtual ~Structure();
+    ~Structure() override;
 
 private:
     Condition* condition;

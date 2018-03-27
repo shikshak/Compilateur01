@@ -18,25 +18,26 @@ public:
 
     Variable();
 
-    Variable(Type type, const string &nom, bool hasValeur);
+    Variable(Type type, const string &nom);
 
     virtual ~Variable();
 
-public:
-    Type getType() const;
     void setType(Type type);
+
     void setType(string type);
-    const string &getNom() const;
+
     void setNom(const string &nom);
-    bool isHasValeur() const;
-    void setHasValeur(bool hasValeur);
+
+    const string &getNom() const;
+
+    Type getType() const;
 
     friend ostream &operator<<(ostream &os, const Variable &variable);
 
 private:
-    Type type;
-    string nom;
-    bool hasValeur;
+    static Type type;
+    static string nom;
+
 };
 
 

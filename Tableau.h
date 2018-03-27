@@ -7,6 +7,7 @@
 
 
 #include <ostream>
+#include <vector>
 #include "Variable.h"
 
 class Tableau : public Variable {
@@ -14,22 +15,28 @@ class Tableau : public Variable {
 public:
     Tableau();
 
-    Tableau(Type type, const string &nom, bool hasValeur, unsigned int taille, string *valeur);
+    Tableau(Type type, const string &nom);
 
     virtual ~Tableau();
 
 private:
     unsigned int taille;
     unsigned int position;
-    string *valeur;
+    string * valeur;
+    bool * hasValeur;
+
 public:
+    void setHasValeur(int position, bool hasValeur);
+
+    bool getHasValeur(int position) const;
+
     unsigned int getTaille() const;
 
     void setTaille(unsigned int taille);
 
-    string *getValeur() const;
+    string *getValeur(int position) const;
 
-    void setValeur(string *valeur);
+    void setValeur(int position,string valeur);
 
     unsigned int getPosition() const;
 
