@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="pldcomp"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pldcomp">
+				<Option output="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/pldcomp.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/4IF/PLD-COMP/Compilateur01/gen"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 pldcomp"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pldcomp/fast">
+				<Option output="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/pldcomp.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="D:/4IF/PLD-COMP/Compilateur01/gen"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
+					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 pldcomp/fast"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;D:/4IF/PLD-COMP/Compilateur01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Affectation.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Affectation.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/AppelFonction.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/AppelFonction.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Bloc.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Bloc.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Break.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Break.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Condition.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Condition.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Constante.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Constante.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Constructor.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Declaration.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Declaration.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Expression.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Expression.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionIncrementale.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionIncrementale.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionOperateur.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionOperateur.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionUnaire.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/ExpressionUnaire.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Fonction.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Fonction.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Instruction.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Instruction.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Parametre.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Parametre.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Programme.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Programme.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Return.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Return.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Simple.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Simple.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Structure.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Structure.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/StructureIF.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/StructureIF.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/StructureWHILE.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/StructureWHILE.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Tableau.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Tableau.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Variable.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/Variable.h">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/main.cpp">
+			<Option target="pldcomp"/>
+		</Unit>
+		<Unit filename="D:/4IF/PLD-COMP/Compilateur01/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
