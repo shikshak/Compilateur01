@@ -48,3 +48,11 @@ Variable::~Variable() {
 
 }
 
+bool Variable::isIsUsed() const {
+    return isUsed;
+}
+
+void Variable::setIsUsed(bool isUsed) {
+    Variable::isUsed = isUsed;
+}
+

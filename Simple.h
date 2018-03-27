@@ -34,10 +34,6 @@ public:
 private:
     string valeur;
     bool hasValeur;
-    bool isUsed;
-public:
-    void setIsUsed(bool isUsed);
-
 
 };
 

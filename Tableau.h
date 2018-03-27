@@ -23,12 +23,13 @@ private:
     unsigned int taille;
     unsigned int position;
     string * valeur;
-    bool * hasValeur;
-    bool * isUsed;
 public:
-    bool getIsUsed() const;
+    string *getValeur() ;
 
-    void setIsUsed(int position, bool isUsed);
+private:
+    bool * hasValeur;
+
+public:
 
     void setHasValeur(int position, bool hasValeur);
 
@@ -38,13 +39,14 @@ public:
 
     void setTaille(unsigned int taille);
 
-    string getValeur(int position) const;
+    string getValeur(int position);
 
     void setValeur(int position,string valeur);
 
     unsigned int getPosition() const;
 
     void setPosition(unsigned int position);
+
 
     friend ostream &operator<<(ostream &os, const Tableau &tableau);
 };

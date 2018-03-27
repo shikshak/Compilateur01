@@ -18,13 +18,13 @@ void Tableau::setTaille(unsigned int taille) {
     hasValeur = new bool [taille];
     for (int i = 0 ; i< taille ; i++){
         hasValeur[i]=false;
-        isUsed[i]=false;
     }
+    setIsUsed(false);
     valeur = new string [taille];
 }
 
-string Tableau::getValeur(int position) const {
-    isUsed[position]=true;
+string Tableau::getValeur(int position) {
+    setIsUsed(true);
     return valeur[position];
 }
 
@@ -62,15 +62,8 @@ bool Tableau::getHasValeur(int position) const {
     return hasValeur[position];
 }
 
-void Tableau::setIsUsed(int position,bool isUsed) {
-    Tableau::isUsed[position] = isUsed;
-}
-
-bool Tableau::getIsUsed() const {
-    bool ans = false;
-    for (int i = 0; i < taille; i++) {
-        ans = ans && isUsed[i];
-    }
-    return ans;
+string *Tableau::getValeur() {
+    setIsUsed(true);
+    return valeur;
 }
 

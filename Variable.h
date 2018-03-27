@@ -37,6 +37,11 @@ public:
 private:
     Type type;
     string nom;
+    bool isUsed;
+public:
+    bool isIsUsed() const;
+
+    void setIsUsed(bool isUsed);
 
 };
 
