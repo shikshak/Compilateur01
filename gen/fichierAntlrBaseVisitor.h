@@ -51,10 +51,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitParametre1_normal(fichierAntlrParser::Parametre1_normalContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *ctx) override {
     return visitChildren(ctx);
   }

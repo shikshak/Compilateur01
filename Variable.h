@@ -7,6 +7,7 @@
 
 #include <String>
 #include <ostream>
+#include "Parametre.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ public:
 
     const string &getNom() const;
 
-    Type getType() const;
+    Variable::Type getType() const;
 
     friend ostream &operator<<(ostream &os, const Variable &variable);
 

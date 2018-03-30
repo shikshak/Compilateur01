@@ -6,28 +6,14 @@
 
 Parametre::Parametre() {}
 
-Parametre::~Parametre() {
+Parametre::~Parametre() {}
 
+Variable *Parametre::getVariable() const {
+    return variable;
 }
 
-const vector<Expression *> &Parametre::getExpressions() const {
-    return expressions;
+void Parametre::setVariable(Variable *variable) {
+    Parametre::variable = variable;
 }
 
-void Parametre::setExpressions(const vector<Expression *> &expressions) {
-    Parametre::expressions = expressions;
-}
 
-void Parametre::addExpression(Expression *expression) {
-    expressions.push_back(expression);
-}
-
-ostream &operator<<(ostream &os, const Parametre &parametre) {
-    os << "expressions: ";
-    for (auto i: parametre.getExpressions())
-        os << i << ' ';
-    os << std::endl;
-    return os;
-}
-
-Parametre::Parametre(const vector<Expression *> &expressions) : expressions(expressions) {}

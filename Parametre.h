@@ -7,26 +7,27 @@
 
 
 #include <vector>
+#include <string>
 #include <ostream>
-#include "Expression.h"
+#include "Variable.h"
 
+
+using namespace std;
 class Parametre {
 public:
+    enum Type {INT_64, INT_32, CHAR};
     Parametre();
-
-    Parametre(const vector<Expression *> &expressions);
-
     virtual ~Parametre();
 
+
 private:
-    vector<Expression*> expressions;
+    Variable* variable;
 public:
-    const vector<Expression *> &getExpressions() const;
-    void setExpressions(const vector<Expression *> &expressions);
+    Variable *getVariable() const;
 
-    void addExpression (Expression* expression);
+    void setVariable(Variable *variable);
 
-    friend ostream &operator<<(ostream &os, const Parametre &parametre);
+
 };
 
 

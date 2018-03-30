@@ -19,14 +19,9 @@ fonction
     ;
 
 parametre
-    :   type_var nom_var parametre1     #parametre_normal
-    |   type_var nom_var '[' expr ']' parametre1  #parametre_tableau
+    :   type_var nom_var      #parametre_normal
+    |   type_var nom_var '[' CHIFFRE ']'  #parametre_tableau
     ;
-
-parametre1
-    :   (',' parametre)?    #parametre1_normal
-    ;
-
 
 
 //affectation

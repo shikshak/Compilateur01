@@ -46,7 +46,7 @@ public:
 
     void addDeclaration (Declaration* declaration);
 
-    friend ostream &operator<<(ostream &os, const Fonction &fonction);
+
 };
 
 

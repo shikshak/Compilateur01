@@ -37,8 +37,6 @@ public:
 
     virtual antlrcpp::Any visitParametre_tableau(fichierAntlrParser::Parametre_tableauContext *context) = 0;
 
-    virtual antlrcpp::Any visitParametre1_normal(fichierAntlrParser::Parametre1_normalContext *context) = 0;
-
     virtual antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable_tableau(fichierAntlrParser::Variable_tableauContext *context) = 0;

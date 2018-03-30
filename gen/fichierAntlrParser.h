@@ -26,10 +26,10 @@ public:
 
   enum {
     RuleProgramme = 0, RuleMain = 1, RuleFonction = 2, RuleParametre = 3, 
-    RuleParametre1 = 4, RuleVariable = 5, RuleAffectation = 6, RuleExpr = 7, 
-    RuleReturn_ = 8, RuleBreak_ = 9, RuleInstruction = 10, RuleBloc = 11, 
-    RuleDeclaration = 12, RuleStructure_if = 13, RuleElse_ = 14, RuleStructure_while = 15, 
-    RuleNom_var = 16, RuleType_var = 17, RuleType_fonction = 18
+    RuleVariable = 4, RuleAffectation = 5, RuleExpr = 6, RuleReturn_ = 7, 
+    RuleBreak_ = 8, RuleInstruction = 9, RuleBloc = 10, RuleDeclaration = 11, 
+    RuleStructure_if = 12, RuleElse_ = 13, RuleStructure_while = 14, RuleNom_var = 15, 
+    RuleType_var = 16, RuleType_fonction = 17
   };
 
   fichierAntlrParser(antlr4::TokenStream *input);
@@ -46,7 +46,6 @@ public:
   class MainContext;
   class FonctionContext;
   class ParametreContext;
-  class Parametre1Context;
   class VariableContext;
   class AffectationContext;
   class ExprContext;
@@ -210,8 +209,7 @@ public:
 
     Type_varContext *type_var();
     Nom_varContext *nom_var();
-    ExprContext *expr();
-    Parametre1Context *parametre1();
+    antlr4::tree::TerminalNode *CHIFFRE();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -221,34 +219,10 @@ public:
 
     Type_varContext *type_var();
     Nom_varContext *nom_var();
-    Parametre1Context *parametre1();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
   ParametreContext* parametre();
-
-  class  Parametre1Context : public antlr4::ParserRuleContext {
-  public:
-    Parametre1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Parametre1Context() : antlr4::ParserRuleContext() { }
-    void copyFrom(Parametre1Context *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
-    virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Parametre1_normalContext : public Parametre1Context {
-  public:
-    Parametre1_normalContext(Parametre1Context *ctx);
-
-    ParametreContext *parametre();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  Parametre1Context* parametre1();
 
   class  VariableContext : public antlr4::ParserRuleContext {
   public:

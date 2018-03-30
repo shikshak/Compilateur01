@@ -3,7 +3,7 @@
 //
 
 #include "Variable.h"
-
+#include "Parametre.h"
 
 
 Variable::Type Variable::getType() const {
