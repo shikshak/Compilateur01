@@ -1,5 +1,5 @@
 
-// Generated from C:/Users/heyhey/Desktop/4IF/Compilateur01/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
+// Generated from D:/4IF/PLD-COMP/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -147,11 +147,11 @@ public:
 
     virtual antlrcpp::Any visitDeclaration_tableau(fichierAntlrParser::Declaration_tableauContext *context) = 0;
 
-    virtual antlrcpp::Any visitDeclaration_definitiontableau(fichierAntlrParser::Declaration_definitiontableauContext *context) = 0;
+    virtual antlrcpp::Any visitDeclaration_definitiontableau_nombre(fichierAntlrParser::Declaration_definitiontableau_nombreContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclaration_definitiontableau_char(fichierAntlrParser::Declaration_definitiontableau_charContext *context) = 0;
 
     virtual antlrcpp::Any visitStructureif_normal(fichierAntlrParser::Structureif_normalContext *context) = 0;
-
-    virtual antlrcpp::Any visitClause_normal(fichierAntlrParser::Clause_normalContext *context) = 0;
 
     virtual antlrcpp::Any visitElse_normal(fichierAntlrParser::Else_normalContext *context) = 0;
 

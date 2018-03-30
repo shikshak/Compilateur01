@@ -38,7 +38,7 @@ public:
 
     antlrcpp::Any visitMain_avecparametre(fichierAntlrParser::Main_avecparametreContext *ctx) override {
         Fonction* fonction_ = new Fonction();
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string) visit(ctx->type_fonction()));
         fonction_->setNom("main");
         fonction_->setParametre(visit(ctx->parametre()));
         for(auto i : ctx->declaration()){
@@ -51,7 +51,7 @@ public:
     antlrcpp::Any visitMain_sansparametre(fichierAntlrParser::Main_sansparametreContext *ctx) override {
         Fonction* fonction_ = new Fonction();
 
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string)visit(ctx->type_fonction()));
         fonction_->setNom("main");
         for(auto i : ctx->declaration()){
             fonction_->addDeclaration(visit(i));
@@ -62,7 +62,7 @@ public:
 
     antlrcpp::Any visitMain_parametrevoid(fichierAntlrParser::Main_parametrevoidContext *ctx) override {
         Fonction* fonction_ = new Fonction();
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string)visit(ctx->type_fonction()));
         fonction_->setNom("main");
         for(auto i : ctx->declaration()){
             fonction_->addDeclaration(visit(i));
@@ -73,7 +73,7 @@ public:
 
     antlrcpp::Any visitFonction_avecparametre(fichierAntlrParser::Fonction_avecparametreContext *ctx) override {
         Fonction* fonction_ = new Fonction();
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string)visit(ctx->type_fonction()));
         fonction_->setNom(visit(ctx->nom_var()));
         fonction_->setParametre(visit(ctx->parametre()));
         for(auto i : ctx->declaration()){
@@ -85,7 +85,7 @@ public:
 
     antlrcpp::Any visitFonction_sansparametre(fichierAntlrParser::Fonction_sansparametreContext *ctx) override {
         Fonction* fonction_ = new Fonction();
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string)visit(ctx->type_fonction()));
         fonction_->setNom(visit(ctx->nom_var()));
         for(auto i : ctx->declaration()){
             fonction_->addDeclaration(visit(i));
@@ -96,7 +96,7 @@ public:
 
     antlrcpp::Any visitFonction_parametrevoid(fichierAntlrParser::Fonction_parametrevoidContext *ctx) override {
         Fonction* fonction_ = new Fonction();
-        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setType((string)visit(ctx->type_fonction()));
         fonction_->setNom(visit(ctx->nom_var()));
         for(auto i : ctx->declaration()){
             fonction_->addDeclaration(visit(i));
@@ -563,7 +563,7 @@ public:
         Declaration* decl = new Declaration();
         Simple* var = new Simple();
         var->setNom(visit(ctx->nom_var()));
-        var->setType(visit(ctx->type_var()));
+        var->setType((string)visit(ctx->type_var()));
         var->setValeur(visit(ctx->expr()));
         decl->addVariable(var);
 
@@ -586,7 +586,7 @@ public:
         Declaration* decl = new Declaration();
         Tableau* var = new Tableau();
         var->setNom(visit(ctx->nom_var()));
-        var->setType(visit(ctx->type_var()));
+        var->setType((string)visit(ctx->type_var()));
         var->setTaille(visit(ctx->CHIFFRE));
         var->setValeur(visit(ctx->expr()));
         decl->addVariable(var);

@@ -1,5 +1,5 @@
 
-// Generated from C:/Users/heyhey/Desktop/4IF/Compilateur01/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
+// Generated from D:/4IF/PLD-COMP/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -271,15 +271,15 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDeclaration_definitiontableau(fichierAntlrParser::Declaration_definitiontableauContext *ctx) override {
+  virtual antlrcpp::Any visitDeclaration_definitiontableau_nombre(fichierAntlrParser::Declaration_definitiontableau_nombreContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDeclaration_definitiontableau_char(fichierAntlrParser::Declaration_definitiontableau_charContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitStructureif_normal(fichierAntlrParser::Structureif_normalContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitClause_normal(fichierAntlrParser::Clause_normalContext *ctx) override {
     return visitChildren(ctx);
   }
 

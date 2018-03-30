@@ -1,5 +1,5 @@
 
-// Generated from C:/Users/heyhey/Desktop/4IF/Compilateur01/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
+// Generated from D:/4IF/PLD-COMP/Compilateur01\fichierAntlr.g4 by ANTLR 4.7
 
 #pragma once
 
@@ -28,8 +28,8 @@ public:
     RuleProgramme = 0, RuleMain = 1, RuleFonction = 2, RuleParametre = 3, 
     RuleParametre1 = 4, RuleVariable = 5, RuleAffectation = 6, RuleExpr = 7, 
     RuleReturn_ = 8, RuleBreak_ = 9, RuleInstruction = 10, RuleBloc = 11, 
-    RuleDeclaration = 12, RuleStructure_if = 13, RuleClause = 14, RuleElse_ = 15, 
-    RuleStructure_while = 16, RuleNom_var = 17, RuleType_var = 18, RuleType_fonction = 19
+    RuleDeclaration = 12, RuleStructure_if = 13, RuleElse_ = 14, RuleStructure_while = 15, 
+    RuleNom_var = 16, RuleType_var = 17, RuleType_fonction = 18
   };
 
   fichierAntlrParser(antlr4::TokenStream *input);
@@ -56,7 +56,6 @@ public:
   class BlocContext;
   class DeclarationContext;
   class Structure_ifContext;
-  class ClauseContext;
   class Else_Context;
   class Structure_whileContext;
   class Nom_varContext;
@@ -212,6 +211,7 @@ public:
     Type_varContext *type_var();
     Nom_varContext *nom_var();
     ExprContext *expr();
+    Parametre1Context *parametre1();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -837,15 +837,27 @@ public:
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  class  Declaration_definitiontableauContext : public DeclarationContext {
+  class  Declaration_definitiontableau_charContext : public DeclarationContext {
   public:
-    Declaration_definitiontableauContext(DeclarationContext *ctx);
+    Declaration_definitiontableau_charContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
     Nom_varContext *nom_var();
     ExprContext *expr();
-    std::vector<antlr4::tree::TerminalNode *> CHIFFRE();
-    antlr4::tree::TerminalNode* CHIFFRE(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> CHAR();
+    antlr4::tree::TerminalNode* CHAR(size_t i);
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  Declaration_definitiontableau_nombreContext : public DeclarationContext {
+  public:
+    Declaration_definitiontableau_nombreContext(DeclarationContext *ctx);
+
+    Type_varContext *type_var();
+    Nom_varContext *nom_var();
+    ExprContext *expr();
+    std::vector<antlr4::tree::TerminalNode *> NOMBRE();
+    antlr4::tree::TerminalNode* NOMBRE(size_t i);
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -869,36 +881,13 @@ public:
     Structureif_normalContext(Structure_ifContext *ctx);
 
     ExprContext *expr();
-    ClauseContext *clause();
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-  };
-
-  Structure_ifContext* structure_if();
-
-  class  ClauseContext : public antlr4::ParserRuleContext {
-  public:
-    ClauseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    ClauseContext() : antlr4::ParserRuleContext() { }
-    void copyFrom(ClauseContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
-    virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Clause_normalContext : public ClauseContext {
-  public:
-    Clause_normalContext(ClauseContext *ctx);
-
     Else_Context *else_();
     BlocContext *bloc();
     InstructionContext *instruction();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
-  ClauseContext* clause();
+  Structure_ifContext* structure_if();
 
   class  Else_Context : public antlr4::ParserRuleContext {
   public:
@@ -917,10 +906,8 @@ public:
   public:
     Else_normalContext(Else_Context *ctx);
 
-    std::vector<BlocContext *> bloc();
-    BlocContext* bloc(size_t i);
-    std::vector<InstructionContext *> instruction();
-    InstructionContext* instruction(size_t i);
+    BlocContext *bloc();
+    InstructionContext *instruction();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
