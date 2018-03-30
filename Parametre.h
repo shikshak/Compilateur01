@@ -18,14 +18,13 @@ public:
     enum Type {INT_64, INT_32, CHAR};
     Parametre();
     virtual ~Parametre();
+    Variable *getVariable() const;
+    void setVariable(Variable *variable);
 
 
 private:
     Variable* variable;
-public:
-    Variable *getVariable() const;
 
-    void setVariable(Variable *variable);
 
 
 };

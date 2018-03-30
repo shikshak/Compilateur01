@@ -7,7 +7,7 @@
 
 #include <String>
 #include <ostream>
-#include "Parametre.h"
+
 
 using namespace std;
 
