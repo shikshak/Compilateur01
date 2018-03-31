@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <ostream>
+#include <map>
 
 #include "Declaration.h"
 #include "Fonction.h"
@@ -34,7 +35,8 @@ public:
 
     void addDeclaration (Declaration *declaration);
     void addFonction (Fonction* fonction);
-
+    void resoudrePorte();
+    bool verificationStatic(map<std::string, vector<Variable *>> myMap);
     friend ostream &operator<<(ostream &os, const Programme &programme);
 };
 #endif //PLDCOMP_PROGRAMME_H

@@ -7,7 +7,6 @@
 
 
 #include "../Programme.h"
-#include "CFG.h"
 
 class RI {
 

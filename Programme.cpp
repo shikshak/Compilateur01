@@ -3,6 +3,7 @@
 //
 
 #include "Programme.h"
+#include <map>
 
 Programme::Programme() {
 }
@@ -58,3 +59,38 @@ ostream &operator<<(ostream &os, const Programme &programme) {
 Programme::Programme(const vector<Declaration *> &declarations, const vector<Fonction *> &fonctions, Fonction *main)
         : declarations(declarations), fonctions(fonctions), main(main) {}
 
+void Programme::resoudrePorte() {
+    std::map<std::string, vector<Variable *>> myMap;
+    std::vector<std::string> pileFonction;
+
+    std::vector<Fonction *> fonctions = getFonctions();
+
+    //Pour chaque fonction
+
+    for (auto i: fonctions){
+        std::vector<std::string> pileVariable;
+        pileFonction.push_back(i->getNom());
+
+        //Ajouter les Paramètres
+
+        Variable * par = i->getParametre()->getVariable();
+
+            pileVariable.push_back(par->getNom());
+
+
+        //Ajouter les variables
+
+        std::vector<Declaration *> declarations = i->getDeclarations();
+        for (auto dec : declarations ){
+            pileVariable.insert(pileVariable.end(),dec->getVariables().begin(),dec->getVariables().end());
+        }
+        myMap.insert(std::pair<std::string,vector<Variable *>>(i->getNom(),pileVariable));
+    }
+
+}
+
+bool Programme::verificationStatic(map<std::string, vector<Variable *>> myMap) {
+
+
+
+}
