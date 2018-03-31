@@ -11,6 +11,8 @@
 #include "../Programme.h"
 #include "../Bloc.h"
 #include "IR.h"
+#include "../Expression.h"
+
 class BuildIR {
 
 private:
@@ -22,8 +24,11 @@ public:
 
     void programToIR(Programme* prog);
     void blocToIR(Bloc* fct);
-
+    void DeclarationToIR(vector<Declaration*> declarations);
+    string ExpressionToIR(Expression *exp);
     virtual ~BuildIR();
+
+
 };
 
 
