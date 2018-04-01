@@ -7,11 +7,12 @@
 
 #include <String>
 #include <ostream>
+#include "Expression.h"
 
 
 using namespace std;
 
-class Variable {
+class Variable : public Expression{
 
 public:
 

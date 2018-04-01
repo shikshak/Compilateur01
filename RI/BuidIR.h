@@ -21,11 +21,12 @@ private:
     BasicBlock* current_bb;
 public:
     BuildIR();
-
+    BuildIR(Programme* prog);
     void programToIR(Programme* prog);
     void blocToIR(Bloc* fct);
     void DeclarationToIR(vector<Declaration*> declarations);
     string ExpressionToIR(Expression *exp);
+    string VariableToIR(Variable* var);
     virtual ~BuildIR();
 
 

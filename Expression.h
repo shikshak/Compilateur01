@@ -7,10 +7,10 @@
 
 #include <string>
 #include <ostream>
-
+#include "Instruction.h"
 using namespace std;
 
-class Expression {
+class Expression : public Instruction {
 public:
     Expression();
 

@@ -3,13 +3,28 @@
 //
 
 #include "IR.h"
-
+#include <iostream>
 //***********************IRInstr*******************************
-IRInstr::IRInstr(BasicBlock *bb_, IRInstr::Operation op, Type t, vector<string> params) {
-    this->bb = bb_;
+IRInstr::IRInstr(BasicBlock *bb, IRInstr::Operation op, Type t, vector<string> params) {
+    this->bb = bb;
     this->op = op;
     this->t = t;
     this->params = params;
+    cout << bb->label +" label ";
+    if (t == Type::int64)
+        cout << "int64 ";
+    if (op == IRInstr::wmem){
+    cout << "wmem " ;
+    }else if (op == IRInstr::add){
+        cout << "add " ;
+    }else if (op == IRInstr::sub){
+        cout << "sub " ;
+    }
+
+    for (auto par:params){
+        cout << par+" ";
+    }
+    cout << "\n";
 }
 
 void IRInstr::gen_asm(ostream &o) {
@@ -21,7 +36,7 @@ void IRInstr::gen_asm(ostream &o) {
 CFG::CFG(Fonction *ast) {
     this-> ast = ast;
     current_bb = NULL;
-    nextFreeSymbolIndex = -8;
+    nextFreeSymbolIndex = 0;
     nextBBnumber = 1;
     nextTmp = 0;
     nextVar = 0;
@@ -36,7 +51,7 @@ void CFG::add_to_symbol_table(string name, Type t) {
 
 string CFG::create_new_tempvar(Type t) {
 
-    string tmp = "!tmp"+nextTmp;
+    string tmp = "!tmp"+to_string(nextTmp);
     add_to_symbol_table(tmp,t);
     nextTmp++;
     return tmp;
@@ -47,7 +62,8 @@ void CFG::add_bb(BasicBlock *bb) {
 }
 
 string CFG::new_BB_name() {
-    return "b_"+to_string(nextBBnumber);
+    string s = "b_"+to_string(nextBBnumber);
+    return s;
 }
 
 void CFG::gen_asm(ostream &o) {
@@ -77,7 +93,7 @@ Type CFG::get_var_type(string name) {
 
 //************************** BasicBlock *********************************************
 
-BasicBlock::BasicBlock(CFG *cfg, string entry_label) {
+BasicBlock::BasicBlock(CFG *cfg, string label) {
     this->cfg = cfg;
     this->label = label;
 }

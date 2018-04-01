@@ -10,16 +10,16 @@
 #include "Expression.h"
 
 class ExpressionOperateur : public Expression {
-
-    enum Operateur {MULTIPLICATION, DIVISION, MOD, PLUS, MOINS, INFINF, SUPSUP, ET, OU, CHAPEAU, ETET, OUOU, INF, INFEGAL, SUP, SUPEGAL, EGALEGAL, DIFFEGAL};
 public:
+    enum Operateur {MULTIPLICATION, DIVISION, MOD, PLUS, MOINS, INFINF, SUPSUP, ET, OU, CHAPEAU, ETET, OUOU, INF, INFEGAL, SUP, SUPEGAL, EGALEGAL, DIFFEGAL};
+
     ExpressionOperateur();
 
     ExpressionOperateur(Expression *leftExpression, Operateur operateur, Expression *rightExpression);
 
     virtual ~ExpressionOperateur();
 
-private:
+public:
     Expression* leftExpression;
     Operateur operateur;
     Expression* rightExpression;

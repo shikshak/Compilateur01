@@ -59,7 +59,7 @@ ostream &operator<<(ostream &os, const Programme &programme) {
 Programme::Programme(const vector<Declaration *> &declarations, const vector<Fonction *> &fonctions, Fonction *main)
         : declarations(declarations), fonctions(fonctions), main(main) {}
 
-void Programme::resoudrePorte() {
+/*void Programme::resoudrePorte() {
     std::map<std::string, vector<Variable *>> myMap;
     std::vector<std::string> pileFonction;
 
@@ -94,3 +94,4 @@ bool Programme::verificationStatic(map<std::string, vector<Variable *>> myMap) {
 
 
 }
+*/

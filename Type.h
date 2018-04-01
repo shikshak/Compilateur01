@@ -10,7 +10,7 @@
 
 #include <string>
 
-enum Type { int32, int64, char};
+enum Type { int32, int64};
 
 #endif //PLDCOMP_TYPE_H
 
