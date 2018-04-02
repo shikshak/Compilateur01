@@ -64,12 +64,15 @@ void CFG::add_bb(BasicBlock *bb) {
 }
 
 string CFG::new_BB_name() {
+
     string s = "b_"+to_string(nextBBnumber);
     return s;
 }
 
-void CFG::gen_asm(ostream &o) {
-
+void CFG::gen_asm(ostream& o) {
+    gen_asm_prologue(o);
+    gen_asm_body(o);
+    gen_asm_epilogue(o);
 }
 
 string CFG::IR_reg_to_asm(string reg) {
@@ -82,6 +85,14 @@ void CFG::gen_asm_prologue(ostream& o) {
     string str = "";
     str = "subq" + to_string(nbVar) + "%rsp";
     o.write(str.c_str(),50);
+}
+
+void CFG::gen_asm_body(ostream& o){
+
+    for(vector<BasicBlock*>::iterator it= bbs.begin() ; it != bbs.end() ; it++)
+    {
+        (*it)->gen_asm(o);
+    }
 }
 
 void CFG::gen_asm_epilogue(ostream& o) {
