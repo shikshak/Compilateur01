@@ -40,6 +40,7 @@ CFG::CFG(Fonction *ast) {
     nextBBnumber = 1;
     nextTmp = 0;
     nextVar = 0;
+    nbVar = 0;
 }
 
 void CFG::add_to_symbol_table(string name, Type t) {
@@ -54,6 +55,7 @@ string CFG::create_new_tempvar(Type t) {
     string tmp = "!tmp"+to_string(nextTmp);
     add_to_symbol_table(tmp,t);
     nextTmp++;
+    nbVar++;
     return tmp;
 }
 
@@ -74,11 +76,17 @@ string CFG::IR_reg_to_asm(string reg) {
     return std::string();
 }
 
-void CFG::gen_asm_prologue(ostream &o) {
-
+void CFG::gen_asm_prologue(ostream& o) {
+    o.write("pushq %rbp",50);
+    o.write("movq %rsp, %rbp",50);
+    string str = "";
+    str = "subq" + to_string(nbVar) + "%rsp";
+    o.write(str.c_str(),50);
 }
 
-void CFG::gen_asm_epilogue(ostream &o) {
+void CFG::gen_asm_epilogue(ostream& o) {
+    o.write("leave",50);
+    o.write("ret",50);
 
 }
 
