@@ -40,7 +40,7 @@ public:
 
     /** Actual code generation */
     void gen_asm(ostream &o); /**< x86 assembly code generation for this IR instruction */
-
+    void print();
 private:
     BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
     Operation op;
@@ -80,7 +80,10 @@ public:
     BasicBlock* exit_false; /**< pointer to the next basic block, false branch. If null_ptr, the basic block ends with an unconditional jump */
     string label; /**< label of the BB, also will be the label in the generated code */
     CFG* cfg; /** < the CFG where this block belongs */
-    vector<IRInstr*> instrs; /** < the instructions themselves. */
+    vector<IRInstr*> instrs;
+
+    const vector<IRInstr *> &getInstrs() const;
+    /** < the instructions themselves. */
 protected:
 
 
@@ -112,6 +115,7 @@ public:
     string IR_reg_to_asm(string reg); /**< helper method: inputs a IR reg or input variable, returns e.g. "-24(%rbp)" for the proper value of 24 */
     void gen_asm_prologue(ostream& o);
     void gen_asm_epilogue(ostream& o);
+    void gen_asm_body(ostream& o);
 
     // symbol table methods
     void add_to_symbol_table(string name, Type t);
@@ -130,7 +134,10 @@ protected:
     int nextBBnumber; /**< just for naming */
     int nextVar;
     int nextTmp;
-    vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
+    vector <BasicBlock*> bbs;
+public:
+    const vector<BasicBlock *> &getBbs() const;
+    /**< all the basic blocks of this CFG*/
 };
 
 

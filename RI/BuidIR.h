@@ -17,6 +17,21 @@ class BuildIR {
 
 private:
     std::vector<CFG*> CFGs;
+public:
+    const vector<CFG *> &getCFGs() const;
+
+    CFG *getCurrent_cfg() const;
+
+    BasicBlock *getCurrent_bb() const;
+
+public:
+    void setCFGs(const vector<CFG *> &CFGs);
+
+    void setCurrent_cfg(CFG *current_cfg);
+
+    void setCurrent_bb(BasicBlock *current_bb);
+
+private:
     CFG* current_cfg;
     BasicBlock* current_bb;
 public:
@@ -27,6 +42,9 @@ public:
     void DeclarationToIR(vector<Declaration*> declarations);
     string ExpressionToIR(Expression *exp);
     string VariableToIR(Variable* var);
+    string LValueToIR(Variable* var);
+
+    void print();
     virtual ~BuildIR();
 
 
