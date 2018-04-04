@@ -30,6 +30,7 @@ public:
         rmem,
         wmem,
         call,
+        ret,
         cmp_eq,
         cmp_lt,
         cmp_le
@@ -42,6 +43,7 @@ public:
     /** Actual code generation */
     void gen_asm(ostream &o); /**< x86 assembly code generation for this IR instruction */
     void print();
+    string chooseRegister(int num);
 private:
     BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
     Operation op;

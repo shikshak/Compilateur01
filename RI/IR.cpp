@@ -15,6 +15,7 @@ IRInstr::IRInstr(BasicBlock *bb, IRInstr::Operation op, Type t, vector<string> p
 void IRInstr::gen_asm(ostream &o) {
     string str;
     string operateur;
+    int paramNum =0;
     switch (this->op) {
         case Operation::ldconst :
             operateur = "movq";
@@ -45,7 +46,30 @@ void IRInstr::gen_asm(ostream &o) {
             break;
         default:
             break;
+        case Operation::call :
+            while((params.size() - paramNum) > 1 )
+            {
+                string p = params.at(params.size()-paramNum-1);
+                operateur = "movq";
+                str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
+                o<<str<<endl;
+                paramNum++;
+            }
+            o<< "\ncall " +params.at(0)<<endl;
+            break;
 
+    }
+}
+string IRInstr::chooseRegister(int num)
+{
+    switch(num)
+    {
+        case 0: return "%rdi"; break;
+        case 1: return "%rsi"; break;
+        case 2: return "%rdx"; break;
+        case 3: return "%rcx"; break;
+        case 4: return "%r8"; break;
+        case 5: return "%r9"; break;
     }
 }
 void IRInstr::print() {
@@ -170,7 +194,6 @@ void BasicBlock::gen_asm(ostream &o) {
     for(auto ir : this->getInstrs())
     {
         (ir)->gen_asm(o);
-
     }
 
 }
