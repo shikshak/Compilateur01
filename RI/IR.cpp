@@ -13,15 +13,13 @@ IRInstr::IRInstr(BasicBlock *bb, IRInstr::Operation op, Type t, vector<string> p
 }
 
 void IRInstr::gen_asm(ostream &o) {
-    cout<<" gen-asm ir";
     string str;
     string operateur;
-    int paramNum = 0;
     switch (this->op) {
         case Operation::ldconst :
             operateur = "movq";
             str= "\n"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
-            o<< str << endl;
+            o << str;
             break;
         case Operation::sub :
             str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
@@ -32,19 +30,20 @@ void IRInstr::gen_asm(ostream &o) {
             o << str << endl;
             break;
         case Operation::add :
-            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
-            o << str << endl;
-            str = "\naddq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
-            o << str << endl;
-            str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
-            o << str << endl;
+            o << "movq " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp), %rax"<< "\n";
+            o << "addq" <<  to_string(bb->cfg->get_var_index(params.at(1))) << "(%rbp), %rax"<< endl;
+            //cout << str;
+            o <<"movq %rax, " << to_string(bb->cfg->get_var_index(params.at(0))) << "(%rbp)"<< endl;
+            //cout << str;
             break;
         case Operation::copy :
             operateur = "movq";
             str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
-            o<<str<<endl;
+            o << str ;
             str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
-            o<<str<<endl;
+            o << str;
+            break;
+        default:
             break;
 
     }
@@ -60,7 +59,9 @@ void IRInstr::print() {
         }else if (op == IRInstr::call){
             cout << "call " ;
         }
-
+        else if (op == IRInstr::ldconst){
+            cout << "ldconst " ;
+        }
         for (auto par:params){
             cout << par+" ";
         }
@@ -106,12 +107,10 @@ string CFG::new_BB_name() {
 }
 
 void CFG::gen_asm(ostream& o) {
-    //cout << "\nI m here cfg";
     gen_asm_prologue(o);
-    cout <<"\n";
+    o <<"\n";
     gen_asm_body(o);
-    cout <<"\n";
-    cout << "Epilog : ";
+    o <<"\n";
     gen_asm_epilogue(o);
 }
 
@@ -120,17 +119,16 @@ string CFG::IR_reg_to_asm(string reg) {
 }
 
 void CFG::gen_asm_prologue(ostream& o) {
-    cout << "\npushq %rbp";
-    cout << "\nmovq %rsp, %rbp";
+    o << "\npushq %rbp";
+    o << "\nmovq %rsp, %rbp";
     //o.write("\npushq %rbp",50);
     //o.write("\nmovq %rsp, %rbp",50);
     string str = "";
     str = "\nsubq " + to_string(nextVar) + "%rsp";
-    cout << str <<"\n";
+    o << str <<"\n";
 }
 
 void CFG::gen_asm_body(ostream& o){
-
     for(BasicBlock* bb : getBbs())
     {
         (bb)->gen_asm(o);
@@ -140,8 +138,6 @@ void CFG::gen_asm_body(ostream& o){
 void CFG::gen_asm_epilogue(ostream& o) {
     cout << "leave" <<"\n";
     cout << "ret" <<"\n";
-    /*o.write("\nleave",50);
-    o.write("\nret",50);*/
 
 }
 
@@ -171,10 +167,12 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op, Type t, vector<string> param
 }
 
 void BasicBlock::gen_asm(ostream &o) {
-    //cout<<"hola";
-    for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
+    for(auto ir : this->getInstrs())
     {
-        (*it)->gen_asm(o);
+        ir->print();
+        (ir)->gen_asm(o);
+        cout<<"généré";
+
     }
 
 }

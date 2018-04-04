@@ -156,8 +156,8 @@ string BuildIR::ExpressionToIR(Expression* exp) {
         string var1 = cst->getValeur();
         string var2 = current_cfg->create_new_tempvar(Type::int64);
         vector<string> params;
-        params.push_back(var1);
         params.push_back(var2);
+        params.push_back(var1);
         current_bb->add_IRInstr(IRInstr::ldconst,Type::int64,params);
         return var2;
     }else if( AppelFonction* apl = dynamic_cast<AppelFonction *>(exp)){
