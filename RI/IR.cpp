@@ -10,50 +10,50 @@ IRInstr::IRInstr(BasicBlock *bb, IRInstr::Operation op, Type t, vector<string> p
     this->op = op;
     this->t = t;
     this->params = params;
-    cout << bb->label +" label ";
-    if (t == Type::int64)
-        cout << "int64 ";
-    if (op == IRInstr::wmem){
-    cout << "wmem " ;
-    }else if (op == IRInstr::add){
-        cout << "add " ;
-    }else if (op == IRInstr::sub){
-        cout << "sub " ;
-    }
-
-    for (auto par:params){
-        cout << par+" ";
-    }
-    cout << "\n";
 }
 
 void IRInstr::gen_asm(ostream &o) {
     string str;
     string operateur;
-    int paramNum =0;
-    switch(this->op)
-    {
+    int paramNum = 0;
+    switch (this->op) {
         case Operation::sub :
-            str = "\tmovq "+ to_string(bb_->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
-            o<<str<<endl;
-            str = "\tsubq "+ to_string(bb_->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
-            o<<str<<endl;
-            str = "\tmovq %rax, "+ to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp)";
-            o<<str<<endl;
+            str = "\tmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+            o << str << endl;
+            str = "\tsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+            o << str << endl;
+            str = "\tmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
+            o << str << endl;
             break;
         case Operation::add :
-            str = "\tmovq "+ to_string(bb_->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
-            o<<str<<endl;
-            str = "\taddq "+ to_string(bb_->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
-            o<<str<<endl;
-            str = "\tmovq %rax, "+ to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp)";
-            o<<str<<endl;
+            str = "\tmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+            o << str << endl;
+            str = "\taddq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+            o << str << endl;
+            str = "\tmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
+            o << str << endl;
             break;
 
 
     }
-
 }
+void IRInstr::print() {
+        cout << bb->label +" label ";
+        if (op == IRInstr::wmem){
+            cout << "wmem " ;
+        }else if (op == IRInstr::add){
+            cout << "add " ;
+        }else if (op == IRInstr::sub){
+            cout << "sub " ;
+        }
+
+        for (auto par:params){
+            cout << par+" ";
+        }
+        cout << "\n";
+}
+
+
 
 //*********************CFG***********************************
 
@@ -132,6 +132,10 @@ Type CFG::get_var_type(string name) {
     return Type::int64;
 }
 
+const vector<BasicBlock *> &CFG::getBbs() const {
+    return bbs;
+}
+
 
 //************************** BasicBlock *********************************************
 
@@ -152,7 +156,9 @@ void BasicBlock::gen_asm(ostream &o) {
     }
 
 }
-
+const vector<IRInstr *> &BasicBlock::getInstrs() const {
+    return instrs;
+}
 
 
 
