@@ -16,7 +16,7 @@
 #include "../Structure.h"
 #include "../StructureIF.h"
 #include "../StructureWHILE.h"
-#include "../Simple.h"
+#include "../AppelFonction.h"
 #include "../Tableau.h"
 
 BuildIR::BuildIR() {}
@@ -27,6 +27,7 @@ BuildIR::~BuildIR() {
 }
 BuildIR::BuildIR(Programme *prog) {
     programToIR(prog);
+
 }
 
 void BuildIR::setCFGs(const vector<CFG *> &CFGs) {
@@ -132,7 +133,7 @@ string BuildIR::ExpressionToIR(Expression* exp) {
         return var3;
 
     } else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
-        if(Tableau* var = dynamic_cast<Tableau *>(aff->getVariableLeft())){
+        if (Tableau *var = dynamic_cast<Tableau *>(aff->getVariableLeft())) {
             string var1 = LValueToIR(aff->getVariableLeft());
             string var2 = ExpressionToIR(aff->getExpressionRight());
             vector<string> params;
@@ -140,7 +141,7 @@ string BuildIR::ExpressionToIR(Expression* exp) {
             params.push_back(var2);
             current_bb->add_IRInstr(IRInstr::Operation::wmem, Type::int64, params);
             return var1;
-        }else {
+        } else {
             string var1 = VariableToIR(aff->getVariableLeft());
             string var2 = ExpressionToIR(aff->getExpressionRight());
             vector<string> params;
@@ -159,10 +160,18 @@ string BuildIR::ExpressionToIR(Expression* exp) {
         params.push_back(var2);
         current_bb->add_IRInstr(IRInstr::ldconst,Type::int64,params);
         return var2;
-    }else if(ExpressionIncrementale *expI = dynamic_cast<ExpressionIncrementale *>(exp)){
+    }else if( AppelFonction* apl = dynamic_cast<AppelFonction *>(exp)){
+        cout << "Appel Fonction ";
+        Parametre* par = apl->getParametre();
+        vector<string> params;
+        params.push_back(apl->getNomFonction());
+        string parIR = ExpressionToIR((Expression*) par);
+        params.push_back(parIR);
+        current_bb->add_IRInstr(IRInstr::Operation::call,Type::int64, params);
+        }
 
     }
-}
+
 
 // Transformer Variable to IR
 string BuildIR::VariableToIR(Variable*  var) {

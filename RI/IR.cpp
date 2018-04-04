@@ -20,30 +20,30 @@ void IRInstr::gen_asm(ostream &o) {
     switch (this->op) {
         case Operation::ldconst :
             operateur = "movq";
-            str= "\t"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
+            str= "\n"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
             o<< str << endl;
             break;
         case Operation::sub :
-            str = "\tmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
             o << str << endl;
-            str = "\tsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+            str = "\nsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
             o << str << endl;
-            str = "\tmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
+            str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
             o << str << endl;
             break;
         case Operation::add :
-            str = "\tmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
             o << str << endl;
-            str = "\taddq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+            str = "\naddq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
             o << str << endl;
-            str = "\tmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
+            str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
             o << str << endl;
             break;
         case Operation::copy :
             operateur = "movq";
-            str = "\t"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
+            str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
             o<<str<<endl;
-            str = "\t"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
+            str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
             o<<str<<endl;
             break;
 
@@ -57,6 +57,8 @@ void IRInstr::print() {
             cout << "add " ;
         }else if (op == IRInstr::sub){
             cout << "sub " ;
+        }else if (op == IRInstr::call){
+            cout << "call " ;
         }
 
         for (auto par:params){
@@ -104,9 +106,12 @@ string CFG::new_BB_name() {
 }
 
 void CFG::gen_asm(ostream& o) {
-    cout << "\nI m here cfg";
+    //cout << "\nI m here cfg";
     gen_asm_prologue(o);
+    cout <<"\n";
     gen_asm_body(o);
+    cout <<"\n";
+    cout << "Epilog : ";
     gen_asm_epilogue(o);
 }
 
@@ -115,11 +120,13 @@ string CFG::IR_reg_to_asm(string reg) {
 }
 
 void CFG::gen_asm_prologue(ostream& o) {
-    o.write("pushq %rbp",50);
-    o.write("movq %rsp, %rbp",50);
+    cout << "\npushq %rbp";
+    cout << "\nmovq %rsp, %rbp";
+    //o.write("\npushq %rbp",50);
+    //o.write("\nmovq %rsp, %rbp",50);
     string str = "";
-    str = "subq" + to_string(nextVar) + "%rsp";
-    o.write(str.c_str(),50);
+    str = "\nsubq " + to_string(nextVar) + "%rsp";
+    cout << str <<"\n";
 }
 
 void CFG::gen_asm_body(ostream& o){
@@ -131,9 +138,10 @@ void CFG::gen_asm_body(ostream& o){
 }
 
 void CFG::gen_asm_epilogue(ostream& o) {
-
-    o.write("leave",50);
-    o.write("ret",50);
+    cout << "leave" <<"\n";
+    cout << "ret" <<"\n";
+    /*o.write("\nleave",50);
+    o.write("\nret",50);*/
 
 }
 
@@ -163,7 +171,7 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op, Type t, vector<string> param
 }
 
 void BasicBlock::gen_asm(ostream &o) {
-    cout<<"hola";
+    //cout<<"hola";
     for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
     {
         (*it)->gen_asm(o);
