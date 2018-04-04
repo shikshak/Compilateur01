@@ -169,9 +169,7 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op, Type t, vector<string> param
 void BasicBlock::gen_asm(ostream &o) {
     for(auto ir : this->getInstrs())
     {
-        ir->print();
         (ir)->gen_asm(o);
-        cout<<"généré";
 
     }
 
