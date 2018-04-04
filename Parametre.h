@@ -21,6 +21,7 @@ public:
     Variable *getVariable() const;
     void setVariable(Variable *variable);
 
+friend ostream &operator<<(ostream &os, const Parametre &parametre);
 
 private:
     Variable* variable;

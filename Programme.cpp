@@ -51,7 +51,7 @@ ostream &operator<<(ostream &os, const Programme &programme) {
     os << " fonctions: ";
     for (auto i: programme.getFonctions())
         os << i << ' ';
-    os << " main: " << programme.main;
+    os << " main: " << *(programme.getMain());
     os << endl;
     return os;
 }

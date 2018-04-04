@@ -5,7 +5,7 @@
 #ifndef PLDCOMP_VARIABLE_H
 #define PLDCOMP_VARIABLE_H
 
-#include <String>
+#include <string>
 #include <ostream>
 #include "Expression.h"
 
@@ -20,11 +20,11 @@ public:
 
     Variable();
 
-    Variable(Type type, const string &nom);
+    Variable(string type, const string &nom);
 
     virtual ~Variable();
 
-    void setType(Type type);
+    
 
     void setType(string type);
 
@@ -40,6 +40,7 @@ private:
     Type type;
     string nom;
     bool isUsed;
+//void setType(Type type);
 public:
     bool isIsUsed() const;
 

@@ -26,10 +26,8 @@ private:
 public:
     Bloc *getBloc() const;
     void setBloc(Bloc *bloc);
-    void setBloc(Instruction *instr);
     Bloc *getBlocElse() const;
     void setBlocElse(Bloc *blocElse);
-    void setBlocElse(Instruction* instruction);
     friend ostream &operator<<(ostream &os, const StructureIF &anIf);
 };
 

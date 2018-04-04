@@ -41,7 +41,7 @@ void Declaration::addVariable(Variable *variable) {
 ostream &operator<<(ostream &os, const Declaration &declaration) {
     os << "variables: ";
     for (auto i: declaration.getVariables())
-        os << i << ' ';
+        os << *i << ' ';
     os << " hasDeclaration: " << declaration.hasDeclaration << " valeur: "
        << declaration.valeur;
     os << endl;

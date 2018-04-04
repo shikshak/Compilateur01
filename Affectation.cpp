@@ -4,6 +4,8 @@
 
 #include "Affectation.h"
 
+Affectation::Affectation() {}
+
 Affectation::~Affectation() {}
 
 Variable *Affectation::getVariableLeft() const {

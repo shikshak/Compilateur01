@@ -15,7 +15,7 @@ class Tableau : public Variable {
 public:
     Tableau();
 
-    Tableau(Type type, const string &nom);
+    Tableau(string type, const string &nom);
 
     virtual ~Tableau();
 

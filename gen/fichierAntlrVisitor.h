@@ -155,8 +155,6 @@ public:
 
     virtual antlrcpp::Any visitStructurewhile_normal(fichierAntlrParser::Structurewhile_normalContext *context) = 0;
 
-    virtual antlrcpp::Any visitNom_var(fichierAntlrParser::Nom_varContext *context) = 0;
-
     virtual antlrcpp::Any visitType_var(fichierAntlrParser::Type_varContext *context) = 0;
 
     virtual antlrcpp::Any visitType_fonction(fichierAntlrParser::Type_fonctionContext *context) = 0;

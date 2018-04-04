@@ -17,3 +17,8 @@ void Parametre::setVariable(Variable *variable) {
 }
 
 
+ostream &operator<<(ostream &os, const Parametre &parametre) {
+    os << "variable: " << parametre.variable;
+    return os;
+}
+

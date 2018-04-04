@@ -17,7 +17,7 @@ public:
     enum Type {CHAR, INT_32, INT_64, VOID, INT};
     Fonction();
 
-    Fonction(Parametre *parametre, const string &nom, Type type, const vector<Declaration *> &declarations, Bloc *bloc);
+    Fonction(Parametre *parametre, const string &nom, string type, const vector<Declaration *> &declarations, Bloc *bloc);
 
     virtual ~Fonction();
 
@@ -27,6 +27,7 @@ private:
     Type type;
     vector<Declaration*> declarations;
     Bloc* bloc;
+//void setType(Type type);
 public:
     Parametre *getParametre() const;
     void setParametre(Parametre *parametre);
@@ -39,12 +40,13 @@ public:
 
     void setNom(const string &nom);
 
-    Type getType() const;
+    Fonction::Type getType() const;
 
-    void setType(Type type);
     void setType(string type);
 
     void addDeclaration (Declaration* declaration);
+
+friend ostream &operator<<(ostream &os, const Fonction &fonction);
 
 
 };

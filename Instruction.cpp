@@ -14,3 +14,4 @@ std::ostream &operator<<(std::ostream &os, const Instruction &instruction) {
     os << "Instruction" << std::endl;
     return os;
 }
+

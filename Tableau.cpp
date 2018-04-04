@@ -52,7 +52,7 @@ Tableau::Tableau() {
 
 }
 
-Tableau::Tableau(Variable::Type type, const string &nom ) : Variable(type, nom) {}
+Tableau::Tableau(string type, const string &nom ) : Variable(type, nom) {}
 
 void Tableau::setHasValeur(int position, bool hasValeur) {
     Tableau::hasValeur[position] = hasValeur;

@@ -13,21 +13,21 @@ main
     ;
 
 fonction
-    :   type_fonction nom_var '(' parametre ')' '{' declaration*  bloc '}'  #fonction_avecparametre
-    |   type_fonction nom_var '('  ')' '{' declaration*  bloc '}'           #fonction_sansparametre
-    |   type_fonction nom_var '('  'void'  ')' '{' declaration*  bloc '}'   #fonction_parametrevoid
+    :   type_fonction NOM '(' parametre ')' '{' declaration*  bloc '}'  #fonction_avecparametre
+    |   type_fonction NOM '('  ')' '{' declaration*  bloc '}'           #fonction_sansparametre
+    |   type_fonction NOM '('  'void'  ')' '{' declaration*  bloc '}'   #fonction_parametrevoid
     ;
 
 parametre
-    :   type_var nom_var      #parametre_normal
-    |   type_var nom_var '[' CHIFFRE ']'  #parametre_tableau
+    :   type_var NOM      #parametre_normal
+    |   type_var NOM '[' CHIFFRE ']'  #parametre_tableau
     ;
 
 
 //affectation
 variable
-    :   nom_var             #variable_simple
-    |   nom_var '['expr']'   #variable_tableau
+    :   NOM             #variable_simple
+    |   NOM '['expr']'   #variable_tableau
     ;
 
 affectation
@@ -74,7 +74,7 @@ expr
 	|	expr '!=' expr  #expr_diffegal
 	|   variable        #expr_variable
 	|   affectation     #expr_affectation
-	|   nom_var '(' ( expr ( ',' expr )* )? ')' #expr_fonction
+	|   NOM '(' ( expr ( ',' expr )* )? ')' #expr_fonction
 	;
 
 return_
@@ -98,11 +98,11 @@ bloc
     ;
 
 declaration
-    :   type_var nom_var (',' nom_var)* ';' #declaration_normale
-    |   type_var nom_var '=' expr ';'       #declaration_definition
-    |   type_var nom_var '[' expr ']'';'    #declaration_tableau
-    |   type_var nom_var '[' expr ']' '=' '{' NOMBRE (',' NOMBRE)* '}' ';'     #declaration_definitiontableau_nombre
-    |   type_var nom_var '[' expr ']' '=' '{' CHAR (',' CHAR)* '}' ';'     #declaration_definitiontableau_char
+    :   type_var NOM (',' NOM)* ';' #declaration_normale
+    |   type_var NOM '=' expr ';'       #declaration_definition
+    |   type_var NOM '[' expr ']'';'    #declaration_tableau
+    |   type_var NOM '[' expr ']' '=' '{' NOMBRE (',' NOMBRE)* '}' ';'     #declaration_definitiontableau_nombre
+    |   type_var NOM '[' expr ']' '=' '{' CHAR (',' CHAR)* '}' ';'     #declaration_definitiontableau_char
     ;
 
 
@@ -147,8 +147,8 @@ CommentaireLigne
 	;
 
 //declaration variable/fonction
-nom_var
-    :   (LETTRE | '_')* (LETTRE)+ (LETTRE | CHIFFRE | '_')*
+NOM
+    :   ([A-Za-z][0-9_a-zA-Z]*)
 	;
 
 type_var

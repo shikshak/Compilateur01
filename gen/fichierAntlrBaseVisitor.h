@@ -287,10 +287,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitNom_var(fichierAntlrParser::Nom_varContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitType_var(fichierAntlrParser::Type_varContext *ctx) override {
     return visitChildren(ctx);
   }

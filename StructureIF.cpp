@@ -28,20 +28,6 @@ ostream &operator<<(ostream &os, const StructureIF &anIf) {
     return os;
 }
 
-
-
-void StructureIF::setBloc(Instruction *instruction) {
-    Bloc* bloc_ = new Bloc();
-    bloc_->addInstructions(instruction);
-    setBloc(bloc_);
-}
-
-void StructureIF::setBlocElse(Instruction *instruction) {
-    Bloc* bloc_ = new Bloc();
-    bloc_->addInstructions(instruction);
-    setBlocElse(bloc_);
-}
-
 StructureIF::StructureIF() {
 
 }
