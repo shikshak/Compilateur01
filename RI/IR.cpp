@@ -59,11 +59,11 @@ void IRInstr::print() {
 
 CFG::CFG(Fonction *ast) {
     this-> ast = ast;
-    current_bb = NULL;
-    nextFreeSymbolIndex = 0;
-    nextBBnumber = 1;
-    nextTmp = 0;
-    nextVar = 0;
+    this-> current_bb = NULL;
+    this-> nextTmp=0;
+    this-> nextVar=0;
+    this-> nextFreeSymbolIndex=-8;
+    this-> nextBBnumber =1;
 }
 
 void CFG::add_to_symbol_table(string name, Type t) {
@@ -74,11 +74,9 @@ void CFG::add_to_symbol_table(string name, Type t) {
 }
 
 string CFG::create_new_tempvar(Type t) {
-
     string tmp = "!tmp"+to_string(nextTmp);
     add_to_symbol_table(tmp,t);
     nextTmp++;
-    nextVar++;
     return tmp;
 }
 
@@ -125,7 +123,7 @@ void CFG::gen_asm_epilogue(ostream& o) {
 }
 
 int CFG::get_var_index(string name) {
-    return 0;
+    return this->SymbolIndex.at(name);
 }
 
 Type CFG::get_var_type(string name) {
