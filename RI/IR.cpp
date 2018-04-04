@@ -13,10 +13,16 @@ IRInstr::IRInstr(BasicBlock *bb, IRInstr::Operation op, Type t, vector<string> p
 }
 
 void IRInstr::gen_asm(ostream &o) {
+    cout<<" gen-asm ir";
     string str;
     string operateur;
     int paramNum = 0;
     switch (this->op) {
+        case Operation::ldconst :
+            operateur = "movq";
+            str= "\t"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
+            o<< str << endl;
+            break;
         case Operation::sub :
             str = "\tmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
             o << str << endl;
@@ -33,14 +39,20 @@ void IRInstr::gen_asm(ostream &o) {
             str = "\tmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
             o << str << endl;
             break;
-
+        case Operation::copy :
+            operateur = "movq";
+            str = "\t"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
+            o<<str<<endl;
+            str = "\t"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
+            o<<str<<endl;
+            break;
 
     }
 }
 void IRInstr::print() {
         cout << bb->label + " ";
-        if (op == IRInstr::wmem){
-            cout << "wmem " ;
+        if (op == IRInstr::copy){
+            cout << "copy " ;
         }else if (op == IRInstr::add){
             cout << "add " ;
         }else if (op == IRInstr::sub){
@@ -92,6 +104,7 @@ string CFG::new_BB_name() {
 }
 
 void CFG::gen_asm(ostream& o) {
+    cout << "\nI m here cfg";
     gen_asm_prologue(o);
     gen_asm_body(o);
     gen_asm_epilogue(o);
@@ -118,6 +131,7 @@ void CFG::gen_asm_body(ostream& o){
 }
 
 void CFG::gen_asm_epilogue(ostream& o) {
+
     o.write("leave",50);
     o.write("ret",50);
 
@@ -149,6 +163,7 @@ void BasicBlock::add_IRInstr(IRInstr::Operation op, Type t, vector<string> param
 }
 
 void BasicBlock::gen_asm(ostream &o) {
+    cout<<"hola";
     for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
     {
         (*it)->gen_asm(o);
