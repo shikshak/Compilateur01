@@ -49,25 +49,27 @@ void Fonction::setNom(const string &nom) {
 Fonction::Type Fonction::getType() const {
     return type;
 }
-
+/*
 void Fonction::setType(Fonction::Type type) {
     Fonction::type = type;
 }
-
-Fonction::Fonction(Parametre *parametre, const string &nom, Fonction::Type type,
-                   const vector<Declaration *> &declarations, Bloc *bloc) : parametre(parametre), nom(nom), type(type),
-                                                                            declarations(declarations), bloc(bloc) {}
+*/
+Fonction::Fonction(Parametre *parametre, const string &nom, string type,
+                   const vector<Declaration *> &declarations, Bloc *bloc) : parametre(parametre), nom(nom),
+                                                                            declarations(declarations), bloc(bloc) {
+setType(type);
+}
 
 
 void Fonction::setType(string type) {
     if(type == "char")
-        setType(CHAR);
+        Fonction::type = Fonction::CHAR;
     else if(type == "int32_t")
-        setType(INT_32);
+        Fonction::type = Fonction::INT_32;
     else if(type == "int64_t")
-        setType(INT_64);
+        Fonction::type = Fonction::INT_64;
     else if(type == "void")
-        setType(VOID);
+        Fonction::type = Fonction::VOID;
     else if(type == "int")
-        setType(INT);
+        Fonction::type = Fonction::INT;
 }

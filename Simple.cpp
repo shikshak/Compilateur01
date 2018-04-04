@@ -18,7 +18,7 @@ ostream &operator<<(ostream &os, const Simple &simple) {
 }
 
 
-Simple::Simple(Variable::Type type, const string &nom, const string &valeur) : Variable(type, nom), valeur(valeur) , hasValeur(hasValeur){}
+Simple::Simple(string type, const string &nom, const string &valeur) : Variable(type, nom), valeur(valeur) , hasValeur(hasValeur){}
 
 void Simple::setValeur(const string &valeur) {
     Simple::valeur = valeur;

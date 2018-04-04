@@ -17,7 +17,7 @@ public:
 
     Simple();
 
-    Simple(Type type, const string &nom, const string &valeur);
+    Simple(string type, const string &nom, const string &valeur="0");
 
     const string &getValeur();
 

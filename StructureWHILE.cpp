@@ -19,12 +19,6 @@ ostream &operator<<(ostream &os, const StructureWHILE &aWhile) {
     return os;
 }
 
-void StructureWHILE::setBloc(Instruction *instruction) {
-    Bloc* bloc_ = new Bloc;
-    bloc_->addInstructions(instruction);
-    setBloc(bloc_);
-}
-
 StructureWHILE::~StructureWHILE() {
 
 }

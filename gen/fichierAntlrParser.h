@@ -19,8 +19,8 @@ public:
     T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31, T__31 = 32, 
     T__32 = 33, T__33 = 34, T__34 = 35, T__35 = 36, T__36 = 37, T__37 = 38, 
     T__38 = 39, T__39 = 40, T__40 = 41, T__41 = 42, T__42 = 43, T__43 = 44, 
-    T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, T__49 = 50, 
-    Include = 51, EspaceBlanc = 52, CommentaireBlock = 53, CommentaireLigne = 54, 
+    T__44 = 45, T__45 = 46, T__46 = 47, T__47 = 48, T__48 = 49, Include = 50, 
+    EspaceBlanc = 51, CommentaireBlock = 52, CommentaireLigne = 53, NOM = 54, 
     LETTRE = 55, CHIFFRE = 56, NOMBRE = 57, CHAR = 58, SYMBOLE = 59
   };
 
@@ -28,8 +28,8 @@ public:
     RuleProgramme = 0, RuleMain = 1, RuleFonction = 2, RuleParametre = 3, 
     RuleVariable = 4, RuleAffectation = 5, RuleExpr = 6, RuleReturn_ = 7, 
     RuleBreak_ = 8, RuleInstruction = 9, RuleBloc = 10, RuleDeclaration = 11, 
-    RuleStructure_if = 12, RuleElse_ = 13, RuleStructure_while = 14, RuleNom_var = 15, 
-    RuleType_var = 16, RuleType_fonction = 17
+    RuleStructure_if = 12, RuleElse_ = 13, RuleStructure_while = 14, RuleType_var = 15, 
+    RuleType_fonction = 16
   };
 
   fichierAntlrParser(antlr4::TokenStream *input);
@@ -57,7 +57,6 @@ public:
   class Structure_ifContext;
   class Else_Context;
   class Structure_whileContext;
-  class Nom_varContext;
   class Type_varContext;
   class Type_fonctionContext; 
 
@@ -156,7 +155,7 @@ public:
     Fonction_avecparametreContext(FonctionContext *ctx);
 
     Type_fonctionContext *type_fonction();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ParametreContext *parametre();
     BlocContext *bloc();
     std::vector<DeclarationContext *> declaration();
@@ -169,7 +168,7 @@ public:
     Fonction_parametrevoidContext(FonctionContext *ctx);
 
     Type_fonctionContext *type_fonction();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     BlocContext *bloc();
     std::vector<DeclarationContext *> declaration();
     DeclarationContext* declaration(size_t i);
@@ -181,7 +180,7 @@ public:
     Fonction_sansparametreContext(FonctionContext *ctx);
 
     Type_fonctionContext *type_fonction();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     BlocContext *bloc();
     std::vector<DeclarationContext *> declaration();
     DeclarationContext* declaration(size_t i);
@@ -208,7 +207,7 @@ public:
     Parametre_tableauContext(ParametreContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     antlr4::tree::TerminalNode *CHIFFRE();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -218,7 +217,7 @@ public:
     Parametre_normalContext(ParametreContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -241,7 +240,7 @@ public:
   public:
     Variable_simpleContext(VariableContext *ctx);
 
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -249,7 +248,7 @@ public:
   public:
     Variable_tableauContext(VariableContext *ctx);
 
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -515,7 +514,7 @@ public:
   public:
     Expr_fonctionContext(ExprContext *ctx);
 
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     std::vector<ExprContext *> expr();
     ExprContext* expr(size_t i);
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -786,7 +785,7 @@ public:
     Declaration_tableauContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -796,7 +795,7 @@ public:
     Declaration_definitionContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ExprContext *expr();
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
@@ -806,8 +805,8 @@ public:
     Declaration_normaleContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
-    std::vector<Nom_varContext *> nom_var();
-    Nom_varContext* nom_var(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> NOM();
+    antlr4::tree::TerminalNode* NOM(size_t i);
     virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
   };
 
@@ -816,7 +815,7 @@ public:
     Declaration_definitiontableau_charContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ExprContext *expr();
     std::vector<antlr4::tree::TerminalNode *> CHAR();
     antlr4::tree::TerminalNode* CHAR(size_t i);
@@ -828,7 +827,7 @@ public:
     Declaration_definitiontableau_nombreContext(DeclarationContext *ctx);
 
     Type_varContext *type_var();
-    Nom_varContext *nom_var();
+    antlr4::tree::TerminalNode *NOM();
     ExprContext *expr();
     std::vector<antlr4::tree::TerminalNode *> NOMBRE();
     antlr4::tree::TerminalNode* NOMBRE(size_t i);
@@ -911,21 +910,6 @@ public:
   };
 
   Structure_whileContext* structure_while();
-
-  class  Nom_varContext : public antlr4::ParserRuleContext {
-  public:
-    Nom_varContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    std::vector<antlr4::tree::TerminalNode *> LETTRE();
-    antlr4::tree::TerminalNode* LETTRE(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> CHIFFRE();
-    antlr4::tree::TerminalNode* CHIFFRE(size_t i);
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Nom_varContext* nom_var();
 
   class  Type_varContext : public antlr4::ParserRuleContext {
   public:
