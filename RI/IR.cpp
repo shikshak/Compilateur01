@@ -112,9 +112,9 @@ void CFG::gen_asm_prologue(ostream& o) {
 
 void CFG::gen_asm_body(ostream& o){
 
-    for(vector<BasicBlock*>::iterator it= this.getBbs().begin() ; it != this.getBbs().end() ; it++)
+    for(BasicBlock* bb : getBbs())
     {
-        (*it)->gen_asm(o);
+        (bb)->gen_asm(o);
     }
 }
 
