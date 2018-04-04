@@ -45,6 +45,7 @@ public:
     string LValueToIR(Variable* var);
 
     void print();
+    void  printBB(BasicBlock* bb);
     virtual ~BuildIR();
 
 

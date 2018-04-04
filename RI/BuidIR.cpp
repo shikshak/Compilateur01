@@ -16,6 +16,8 @@
 #include "../Structure.h"
 #include "../StructureIF.h"
 #include "../StructureWHILE.h"
+#include "../Simple.h"
+#include "../Tableau.h"
 
 BuildIR::BuildIR() {}
 
@@ -130,13 +132,23 @@ string BuildIR::ExpressionToIR(Expression* exp) {
         return var3;
 
     } else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
-        string var1 = LValueToIR(aff->getVariableLeft());
-        string var2 = ExpressionToIR(aff->getExpressionRight());
-        vector<string> params;
-        params.push_back(var1);
-        params.push_back(var2);
-        current_bb->add_IRInstr(IRInstr::Operation::wmem, Type::int64, params);
-        return var1;
+        if(Tableau* var = dynamic_cast<Tableau *>(aff->getVariableLeft())){
+            string var1 = LValueToIR(aff->getVariableLeft());
+            string var2 = ExpressionToIR(aff->getExpressionRight());
+            vector<string> params;
+            params.push_back(var1);
+            params.push_back(var2);
+            current_bb->add_IRInstr(IRInstr::Operation::wmem, Type::int64, params);
+            return var1;
+        }else {
+            string var1 = VariableToIR(aff->getVariableLeft());
+            string var2 = ExpressionToIR(aff->getExpressionRight());
+            vector<string> params;
+            params.push_back(var1);
+            params.push_back(var2);
+            current_bb->add_IRInstr(IRInstr::Operation::copy, Type::int64, params);
+            return var1;
+        }
     }else if (Variable *var = dynamic_cast<Variable *>(exp)) {
         return VariableToIR(var);
     }else if (Constante *cst = dynamic_cast<Constante *>(exp)) {
@@ -180,6 +192,18 @@ void BuildIR::print() {
             }
         }
 
+    }
+}
+
+void BuildIR::printBB(BasicBlock * bb) {
+    for(auto ir : bb->getInstrs()){
+        ir->print();
+    }
+    //print(bb->exit_false) ;
+
+    BasicBlock* bbF = bb->exit_false;
+    for(auto ir : bbF->getInstrs()){
+        ir->print();
     }
 }
 

@@ -38,7 +38,7 @@ void IRInstr::gen_asm(ostream &o) {
     }
 }
 void IRInstr::print() {
-        cout << bb->label +" label ";
+        cout << bb->label + " ";
         if (op == IRInstr::wmem){
             cout << "wmem " ;
         }else if (op == IRInstr::add){
@@ -87,6 +87,7 @@ void CFG::add_bb(BasicBlock *bb) {
 string CFG::new_BB_name() {
 
     string s = "b_"+to_string(nextBBnumber);
+    nextBBnumber++;
     return s;
 }
 
@@ -157,6 +158,7 @@ void BasicBlock::gen_asm(ostream &o) {
 const vector<IRInstr *> &BasicBlock::getInstrs() const {
     return instrs;
 }
+
 
 
 
