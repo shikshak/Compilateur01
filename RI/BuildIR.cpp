@@ -18,6 +18,7 @@
 #include "../StructureWHILE.h"
 #include "../Simple.h"
 #include "../Tableau.h"
+#include "../Return.h"
 
 BuildIR::BuildIR() {}
 
@@ -90,12 +91,18 @@ std::cout << 5 << endl;
     for (auto inst : instructions ){
 std::cout << 6 << endl;
         if(Expression* exp = dynamic_cast<Expression*>(inst)) {
-std::cout << 7 << endl;            
-ExpressionToIR(exp);
-std::cout << 8 << endl;        
-}else if(Structure* str = dynamic_cast<Structure*>(inst)){
+            std::cout << 7 << endl;
+            ExpressionToIR(exp);
+            std::cout << 8 << endl;
+        }else if(Return* rtn = dynamic_cast<Return*>(inst)){
+            Expression* exp = rtn->getExpression();
+            string var1 = ExpressionToIR(exp);
+            vector<string> params;
+            params.push_back(var1);
+            current_bb->add_IRInstr(IRInstr::Operation::ret,Type::int64, params);
+        }else if(Structure* str = dynamic_cast<Structure*>(inst)){
 std::cout << 9 << endl;           
- if(StructureIF* strIF = dynamic_cast<StructureIF*>(inst)){
+ if(StructureIF* strIF = dynamic_cast<StructureIF*>(str)){
 std::cout << 10 << endl;      
   BasicBlock* testBB = current_bb;              
  BasicBlock* save_bb = current_bb;
@@ -120,6 +127,8 @@ std::cout << 11 << endl;
             }else if(StructureWHILE* strW = dynamic_cast<StructureWHILE*>(inst)){
                 //Coming soon
             }
+        }else{
+
         }
     }
 }
@@ -136,7 +145,6 @@ void BuildIR::DeclarationToIR(vector<Declaration *> declarations) {
 // Transformer Expression to IR
 string BuildIR::ExpressionToIR(Expression* exp) {
 std::cout << 45 << *exp << endl;
-std::cout << typeid(exp).name() << std::endl;
     if (ExpressionOperateur *expOp = dynamic_cast<ExpressionOperateur *>(exp)) {
 std::cout << 46 << endl;
         string var1 = ExpressionToIR(expOp->getLeftExpression());
