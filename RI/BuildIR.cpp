@@ -168,27 +168,30 @@ void BuildIR::blocToIR(Bloc* bloc){
         }else if(Structure* str = dynamic_cast<Structure*>(inst)){
 
             if(StructureIF* strIF = dynamic_cast<StructureIF*>(inst)){
-
+                Condition* cond = strIF->getCondition();
+                Expression* exp = cond->getExpression();
+                string conf = ExpressionToIR(exp);
                 BasicBlock* testBB = current_bb;
-
                 BasicBlock* save_bb = current_bb;
-                BasicBlock* thenBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
+                BasicBlock* thenBB = new BasicBlock(current_cfg,"Block Then");
                 current_bb = thenBB;
                 blocToIR(strIF->getBloc());
-                BasicBlock* elseBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
+                current_cfg->add_bb(thenBB);
+                BasicBlock* elseBB = new BasicBlock(current_cfg,"Block Else");
                 current_bb = elseBB;
                 blocToIR(strIF->getBlocElse());
                 current_bb = save_bb;
-                BasicBlock* afterIFBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
+                BasicBlock* afterIFBB = new BasicBlock(current_cfg,"Block EndIf");
                 afterIFBB->exit_true = testBB->exit_true;
                 afterIFBB->exit_false = testBB->exit_false;
                 testBB->exit_true = thenBB;
                 testBB->exit_false = elseBB;
                 thenBB->exit_true = afterIFBB;
-                thenBB->exit_false = NULL;
+                thenBB->exit_false = afterIFBB;
                 elseBB->exit_true = afterIFBB;
-                elseBB->exit_false = NULL;
+                elseBB->exit_false = afterIFBB;
                 current_cfg->current_bb=afterIFBB;
+                current_cfg->add_bb(afterIFBB);
 
 
             }else if(StructureWHILE* strW = dynamic_cast<StructureWHILE*>(inst)){
@@ -234,21 +237,14 @@ string BuildIR::ExpressionToIR(Expression* exp) {
     if (ExpressionOperateur *expOp = dynamic_cast<ExpressionOperateur *>(exp)) {
 
         string var1 = ExpressionToIR(expOp->getLeftExpression());
-
         string var2 = ExpressionToIR(expOp->getRightExpression());
-
         string var3 = current_cfg->create_new_tempvar(Type::int64);
-
         vector<string> params;
-
         params.push_back(var1);
-
         params.push_back(var2);
-
         params.push_back(var3);
 
         if (expOp->getOperateur() == ExpressionOperateur::PLUS) {
-
             current_bb->add_IRInstr(IRInstr::Operation::add, Type::int64, params);
 
         } else if (expOp->getOperateur() == ExpressionOperateur::MOINS) {
@@ -258,6 +254,18 @@ string BuildIR::ExpressionToIR(Expression* exp) {
         } else if (expOp->getOperateur() == ExpressionOperateur::MULTIPLICATION) {
 
             current_bb->add_IRInstr(IRInstr::Operation::mul, Type::int64, params);
+
+        }else if (expOp->getOperateur() == ExpressionOperateur::EGALEGAL) {
+
+            current_bb->add_IRInstr(IRInstr::Operation::cmp_eq, Type::int64, params);
+
+        }else if (expOp->getOperateur() == ExpressionOperateur::INFEGAL) {
+
+            current_bb->add_IRInstr(IRInstr::Operation::cmp_le, Type::int64, params);
+
+        }else if (expOp->getOperateur() == ExpressionOperateur::INF) {
+
+            current_bb->add_IRInstr(IRInstr::Operation::cmp_lt, Type::int64, params);
 
         }
 
@@ -400,17 +408,8 @@ void BuildIR::print() {
     for(auto cfg : this->getCFGs()){
 
         for(auto bb : cfg->getBbs()){
-
-            for(auto ir : bb->getInstrs()){
-
-                ir->print();
-
-            }
-
+            printBB(bb);
         }
-
-
-
     }
 
 }
@@ -422,21 +421,18 @@ void BuildIR::printBB(BasicBlock * bb) {
     std::cout << 90000 << endl;
 
     for(auto ir : bb->getInstrs()){
-
         ir->print();
-
+    }
+    if(bb->exit_false!= nullptr) {
+        cout << bb->exit_false->label << endl;
+        printBB(bb->exit_false);
+    }
+    if(bb->exit_true!= nullptr) {
+        cout << bb->exit_true->label << endl;
+        printBB(bb->exit_true);
     }
 
-    //print(bb->exit_false) ;
 
-
-
-    BasicBlock* bbF = bb->exit_false;
-
-    for(auto ir : bbF->getInstrs()){
-
-        ir->print();
-
-    }
 
 }
+

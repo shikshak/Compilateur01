@@ -24,18 +24,18 @@ void IRInstr::gen_asm(ostream &o) {
             o << str;
             break;
         case Operation::sub :
-            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
             o << str << endl;
             str = "\nsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
             o << str << endl;
-            str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp)";
+            str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp)";
             o << str << endl;
             break;
         case Operation::add :
-            o << "movq " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp), %rax"<< "\n";
+            o << "movq " << to_string(bb->cfg->get_var_index(params.at(0))) << "(%rbp), %rax"<< "\n";
             o << "addq" <<  to_string(bb->cfg->get_var_index(params.at(1))) << "(%rbp), %rax"<< endl;
             //cout << str;
-            o <<"movq %rax, " << to_string(bb->cfg->get_var_index(params.at(0))) << "(%rbp)"<< endl;
+            o <<"movq %rax, " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp)"<< endl;
             //cout << str;
             break;
         case Operation::copy :
@@ -44,6 +44,9 @@ void IRInstr::gen_asm(ostream &o) {
             o << str ;
             str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
             o << str;
+            break;
+        case Operation::cmp_eq :
+            // FATIMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             break;
         default:
             break;
@@ -90,6 +93,8 @@ void IRInstr::print() {
             cout << "ldconst " ;
         }else if (op == IRInstr::ret){
             cout << "ret " ;
+        }else if (op == IRInstr::cmp_eq){
+            cout << "cmp_ep " ;
         }
         for (auto par:params){
             cout << par+" ";
@@ -203,6 +208,14 @@ void BasicBlock::gen_asm(ostream &o) {
     for(auto ir : this->getInstrs())
     {
         (ir)->gen_asm(o);
+    }
+    if(exit_true == nullptr) {
+        o << "\tjmp\t.END_"  << endl;
+    }else if(exit_false == exit_true || exit_false == nullptr){
+        o << "\tjmp\t." << exit_true->label << endl;
+    }else{
+        o << "\tjne	." << exit_true->label << endl;
+        o << "\tjmp\t." << exit_false->label << endl;
     }
 
 }
