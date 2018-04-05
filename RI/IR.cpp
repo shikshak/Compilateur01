@@ -57,7 +57,9 @@ void IRInstr::gen_asm(ostream &o) {
             }
             o<< "\ncall " +params.at(0)<<endl;
             break;
-
+        case Operation::ret :
+            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
+            o<<str<<endl;
     }
 }
 string IRInstr::chooseRegister(int num)
@@ -143,12 +145,16 @@ string CFG::IR_reg_to_asm(string reg) {
 }
 
 void CFG::gen_asm_prologue(ostream& o) {
+    o << ".text           # section declaration" << endl;
+    o << ".global main      #     entry point to the ELF linker or loader." << endl;
+    o << "main:" << endl;
     o << "\npushq %rbp";
     o << "\nmovq %rsp, %rbp";
     //o.write("\npushq %rbp",50);
     //o.write("\nmovq %rsp, %rbp",50);
     string str = "";
-    str = "\nsubq " + to_string(nextVar) + "%rsp";
+    if(nextVar%2 == 0)    o<<"\nsubq $" + to_string(nextVar/2*16) + ", %rsp"<<endl;
+    else o<<"\nsubq $" + to_string((nextVar/2+1)*16) + ", %rsp"<<endl;
     o << str <<"\n";
 }
 
@@ -160,8 +166,8 @@ void CFG::gen_asm_body(ostream& o){
 }
 
 void CFG::gen_asm_epilogue(ostream& o) {
-    cout << "leave" <<"\n";
-    cout << "ret" <<"\n";
+    o << "leave" <<"\n";
+    o << "ret" <<"\n";
 
 }
 
