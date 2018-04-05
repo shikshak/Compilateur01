@@ -6,6 +6,7 @@
 #include <map>
 
 Programme::Programme() {
+main = NULL;
 }
 
 Programme::~Programme() {
@@ -47,12 +48,19 @@ void Programme::addFonction(Fonction *fonction) {
 ostream &operator<<(ostream &os, const Programme &programme) {
     os << "declarations: ";
     for (auto i: programme.getDeclarations())
-        os << i << ' ';
+        os << *i << ' ';
     os << " fonctions: ";
     for (auto i: programme.getFonctions())
-        os << i << ' ';
-    os << " main: " << *(programme.getMain());
-    os << endl;
+        os << *i << ' ';
+if (programme.getMain() != NULL)
+{
+    os << " main: " << *programme.getMain();
+} 
+else {
+	os << "main : NULL";
+}
+   os <<std::endl<< "fin de programme"<<std::endl;
+   os.rdbuf(std::cout.rdbuf());
     return os;
 }
 

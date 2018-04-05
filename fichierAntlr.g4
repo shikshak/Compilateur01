@@ -72,8 +72,8 @@ expr
 	|	expr '>=' expr  #expr_supegal
 	|	expr '==' expr  #expr_egalegal
 	|	expr '!=' expr  #expr_diffegal
-	|   variable        #expr_variable
-	|   affectation     #expr_affectation
+	|   variable        	#expr_variable
+	|   affectation     	#expr_affectation
 	|   NOM '(' ( expr ( ',' expr )* )? ')' #expr_fonction
 	;
 

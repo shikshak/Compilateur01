@@ -23,3 +23,11 @@ ExpressionUnaire::Operateur ExpressionUnaire::getOperateur() const {
 void ExpressionUnaire::setOperateur(ExpressionUnaire::Operateur operateur) {
     ExpressionUnaire::operateur = operateur;
 }
+
+void ExpressionUnaire::setExpression (Expression* expression){
+ExpressionUnaire::expression = expression;
+}
+
+Expression* ExpressionUnaire::getExpression () const{
+return expression;
+}

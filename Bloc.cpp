@@ -22,9 +22,14 @@ void Bloc::setInstructions(const std::vector<Instruction *> &instructions) {
 
 std::ostream &operator<<(std::ostream &os, const Bloc &bloc) {
     os << "instructions: ";
+    if (bloc.getInstructions().size()!= 0 ) {
     for (auto i: bloc.getInstructions())
         os << *i << ' ';
     os << std::endl;
+}
+else{
+os << "NULL" << std::endl;
+}
     return os;
 }
 
