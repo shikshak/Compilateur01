@@ -17,7 +17,7 @@ void Expression::setValeur(const string &valeur) {
 }
 
 ostream &operator<<(ostream &os, const Expression &expression) {
-    os << "valeur: " << expression.valeur;
+    os << "valeur: " << expression.getValeur();
     os << endl;
     return os;
 }

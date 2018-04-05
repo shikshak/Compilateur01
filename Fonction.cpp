@@ -4,7 +4,10 @@
 
 #include "Fonction.h"
 
-Fonction::Fonction() {}
+Fonction::Fonction() {
+	bloc = NULL ;
+	parametre = NULL ;	
+}
 
 Fonction::~Fonction() {
 
@@ -75,12 +78,30 @@ void Fonction::setType(string type) {
 }
 
 ostream &operator<<(ostream &os, const Fonction &fonction) {
-    os << "parametre: " << fonction.parametre << " nom: " << fonction.nom << " type: " << fonction.type
-       << " declarations: ";
+  
+  os << " nom: " << fonction.nom << " type: " << fonction.type << std::endl;
+
+os << "parametre: ";
+
+if ( (fonction.parametre) != NULL)
+{os << *(fonction.getParametre());
+} 
+else {
+os << "NULL " ;
+}
+
+os << std::endl;
+os << " declarations: ";
 for (auto i : fonction.declarations ) {
 	os << *i << ' ';
 }
+os << std :: endl;
+if((fonction.getBloc()) != NULL ){
 os << " bloc: " << *(fonction.getBloc());
+}else
+{os << " NULL" ;}
+
+os << "fin de fonction"<< std::endl;
     return os;
 }
 

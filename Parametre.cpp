@@ -18,7 +18,9 @@ void Parametre::setExpression(Expression *expression) {
 
 
 ostream &operator<<(ostream &os, const Parametre &parametre) {
-    os << "variable: " << parametre.expression;
+
+    os << "expression: " << parametre.expression;
+
     return os;
 }
 

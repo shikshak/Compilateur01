@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <ostream>
+#include <iostream>
+#include <sstream>
 #include <map>
 
 #include "Declaration.h"

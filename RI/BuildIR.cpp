@@ -1,41 +1,22 @@
 //
-
 // Created by Amina on 30/03/2018.
-
 //
-
 #include <string>
-
 #include <iostream>
-
 #include "BuildIR.h"
-
 #include "IR.h"
-
 #include "../Fonction.h"
-
 #include "../Instruction.h"
-
 #include "../Expression.h"
-
 #include "../ExpressionOperateur.h"
-
 #include "../ExpressionIncrementale.h"
-
 #include "../ExpressionUnaire.h"
-
 #include "../Affectation.h"
-
 #include "../Constante.h"
-
 #include "../Structure.h"
-
 #include "../StructureIF.h"
-
 #include "../StructureWHILE.h"
-
 #include "../AppelFonction.h"
-
 #include "../Tableau.h"
 #include "../Return.h"
 
@@ -160,6 +141,7 @@ void BuildIR::blocToIR(Bloc* bloc){
             ExpressionToIR(exp);
 
         }else if(Return* rtn = dynamic_cast<Return*>(inst)){
+
             Expression* exp = rtn->getExpression();
             string var1 = ExpressionToIR(exp);
             vector<string> params;
@@ -168,25 +150,38 @@ void BuildIR::blocToIR(Bloc* bloc){
         }else if(Structure* str = dynamic_cast<Structure*>(inst)){
 
             if(StructureIF* strIF = dynamic_cast<StructureIF*>(inst)){
+
                 Condition* cond = strIF->getCondition();
                 Expression* exp = cond->getExpression();
                 string conf = ExpressionToIR(exp);
                 BasicBlock* testBB = current_bb;
                 BasicBlock* save_bb = current_bb;
                 BasicBlock* thenBB = new BasicBlock(current_cfg,"Block Then");
+
                 current_bb = thenBB;
+
                 blocToIR(strIF->getBloc());
                 current_cfg->add_bb(thenBB);
                 BasicBlock* elseBB = new BasicBlock(current_cfg,"Block Else");
+
                 current_bb = elseBB;
+
                 blocToIR(strIF->getBlocElse());
+
                 current_bb = save_bb;
+
                 BasicBlock* afterIFBB = new BasicBlock(current_cfg,"Block EndIf");
+
                 afterIFBB->exit_true = testBB->exit_true;
+
                 afterIFBB->exit_false = testBB->exit_false;
+
                 testBB->exit_true = thenBB;
+
                 testBB->exit_false = elseBB;
+
                 thenBB->exit_true = afterIFBB;
+
                 thenBB->exit_false = afterIFBB;
                 elseBB->exit_true = afterIFBB;
                 elseBB->exit_false = afterIFBB;
@@ -235,16 +230,24 @@ string BuildIR::ExpressionToIR(Expression* exp) {
     std::cout << 300 << endl;
 
     if (ExpressionOperateur *expOp = dynamic_cast<ExpressionOperateur *>(exp)) {
+std::cout << "300operateur" << endl;
 
         string var1 = ExpressionToIR(expOp->getLeftExpression());
+
         string var2 = ExpressionToIR(expOp->getRightExpression());
+
         string var3 = current_cfg->create_new_tempvar(Type::int64);
+
         vector<string> params;
+
         params.push_back(var1);
+
         params.push_back(var2);
+
         params.push_back(var3);
 
         if (expOp->getOperateur() == ExpressionOperateur::PLUS) {
+
             current_bb->add_IRInstr(IRInstr::Operation::add, Type::int64, params);
 
         } else if (expOp->getOperateur() == ExpressionOperateur::MOINS) {
@@ -267,13 +270,27 @@ string BuildIR::ExpressionToIR(Expression* exp) {
 
             current_bb->add_IRInstr(IRInstr::Operation::cmp_lt, Type::int64, params);
 
+
         }
 
         return var3;
 
 
 
-    } else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
+
+    } 
+else if (ExpressionUnaire *expUn = dynamic_cast<ExpressionUnaire *>(exp)){
+
+std::cout << "300operateurparenthse" << endl;
+
+        string var1 = ExpressionToIR(expUn->getExpression());
+
+        return var1;
+
+}
+
+else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
+
 
         if (Tableau *var = dynamic_cast<Tableau *>(aff->getVariableLeft())) {
 
@@ -350,6 +367,8 @@ string BuildIR::ExpressionToIR(Expression* exp) {
     }
 
 
+std::cout << "300fin" << endl;
+
 
 }
 
@@ -408,8 +427,10 @@ void BuildIR::print() {
     for(auto cfg : this->getCFGs()){
 
         for(auto bb : cfg->getBbs()){
+
             printBB(bb);
         }
+
     }
 
 }
@@ -421,8 +442,11 @@ void BuildIR::printBB(BasicBlock * bb) {
     std::cout << 90000 << endl;
 
     for(auto ir : bb->getInstrs()){
+
         ir->print();
+
     }
+
     if(bb->exit_false!= nullptr) {
         cout << bb->exit_false->label << endl;
         printBB(bb->exit_false);
@@ -433,6 +457,12 @@ void BuildIR::printBB(BasicBlock * bb) {
     }
 
 
+    for(auto ir : bbF->getInstrs()){
+
+        ir->print();
+
 
 }
 
+
+}

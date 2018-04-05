@@ -29,16 +29,19 @@ public:
         std::cout << 1 << endl;
         Programme* programme_ = new Programme();
         for(auto i : ctx->declaration()){
+std::cout << "1declarations" << endl;
             programme_->addDeclaration(visit(i));
         }
         for(auto i : ctx->fonction()){
+	    std::cout << "1fonction" << endl;
             programme_->addFonction(visit(i));
         }
         for(auto i : ctx->main()){
+std::cout << "1main" << endl;
             programme_->setMain(visit(i));
         }
-        //programme_->setMain(visit(ctx->main()));
-        cout << *programme_;
+std::cout << "1fin" << endl;
+
         return programme_;
     }
 
@@ -58,12 +61,22 @@ public:
             fonction_->addDeclaration(visit(i));
         }
         fonction_->setBloc(visit(ctx->bloc()));
+std::cout << "3finmainsansparams" << endl;
         return fonction_;
     }
 
     antlrcpp::Any visitMain_parametrevoid(fichierAntlrParser::Main_parametrevoidContext *ctx) override {
-        std::cout << 4 << endl;
-        return fichierAntlrBaseVisitor::visitMain_parametrevoid(ctx);
+                std::cout << 4 << endl;
+        Fonction* fonction_ = new Fonction();
+        fonction_->setType(visit(ctx->type_fonction()));
+	
+        fonction_->setNom("main");
+        for(auto i : ctx->declaration()){
+            fonction_->addDeclaration(visit(i));
+        }
+        fonction_->setBloc(visit(ctx->bloc()));
+std::cout << "4fin" << endl;
+        return fonction_;
     }
 
     antlrcpp::Any visitFonction_avecparametre(fichierAntlrParser::Fonction_avecparametreContext *ctx) override {
@@ -71,19 +84,29 @@ public:
         Fonction* fonction_ = new Fonction();
         fonction_->setType(visit(ctx->type_fonction()));
 	
-        fonction_->setNom(ctx->NOM()->getText());
+        fonction_->setNom("main");
         fonction_->setParametre(visit(ctx->parametre()));
         for(auto i : ctx->declaration()){
             fonction_->addDeclaration(visit(i));
         }
         fonction_->setBloc(visit(ctx->bloc()));
         return fonction_;
-
     }
 
     antlrcpp::Any visitFonction_sansparametre(fichierAntlrParser::Fonction_sansparametreContext *ctx) override {
         std::cout << 6 << endl;
-        return fichierAntlrBaseVisitor::visitFonction_sansparametre(ctx);
+
+    	Fonction* fonction_ = new Fonction();
+
+        fonction_->setType(visit(ctx->type_fonction()));
+        fonction_->setNom(ctx->NOM()->toString());
+        for(auto i : ctx->declaration()){
+            fonction_->addDeclaration(visit(i));
+        }
+        fonction_->setBloc(visit(ctx->bloc()));
+cout << "6fin" << endl;
+        return fonction_;	
+
     }
 
     antlrcpp::Any visitFonction_parametrevoid(fichierAntlrParser::Fonction_parametrevoidContext *ctx) override {
@@ -99,7 +122,7 @@ public:
         s_->setNom(ctx->NOM()->getText());
 
         Parametre* p_= new Parametre;
-        p_->setVariable(s_);
+        p_->setExpression(s_);
         return dynamic_cast<Variable*>(p_);
     }
 
@@ -111,11 +134,9 @@ public:
     antlrcpp::Any visitVariable_simple(fichierAntlrParser::Variable_simpleContext *ctx) override {
         std::cout << 10 << endl;
         Simple* simple = new Simple();
-	std::cout << "problem here" << endl;	
 	ctx->NOM()->toString();
-	std::cout << "problem or here" << endl;
         simple->setNom(ctx->NOM()->getText());
-std::cout << "problem or or here" << endl;
+std::cout << "10bis" << endl;
         return dynamic_cast<Variable*>(simple);
     }
 
@@ -153,7 +174,7 @@ std::cout << "problem or or here" << endl;
         affectation->setOperateur(Affectation::EGAL);
         affectation->setExpressionRight(visit(ctx->expr()));
 std::cout << 16 << "bis"<< endl;
-        return dynamic_cast<Expression*>(affectation);
+        return dynamic_cast<Affectation*>(affectation);
     }
 
     antlrcpp::Any visitAffectation_etegal(fichierAntlrParser::Affectation_etegalContext *ctx) override {
@@ -208,7 +229,11 @@ std::cout << 26 << endl;
 
     antlrcpp::Any visitExpr_nombre(fichierAntlrParser::Expr_nombreContext *ctx) override {
 std::cout << 27 << endl;
-        return fichierAntlrBaseVisitor::visitExpr_nombre(ctx);
+        Constante* expression = new Constante();
+std::cout << 27 << "bis" << endl;
+        expression->setValeur(ctx->NOMBRE()->toString());
+std::cout << 27 << "bisbis" << endl;
+        return dynamic_cast<Expression*>(expression);
     }
 
     antlrcpp::Any visitExpr_diffegal(fichierAntlrParser::Expr_diffegalContext *ctx) override {
@@ -227,8 +252,8 @@ std::cout << 30 << endl;
     }
 
     antlrcpp::Any visitExpr_inf(fichierAntlrParser::Expr_infContext *ctx) override {
-std::cout << 31 << endl;
         return fichierAntlrBaseVisitor::visitExpr_inf(ctx);
+std::cout << 31 << endl;
     }
 
     antlrcpp::Any visitExpr_parenthese(fichierAntlrParser::Expr_parentheseContext *ctx) override {
@@ -236,21 +261,23 @@ std::cout << 31 << endl;
         std::cout << 32 << endl;
         ExpressionUnaire* exprUn = new ExpressionUnaire();
         exprUn->setOperateur(ExpressionUnaire::PARENTHESE);
+	exprUn->setExpression(visit(ctx->expr()));
         return dynamic_cast<Expression*>(exprUn);
     }
 
     antlrcpp::Any visitExpr_addition(fichierAntlrParser::Expr_additionContext *ctx) override {
         std::cout << 33 << endl;
         ExpressionOperateur* exprOp = new ExpressionOperateur();
-        for(auto i : ctx->expr()){
-            exprOp->setLeftExpression(visit(i));
+       
+            exprOp->setLeftExpression(visit(ctx->expr().at(0)));
 std::cout << 33 << "bis" << std::endl;
-        }
+std::cout << *(exprOp->getLeftExpression()) << endl;
         exprOp->setOperateur(ExpressionOperateur::PLUS);
-        for(auto i : ctx->expr()){
-            exprOp->setRightExpression(visit(i));
-//std::cout << 33 << "bisbis" << *i << std::endl;
-        }
+        
+            exprOp->setRightExpression(visit(ctx->expr().at(1)));
+std::cout << 33 << "bisbis" << std::endl;
+std::cout << *(exprOp->getRightExpression()) << endl;
+        
         return dynamic_cast<Expression*>(exprOp);
     }
 
@@ -275,17 +302,28 @@ std::cout << 37 << endl;
     }
 
     antlrcpp::Any visitExpr_fonction(fichierAntlrParser::Expr_fonctionContext *ctx) override {
-std::cout << 38 << endl;
-        return fichierAntlrBaseVisitor::visitExpr_fonction(ctx);
+std::cout << 38;
+        std::cout << "appelfonction" << endl;
+	AppelFonction* appfonct = new AppelFonction();
+	appfonct->setNomFonction(ctx->NOM()->toString());
+	Parametre* param = new Parametre();
+	for(auto i : ctx->expr()) {
+std::cout << "38je vais visite mes parametres" << endl;
+		param->setExpression(visit(i));
+std::cout << "38j'ai visite une variable" << endl;
+	}
+std::cout << "38j'ai vu mes param, settons les" << endl;
+appfonct->setParametre(param);
+std::cout << "38finappelfonction" << endl;
+	return dynamic_cast<Expression*>(appfonct);
     }
 
     antlrcpp::Any visitExpr_char(fichierAntlrParser::Expr_charContext *ctx) override {
         std::cout << 39 << endl;
         Constante* expression = new Constante();
-std::cout << 39 << "bis" << endl;
-        expression->setValeur(ctx->CHAR()->getText());
-std::cout << *expression << std::endl;
-std::cout << 39 << "bisbis" << endl;
+        expression->setValeur(ctx->CHAR()->toString());
+std::cout << 39 << *expression << std::endl;
+std::cout << 39 << "fin" << endl;
         return dynamic_cast<Expression*>(expression);
     }
 
@@ -309,6 +347,7 @@ std::cout << 41 << "bisbis" << endl;
         Variable* var = new Variable();
 std::cout << 42 << "bis" << endl;
         var = visit(ctx->variable());
+std::cout << var->getNom() << endl;
 std::cout << 42 << "bisbis" << endl;
         return dynamic_cast<Expression*>(var);
     }
@@ -335,15 +374,26 @@ std::cout << 46 << endl;
 
     antlrcpp::Any visitExpr_soustraction(fichierAntlrParser::Expr_soustractionContext *ctx) override {
 std::cout << 47 << endl;
-        return fichierAntlrBaseVisitor::visitExpr_soustraction(ctx);
+        ExpressionOperateur* exprOp = new ExpressionOperateur();
+       
+            exprOp->setLeftExpression(visit(ctx->expr().at(0)));
+std::cout << 47 << "bis" << std::endl;
+std::cout << *(exprOp->getLeftExpression()) << endl;
+        exprOp->setOperateur(ExpressionOperateur::MOINS);
+        
+            exprOp->setRightExpression(visit(ctx->expr().at(1)));
+std::cout << 47 << "bisbis" << std::endl;
+std::cout << *(exprOp->getRightExpression()) << endl;
+        
+        return dynamic_cast<Expression*>(exprOp);
     }
 
     antlrcpp::Any visitExpr_affectation(fichierAntlrParser::Expr_affectationContext *ctx) override {
         std::cout << 48 << endl;
-        Expression* expression = new Expression();
+        Affectation* expression = new Affectation();
         expression = visit(ctx->affectation());
 std::cout << 48 << "bis" << endl;
-        return dynamic_cast<Instruction*>(expression);
+        return dynamic_cast<Expression*>(expression);
     }
 
     antlrcpp::Any visitExpr_exclamation(fichierAntlrParser::Expr_exclamationContext *ctx) override {
@@ -354,13 +404,9 @@ std::cout << 49 << endl;
     antlrcpp::Any visitExpr_multiplication(fichierAntlrParser::Expr_multiplicationContext *ctx) override {
         std::cout << 50 << endl;
         ExpressionOperateur* exprOp = new ExpressionOperateur();
-        for(auto i : ctx->expr()){
-            exprOp->setLeftExpression(visit(i));
-        }
+        exprOp->setLeftExpression(visit(ctx->expr().at(0)));
         exprOp->setOperateur(ExpressionOperateur::MULTIPLICATION);
-        for(auto i : ctx->expr()){
-            exprOp->setRightExpression(visit(i));
-        }
+	exprOp->setRightExpression(visit(ctx->expr().at(1)));
         return dynamic_cast<Expression*>(exprOp);
     }
 
@@ -405,9 +451,9 @@ std::cout << 52 << endl;
 
     antlrcpp::Any visitInstruction_expr(fichierAntlrParser::Instruction_exprContext *ctx) override {
         std::cout << 57 << endl;
-        Instruction* expr = new Instruction();
+        Expression* expr = new Expression(); //ATTENTION
         expr = visit(ctx->expr());
-std::cout << 57 << "bis" << endl;
+std::cout << "57fininstrexpr" << endl;
         return dynamic_cast<Instruction*>(expr);
     }
 
@@ -426,24 +472,25 @@ std::cout << 57 << "bis" << endl;
     }
 
     antlrcpp::Any visitBloc_normal(fichierAntlrParser::Bloc_normalContext *ctx) override {
-        std::cout << 60 << endl;
+        std::cout << "60 je rentre dans le bloc" << endl;
         Bloc* bloc = new Bloc;
         for(auto i : ctx->instruction()) {
             bloc->addInstructions(visit(i));
 std::cout << 60 << i << endl;
         }
-std::cout << 60 << "fin" << endl;
+std::cout << 60 << "finbloc" << endl;
         return bloc;
     }
 
     antlrcpp::Any visitDeclaration_normale(fichierAntlrParser::Declaration_normaleContext *ctx) override {
-        std::cout << 61 << endl;
+        std::cout << "61visitDeclaration_normale" << endl;
         Declaration* decl = new Declaration();
         string type = visit(ctx->type_var()); //voncertir a celuui de l'enum
         for(auto i : ctx->NOM()){
             Simple* var = new Simple(type, i->getText());
             decl->addVariable(var);
         }
+std::cout << "61fin" << endl;
         return decl;
     }
 
@@ -511,6 +558,7 @@ std::cout << 65<< endl;
         std::cout << 70 << endl;
         string valeur;
         valeur = ctx->getText(); //c'est du n'importequoio j'avoue
+std::cout << "70fin" << endl;
         return valeur;
     }
 
@@ -518,6 +566,7 @@ std::cout << 65<< endl;
         std::cout << 71 << endl;
         string valeur;
         valeur = ctx->getText(); //c'est du n'importequoio j'avoue
+std::cout << "71fin" << endl;
         return valeur;
     }
 };

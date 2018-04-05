@@ -19,11 +19,14 @@ public:
 
 private:
     Operateur operateur;
+	Expression* expression;
 
 public:
     Operateur getOperateur() const;
-
     void setOperateur(Operateur operateur);
+
+	Expression* getExpression() const;
+	void setExpression(Expression* expression);
 
 private:
     friend ostream &operator<<(ostream &os, const ExpressionUnaire &unaire);

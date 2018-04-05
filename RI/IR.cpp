@@ -25,29 +25,43 @@ void IRInstr::gen_asm(ostream &o) {
             break;
         case Operation::sub :
             str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
-            o << str << endl;
+
+            o << str;
             str = "\nsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
-            o << str << endl;
+            o << str;
             str = "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(2))) + "(%rbp)";
-            o << str << endl;
+            o << str;
             break;
         case Operation::add :
-            o << "movq " << to_string(bb->cfg->get_var_index(params.at(0))) << "(%rbp), %rax"<< "\n";
-            o << "addq" <<  to_string(bb->cfg->get_var_index(params.at(1))) << "(%rbp), %rax"<< endl;
+            o << "\n" << "movq " << to_string(bb->cfg->get_var_index(params.at(0))) << "(%rbp), %rax";
+            o << "\naddq " <<  to_string(bb->cfg->get_var_index(params.at(1))) << "(%rbp), %rax";
             //cout << str;
-            o <<"movq %rax, " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp)"<< endl;
+            o <<"\nmovq %rax, " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp)";
+
             //cout << str;
             break;
         case Operation::copy :
             operateur = "movq";
-            str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
+            str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp), %rax";
             o << str ;
-            str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
+            str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp)";
             o << str;
             break;
+
         case Operation::cmp_eq :
             // FATIMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
             break;
+
+	case Operation::mul :
+
+		str =  "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax" ;
+		o << str;		
+		str =  "\nmulq " + to_string(bb->cfg->get_var_index(params.at(1)))+"(%rbp)";
+		o << str;		
+		str =  "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(2)))+"(%rbp)" ;
+		o << str;
+		break;
+
         default:
             break;
         case Operation::call :
@@ -55,11 +69,13 @@ void IRInstr::gen_asm(ostream &o) {
             {
                 string p = params.at(params.size()-paramNum-1);
                 operateur = "movq";
-                str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%edi), " + chooseRegister(paramNum);
-                o<<str<<endl;
+
+                str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
+                o<<str;
+
                 paramNum++;
             }
-            o<< "\ncall " +params.at(0)<<endl;
+            o<< "\ncall " +params.at(0);
             break;
         case Operation::ret :
             str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
@@ -96,6 +112,9 @@ void IRInstr::print() {
         }else if (op == IRInstr::cmp_eq){
             cout << "cmp_ep " ;
         }
+	else if (op == IRInstr::mul){
+		cout << "mul ";
+	}
         for (auto par:params){
             cout << par+" ";
         }
@@ -154,16 +173,22 @@ string CFG::IR_reg_to_asm(string reg) {
 
 void CFG::gen_asm_prologue(ostream& o) {
     o << ".text           # section declaration" << endl;
-    o << ".global main      #     entry point to the ELF linker or loader." << endl;
-    o << "main:" << endl;
+
+    o << ".global main  	#	 entry point to the ELF linker or loader." << endl;	
+
+o << "main:";
+
+
     o << "\npushq %rbp";
     o << "\nmovq %rsp, %rbp";
     //o.write("\npushq %rbp",50);
     //o.write("\nmovq %rsp, %rbp",50);
-    string str = "";
-    if(nextVar%2 == 0)    o<<"\nsubq $" + to_string(nextVar/2*16) + ", %rsp"<<endl;
-    else o<<"\nsubq $" + to_string((nextVar/2+1)*16) + ", %rsp"<<endl;
-    o << str <<"\n";
+
+    //string str = "";
+    //str = "\nsubq " + to_string(nextVar) + ", %rsp";
+   if(nextVar%2 == 0)    o<<"\nsubq $" + to_string(nextVar/2*16) + ", %rsp";
+   else o<<"\nsubq $" + to_string((nextVar/2+1)*16) + ", %rsp";
+
 }
 
 void CFG::gen_asm_body(ostream& o){
