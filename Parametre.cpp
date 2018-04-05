@@ -8,17 +8,17 @@ Parametre::Parametre() {}
 
 Parametre::~Parametre() {}
 
-Variable *Parametre::getVariable() const {
-    return variable;
+Expression *Parametre::getExpression() const {
+    return expression;
 }
 
-void Parametre::setVariable(Variable *variable) {
-    Parametre::variable = variable;
+void Parametre::setExpression(Expression *expression) {
+    Parametre::expression = expression;
 }
 
 
 ostream &operator<<(ostream &os, const Parametre &parametre) {
-    os << "variable: " << parametre.variable;
+    os << "variable: " << parametre.expression;
     return os;
 }
 

@@ -18,6 +18,7 @@ void IRInstr::gen_asm(ostream &o) {
     int paramNum =0;
     switch (this->op) {
         case Operation::ldconst :
+            cout << "Idconst";
             operateur = "movq";
             str= "\n"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
             o << str;
@@ -51,7 +52,7 @@ void IRInstr::gen_asm(ostream &o) {
             {
                 string p = params.at(params.size()-paramNum-1);
                 operateur = "movq";
-                str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
+                str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%edi), " + chooseRegister(paramNum);
                 o<<str<<endl;
                 paramNum++;
             }
@@ -87,6 +88,8 @@ void IRInstr::print() {
         }
         else if (op == IRInstr::ldconst){
             cout << "ldconst " ;
+        }else if (op == IRInstr::ret){
+            cout << "ret " ;
         }
         for (auto par:params){
             cout << par+" ";

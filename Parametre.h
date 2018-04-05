@@ -18,13 +18,13 @@ public:
     enum Type {INT_64, INT_32, CHAR};
     Parametre();
     virtual ~Parametre();
-    Variable *getVariable() const;
-    void setVariable(Variable *variable);
+    Expression *getExpression() const;
+    void setExpression(Expression *expression);
 
 friend ostream &operator<<(ostream &os, const Parametre &parametre);
 
 private:
-    Variable* variable;
+    Expression* expression;
 
 
 
