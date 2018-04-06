@@ -1,6 +1,9 @@
 //
+
 // Created by Amina on 30/03/2018.
+
 //
+
 #include <string>
 #include <iostream>
 #include "BuildIR.h"
@@ -19,6 +22,7 @@
 #include "../AppelFonction.h"
 #include "../Tableau.h"
 #include "../Return.h"
+#include "../Condition.h"
 
 BuildIR::BuildIR() {}
 
@@ -30,7 +34,6 @@ BuildIR::~BuildIR() {
 }
 
 BuildIR::BuildIR(Programme *prog) {
-    std::cout << 0 << endl;
     programToIR(prog);
 
 }
@@ -82,40 +85,27 @@ BasicBlock *BuildIR::getCurrent_bb() const {
 }
 
 void BuildIR::programToIR(Programme *prog) {
-    std::cout << 1 << endl;
     vector<Fonction*> fonctions;
-    std::cout << 2 << endl;
     fonctions.push_back(prog->getMain());
-    std::cout << 3 << endl;
     fonctions.insert(fonctions.end(),prog->getFonctions().begin(),prog->getFonctions().end());
-    std::cout << 4 << endl;
     for(auto i : fonctions){
-        std::cout << 5 << endl;
         CFG* cfg = new CFG((i));
-        std::cout << 6 << endl;
         CFGs.push_back(cfg);
-        std::cout << 7 << endl;
         current_cfg = cfg;
-        std::cout << 8 << endl;
         BasicBlock* bb = new BasicBlock(current_cfg, current_cfg->new_BB_name());
-        std::cout << 9 << endl;
         current_bb = bb;
-        std::cout << 10 << endl;
         cfg->add_bb(bb);
-        std::cout << 11 << endl;
-        std::cout << "i" << *i << endl;
 
         if ((i->getDeclarations()).size() != 0){
-            std::cout<<"taille "<< (i->getDeclarations()).size()<< endl;
             for (auto k : i->getDeclarations()) {
-                std::cout << k;
+                //std::cout << k;
             }
             DeclarationToIR((i)->getDeclarations());
         }else{
-            std::cout << "11 bis" << endl;
+            //std::cout << "11" << endl;
         }
 
-        std::cout << 12 << endl;
+        std::cout << 12;
         blocToIR((i)->getBloc());
 
     }
@@ -130,7 +120,6 @@ void BuildIR::programToIR(Programme *prog) {
 
 void BuildIR::blocToIR(Bloc* bloc){
 
-    std::cout << 100 << endl;
 
     vector<Instruction*> instructions = bloc->getInstructions();
 
@@ -141,7 +130,6 @@ void BuildIR::blocToIR(Bloc* bloc){
             ExpressionToIR(exp);
 
         }else if(Return* rtn = dynamic_cast<Return*>(inst)){
-
             Expression* exp = rtn->getExpression();
             string var1 = ExpressionToIR(exp);
             vector<string> params;
@@ -150,44 +138,29 @@ void BuildIR::blocToIR(Bloc* bloc){
         }else if(Structure* str = dynamic_cast<Structure*>(inst)){
 
             if(StructureIF* strIF = dynamic_cast<StructureIF*>(inst)){
-
-                Condition* cond = strIF->getCondition();
-                Expression* exp = cond->getExpression();
-                string conf = ExpressionToIR(exp);
+	
+		Condition* cond = strIF->getCondition();
+		string var1 = ExpressionToIR(cond);
+//
                 BasicBlock* testBB = current_bb;
                 BasicBlock* save_bb = current_bb;
-                BasicBlock* thenBB = new BasicBlock(current_cfg,"Block Then");
-
+                BasicBlock* thenBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
                 current_bb = thenBB;
-
                 blocToIR(strIF->getBloc());
-                current_cfg->add_bb(thenBB);
-                BasicBlock* elseBB = new BasicBlock(current_cfg,"Block Else");
-
+                BasicBlock* elseBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
                 current_bb = elseBB;
-
                 blocToIR(strIF->getBlocElse());
-
                 current_bb = save_bb;
-
-                BasicBlock* afterIFBB = new BasicBlock(current_cfg,"Block EndIf");
-
+                BasicBlock* afterIFBB = new BasicBlock(current_cfg,current_cfg->new_BB_name());
                 afterIFBB->exit_true = testBB->exit_true;
-
                 afterIFBB->exit_false = testBB->exit_false;
-
                 testBB->exit_true = thenBB;
-
                 testBB->exit_false = elseBB;
-
                 thenBB->exit_true = afterIFBB;
-
-                thenBB->exit_false = afterIFBB;
+                thenBB->exit_false = NULL;
                 elseBB->exit_true = afterIFBB;
-                elseBB->exit_false = afterIFBB;
+                elseBB->exit_false = NULL;
                 current_cfg->current_bb=afterIFBB;
-                current_cfg->add_bb(afterIFBB);
-
 
             }else if(StructureWHILE* strW = dynamic_cast<StructureWHILE*>(inst)){
 
@@ -207,7 +180,6 @@ void BuildIR::blocToIR(Bloc* bloc){
 
 void BuildIR::DeclarationToIR(vector<Declaration *> declarations) {
 
-    std::cout << 200 << endl;
 
     for (auto dec : declarations ){
 
@@ -227,11 +199,8 @@ void BuildIR::DeclarationToIR(vector<Declaration *> declarations) {
 
 string BuildIR::ExpressionToIR(Expression* exp) {
 
-    std::cout << 300 << endl;
 
     if (ExpressionOperateur *expOp = dynamic_cast<ExpressionOperateur *>(exp)) {
-std::cout << "300operateur" << endl;
-
         string var1 = ExpressionToIR(expOp->getLeftExpression());
 
         string var2 = ExpressionToIR(expOp->getRightExpression());
@@ -262,26 +231,14 @@ std::cout << "300operateur" << endl;
 
             current_bb->add_IRInstr(IRInstr::Operation::cmp_eq, Type::int64, params);
 
-        }else if (expOp->getOperateur() == ExpressionOperateur::INFEGAL) {
-
-            current_bb->add_IRInstr(IRInstr::Operation::cmp_le, Type::int64, params);
-
-        }else if (expOp->getOperateur() == ExpressionOperateur::INF) {
-
-            current_bb->add_IRInstr(IRInstr::Operation::cmp_lt, Type::int64, params);
-
-
         }
 
         return var3;
 
 
 
-
     } 
 else if (ExpressionUnaire *expUn = dynamic_cast<ExpressionUnaire *>(exp)){
-
-std::cout << "300operateurparenthse" << endl;
 
         string var1 = ExpressionToIR(expUn->getExpression());
 
@@ -290,7 +247,6 @@ std::cout << "300operateurparenthse" << endl;
 }
 
 else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
-
 
         if (Tableau *var = dynamic_cast<Tableau *>(aff->getVariableLeft())) {
 
@@ -348,26 +304,27 @@ else if (Affectation *aff = dynamic_cast<Affectation *>(exp)) {
 
     }else if( AppelFonction* apl = dynamic_cast<AppelFonction *>(exp)){
 
-        cout << "Appel Fonction " << endl;
 
         Parametre* par = apl->getParametre();
         vector<string> params;
         params.push_back(apl->getNomFonction());
 
-        std::cout << "????????" << *par << endl;
 
         string parIR = ExpressionToIR(par->getExpression());
 
-        std::cout << "????????fin" << endl;
 
         params.push_back(parIR);
 
         current_bb->add_IRInstr(IRInstr::Operation::call,Type::int64, params);
 
     }
+else if (Condition* cond = dynamic_cast<Condition *>(exp)){
 
+string var1 = ExpressionToIR(cond->getExpression());
 
-std::cout << "300fin" << endl;
+        return var1;
+
+}
 
 
 }
@@ -380,7 +337,6 @@ std::cout << "300fin" << endl;
 
 string BuildIR::VariableToIR(Variable*  var) {
 
-    std::cout << 1000 << endl;
 
     return var->getNom();
 
@@ -392,7 +348,6 @@ string BuildIR::VariableToIR(Variable*  var) {
 
 string BuildIR::LValueToIR(Variable* var) {
 
-    std::cout << 50000 << endl;
 
     string var1 = current_cfg->create_new_tempvar(Type::int64);
 
@@ -422,14 +377,20 @@ string BuildIR::LValueToIR(Variable* var) {
 
 void BuildIR::print() {
 
-    std::cout << 800000 << endl;
 
     for(auto cfg : this->getCFGs()){
 
         for(auto bb : cfg->getBbs()){
 
-            printBB(bb);
+            for(auto ir : bb->getInstrs()){
+
+                ir->print();
+
+            }
+
         }
+
+
 
     }
 
@@ -439,7 +400,6 @@ void BuildIR::print() {
 
 void BuildIR::printBB(BasicBlock * bb) {
 
-    std::cout << 90000 << endl;
 
     for(auto ir : bb->getInstrs()){
 
@@ -447,22 +407,16 @@ void BuildIR::printBB(BasicBlock * bb) {
 
     }
 
-    if(bb->exit_false!= nullptr) {
-        cout << bb->exit_false->label << endl;
-        printBB(bb->exit_false);
-    }
-    if(bb->exit_true!= nullptr) {
-        cout << bb->exit_true->label << endl;
-        printBB(bb->exit_true);
-    }
+    //print(bb->exit_false) ;
 
+
+
+    BasicBlock* bbF = bb->exit_false;
 
     for(auto ir : bbF->getInstrs()){
 
         ir->print();
 
-
-}
-
+    }
 
 }

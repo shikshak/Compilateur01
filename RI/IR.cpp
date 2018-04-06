@@ -18,14 +18,12 @@ void IRInstr::gen_asm(ostream &o) {
     int paramNum =0;
     switch (this->op) {
         case Operation::ldconst :
-            cout << "Idconst";
             operateur = "movq";
             str= "\n"+operateur+ " $"+ params.at(1) + ", "+to_string(bb->cfg->get_var_index(params.at(0)))+ "(%rbp)";
             o << str;
             break;
         case Operation::sub :
             str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
-
             o << str;
             str = "\nsubq " + to_string(bb->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
             o << str;
@@ -37,7 +35,6 @@ void IRInstr::gen_asm(ostream &o) {
             o << "\naddq " <<  to_string(bb->cfg->get_var_index(params.at(1))) << "(%rbp), %rax";
             //cout << str;
             o <<"\nmovq %rax, " << to_string(bb->cfg->get_var_index(params.at(2))) << "(%rbp)";
-
             //cout << str;
             break;
         case Operation::copy :
@@ -47,11 +44,6 @@ void IRInstr::gen_asm(ostream &o) {
             str = "\n"+operateur+" %rax,"+ to_string(bb->cfg->get_var_index(params.at(0)))+"(%rbp)";
             o << str;
             break;
-
-        case Operation::cmp_eq :
-            // FATIMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            break;
-
 	case Operation::mul :
 
 		str =  "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax" ;
@@ -61,7 +53,6 @@ void IRInstr::gen_asm(ostream &o) {
 		str =  "\nmovq %rax, " + to_string(bb->cfg->get_var_index(params.at(2)))+"(%rbp)" ;
 		o << str;
 		break;
-
         default:
             break;
         case Operation::call :
@@ -69,17 +60,13 @@ void IRInstr::gen_asm(ostream &o) {
             {
                 string p = params.at(params.size()-paramNum-1);
                 operateur = "movq";
-
                 str = "\n"+operateur+" "+ to_string(bb->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
                 o<<str;
-
                 paramNum++;
             }
             o<< "\ncall " +params.at(0);
             break;
-        case Operation::ret :
-            str = "\nmovq " + to_string(bb->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
-            o<<str<<endl;
+
     }
 }
 string IRInstr::chooseRegister(int num)
@@ -107,10 +94,6 @@ void IRInstr::print() {
         }
         else if (op == IRInstr::ldconst){
             cout << "ldconst " ;
-        }else if (op == IRInstr::ret){
-            cout << "ret " ;
-        }else if (op == IRInstr::cmp_eq){
-            cout << "cmp_ep " ;
         }
 	else if (op == IRInstr::mul){
 		cout << "mul ";
@@ -173,22 +156,18 @@ string CFG::IR_reg_to_asm(string reg) {
 
 void CFG::gen_asm_prologue(ostream& o) {
     o << ".text           # section declaration" << endl;
-
     o << ".global main  	#	 entry point to the ELF linker or loader." << endl;	
 
 o << "main:";
-
 
     o << "\npushq %rbp";
     o << "\nmovq %rsp, %rbp";
     //o.write("\npushq %rbp",50);
     //o.write("\nmovq %rsp, %rbp",50);
-
     //string str = "";
     //str = "\nsubq " + to_string(nextVar) + ", %rsp";
    if(nextVar%2 == 0)    o<<"\nsubq $" + to_string(nextVar/2*16) + ", %rsp";
    else o<<"\nsubq $" + to_string((nextVar/2+1)*16) + ", %rsp";
-
 }
 
 void CFG::gen_asm_body(ostream& o){
@@ -233,14 +212,6 @@ void BasicBlock::gen_asm(ostream &o) {
     for(auto ir : this->getInstrs())
     {
         (ir)->gen_asm(o);
-    }
-    if(exit_true == nullptr) {
-        o << "\tjmp\t.END_"  << endl;
-    }else if(exit_false == exit_true || exit_false == nullptr){
-        o << "\tjmp\t." << exit_true->label << endl;
-    }else{
-        o << "\tjne	." << exit_true->label << endl;
-        o << "\tjmp\t." << exit_false->label << endl;
     }
 
 }
