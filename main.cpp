@@ -94,11 +94,11 @@ system("as -o main.o yeah.s");
 system("gcc -o main main.o");
 system("./main");
 cout << endl;
-cout << endl << "let's compare with the real gcc command" << endl;
-char* st = "gcc -o ";
-st += hello;
-cout << st << endl;
-system(st);
+//cout << endl << "let's compare with the real gcc command" << endl;
+//char* st = "gcc -o ";
+//st += hello;
+//cout << st << endl;
+//system(st);
 cout << "Fin execution" << endl;
   return 0;
 }
