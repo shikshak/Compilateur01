@@ -11,9 +11,10 @@ antlr dans le dossier principal puis make
 
 Les fichiers .c illustrant les fonctionnalités implémentées
 sont présents dans le dossier /Back 
+
 -------------------------------------------------------------
 Le compilateur compile les programmes c composé d'un main,
-vide ou rempli
+vide ou rempli d'instruction.
 Les types des variables peuvent être 'int64_t' 'int32_t' et
 char mais elles seront toutes castée en int64_t.
 Les variables peuvent être déclarées, aussi affecté une valeur.
