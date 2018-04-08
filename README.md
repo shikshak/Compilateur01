@@ -13,14 +13,21 @@ Les fichiers .c illustrant les fonctionnalités implémentées
 sont présents dans le dossier /Back 
 
 -------------------------------------------------------------
+Fonctionnalités implémentées du 5.1 au 5.5 du sujet
+
 Le compilateur compile les programmes c composé d'un main,
 vide ou rempli d'instruction.
+
 Les types des variables peuvent être 'int64_t' 'int32_t' et
 char mais elles seront toutes castée en int64_t.
+
 Les variables peuvent être déclarées, aussi affecté une valeur.
+
 Le compilateur supporte les additions, les multiplications, 
 les soustractions, les parentheses.
+
 L'opérateur <nom_variable>++ est aussi implémentée.
+
 L'appel à la fonction putchar(<variable>) l'est aussi.
   
                             ,     \    /      ,
